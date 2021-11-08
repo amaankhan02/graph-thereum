@@ -38,6 +38,7 @@ match, Final Destination, 3 stock no items. The winner will decide who was right
 was wrong (Might makes right).
 
 ## Signatures
-- Neil Kaushikkar
+- Neil Kaushikkar - neilk3
 - Akul Gupta - NetId: Akulg2
 - Amaan Khan - amaanmk2
+- Aman Khinvasara - amantk2
