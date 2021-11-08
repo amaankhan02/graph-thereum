@@ -40,3 +40,4 @@ was wrong (Might makes right).
 ## Signatures
 - Neil Kaushikkar
 - Akul Gupta - NetId: Akulg2
+- Amaan Khan - amaanmk2
