@@ -36,6 +36,6 @@ and tie's will be broken by flipping a coin.
 
 ## Signatures
 - Neil Kaushikkar - neilk3
-- Akul Gupta - NetId: Akulg2
+- Akul Gupta - Akulg3
 - Amaan Khan - amaanmk2
 - Aman Khinvasara - amantk2
