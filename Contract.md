@@ -32,10 +32,10 @@ politely – to explain their circumstances. Based on their explanation further 
 as alerting a staff member, may be taken on a case by case basis decided by the other team
 members.
 3. **Conflict Resolution** All conflicts within the team will be decided by a majority vote
-and tie's will be broken by flipping a coin.
+and ties will be broken by flipping a coin.
 
 ## Signatures
 - Neil Kaushikkar - neilk3
-- Akul Gupta - Akulg3
+- Akul Gupta - akulg3
 - Amaan Khan - amaanmk2
 - Aman Khinvasara - amantk2
