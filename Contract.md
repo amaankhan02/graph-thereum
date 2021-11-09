@@ -38,4 +38,4 @@ and ties will be broken by flipping a coin.
 - Neil Kaushikkar - neilk3
 - Akul Gupta -  akulg3
 - Amaan Khan - amaanmk2
-- Aman Khinvasara - amantk2
+- Aman Khinvasara -  amantk2
