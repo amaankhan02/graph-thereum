@@ -14,15 +14,15 @@ It will also involve a weighted shortest path algorithm based on Dijkstra’s Al
 Our timeline breakdown consists of four main benchmarks consisting of our Data work, Implementation of BFS, Dijkstra's Algorithm, and Betweenness Centrality. The breakdown of the benchmarks including expected dates is illustrated below. 
 
 A. Data & Setup (11/11)
-  * Data acquisition
-  * Data processing
-  * Setup Project Files/Structure 
+   * Data acquisition
+   * Data processing
+   * Setup Project Files/Structure 
 B. Traversal (BFS) (11/18)
-  * Implement BFS
-  * BFS Tests
+   * Implement BFS
+   * BFS Tests
 C. Dijkas  (12/02)
-  * Implement Dijkstra’s Algorithm
-  * Dijkstra’s Algorithm Tests
+   * Implement Dijkstra’s Algorithm
+   * Dijkstra’s Algorithm Tests
 D. Betweenness Centrality (12/09)
-  * Betweenness Centrality algorithm Implementation
-  * Tests for Betweenness Centrality
+   * Betweenness Centrality algorithm Implementation
+   * Tests for Betweenness Centrality
