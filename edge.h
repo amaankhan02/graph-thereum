@@ -29,10 +29,17 @@ class Edge {
     uint64_t getGas() const { return gas_; }
 
     uint64_t getGasPrice() const { return gas_price_; }
+
+    bool wasExplored() const { return was_explored_; }
+
+    void setExplored(bool explored) { was_explored_ = explored; }
   private:
     Vertex* source_;
     Vertex* destination_;
+
     uint64_t value_;
     uint64_t gas_;
     uint64_t gas_price_;
+
+    bool was_explored_;
 };

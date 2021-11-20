@@ -12,9 +12,15 @@ class Vertex {
     const std::vector<Edge*>& getIncidentEdges() const;
 
     const std::string& getAddress() const;
+
+    bool wasExplored() const { return was_explored_; }
+
+    void setExplored(bool explored) { was_explored_ = explored; }
   private: 
     std::string address_;
     std::vector<Edge*> incident_edges_;
+
+    bool was_explored_;
 };
 
 // std::stoll

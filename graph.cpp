@@ -29,3 +29,14 @@ void Graph::addEdge(Edge* e) {
     );
   }
 }
+
+std::vector<Vertex*> Graph::getAdjacentVertices(Vertex* v) const {
+  const std::vector<Edge*>& incident = v->getIncidentEdges();
+  std::vector<Vertex*> adjacent(incident.size());
+
+  for (size_t i = 0; i < adjacent.size(); ++i) {
+    adjacent[i] = incident[i]->getAdjacentVertex(v);
+  }
+
+  return adjacent;
+}
