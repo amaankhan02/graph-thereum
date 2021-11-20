@@ -1,10 +1,10 @@
 # Executable names:
-EXE = mp_lists
+EXE = project
 TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o
+OBJS = main.o graph.o edge.o vertex.o betweenness.o bfs.o dijkstras.o
 
 # Generated files
 CLEAN_RM = actual-*.png

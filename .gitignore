@@ -1,0 +1,7 @@
+data.csv
+.objs/
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+project
