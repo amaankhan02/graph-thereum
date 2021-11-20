@@ -7,7 +7,10 @@ class Edge;
 
 class Vertex {
   public:
-    Vertex();
+    Vertex(const std::string& address) 
+      : address_(address), was_explored_(false) {}
+
+    void addEdge(Edge* e);
 
     const std::vector<Edge*>& getIncidentEdges() const;
 

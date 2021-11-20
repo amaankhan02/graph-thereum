@@ -27,11 +27,19 @@ class Graph {
      */
     void addEdge(Edge* e);
 
+    void addVertex(Vertex* v);
+
+    Vertex* getVertex(const std::string&) const;
+
+    bool containsVertex(const std::string& address) const;
+
     std::vector<Vertex*> getAdjacentVertices(Vertex* v) const;
 
     const std::unordered_map<std::string, Vertex*>& getVertices() const { return vertices_; }
 
     const std::vector<Edge*>& getEdges() const { return edges_; }
+
+    static Graph* from_file(const std::string& path);
   private:
     std::vector<Edge*> edges_;
     std::unordered_map<std::string, Vertex*> vertices_;

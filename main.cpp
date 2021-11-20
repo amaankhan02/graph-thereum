@@ -1,11 +1,11 @@
 #include <iostream>
 
-#include "edge.h"
-#include "vertex.h"
-#include "graph.h"
+#include "include/edge.h"
+#include "include/vertex.h"
+#include "include/graph.h"
 
 int main(int argc, char* argv[]) {
-  Graph g;
+  Graph* g = Graph::from_file("data.csv");
 
   std::cout << "Edge is " << sizeof(Edge) << "B" << std::endl;
   std::cout << "Vertex is " << sizeof(Vertex) << "B" << std::endl;

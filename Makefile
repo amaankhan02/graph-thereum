@@ -4,7 +4,7 @@ TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o graph.o edge.o vertex.o betweenness.o bfs.o dijkstras.o
+OBJS = main.o src/graph.o src/edge.o src/vertex.o src/betweenness.o src/bfs.o src/dijkstras.o
 
 # Generated files
 CLEAN_RM = actual-*.png

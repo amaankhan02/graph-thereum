@@ -1,8 +1,13 @@
-#include "bfs.h"
+#include "../include/bfs.h"
 #include <queue>
 
+using std::string;
+using std::vector;
+using std::queue;
+using std::pair;
+
 void bfs(Graph* g) {
-  for (std::pair<std::string, Vertex*> p : g->getVertices()) {
+  for (pair<string, Vertex*> p : g->getVertices()) {
     p.second->setExplored(false);
   }
 
@@ -10,7 +15,7 @@ void bfs(Graph* g) {
     e->setExplored(false);
   }
 
-  for (std::pair<std::string, Vertex*> p : g->getVertices()) {
+  for (pair<string, Vertex*> p : g->getVertices()) {
     if (!p.second->wasExplored()) {
       bfs(g, p.second);
     }
@@ -18,7 +23,7 @@ void bfs(Graph* g) {
 }
 
 void bfs(Graph* g, Vertex* start) {
-  std::queue<Vertex*> q;
+  queue<Vertex*> q;
   start->setExplored(true);
   q.push(start);
 
