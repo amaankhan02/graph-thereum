@@ -10,4 +10,4 @@ OBJS = main.o src/graph.o src/edge.o src/vertex.o src/betweenness.o src/bfs.o sr
 CLEAN_RM = actual-*.png
 
 # Use the cs225 makefile template:
-include cs225.mk
+include cs225/make/cs225.mk
