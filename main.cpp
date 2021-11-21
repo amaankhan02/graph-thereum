@@ -5,7 +5,7 @@
 #include "include/graph.h"
 
 int main(int argc, char* argv[]) {
-  Graph* g = Graph::from_file("data.csv");
+  Graph* g = Graph::from_file("data/data.csv");
 
   std::cout << "Edge is " << sizeof(Edge) << "B" << std::endl;
   std::cout << "Vertex is " << sizeof(Vertex) << "B" << std::endl;

@@ -1,4 +1,4 @@
-data.csv
+data/data.csv
 .objs/
 .ipynb_checkpoints/
 .vscode/
