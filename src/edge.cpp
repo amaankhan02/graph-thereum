@@ -1,6 +1,42 @@
 #include "../include/edge.h"
 
+Edge::Edge(Vertex* source, 
+           Vertex* destination, 
+           uint64_t value, 
+           uint64_t gas, 
+           uint64_t gas_price) 
+  : source_(source), destination_(destination), value_(value), 
+    gas_(gas), gas_price_(gas_price) {}
+
 Vertex* Edge::getAdjacentVertex(Vertex* start) const {
   // If the starting vertex of this edge is one of the endpoints, return the other endpont
   return start == source_ ? destination_ : source_;
+}
+
+Vertex* Edge::getSource() const { 
+  return source_; 
+}
+
+Vertex* Edge::getDestination() const { 
+  return destination_; 
+}
+
+uint64_t Edge::getValue() const { 
+  return value_; 
+}
+
+uint64_t Edge::getGas() const { 
+  return gas_; 
+}
+
+uint64_t Edge::getGasPrice() const { 
+  return gas_price_; 
+}
+
+bool Edge::wasExplored() const { 
+  return was_explored_; 
+}
+
+void Edge::setExplored(bool explored) { 
+  was_explored_ = explored; 
 }
