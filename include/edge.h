@@ -3,7 +3,7 @@
 #include "vertex.h"
 
 /**
- * @brief Predeclare the Vertex class to resolve the circular dependency issue 
+ * Predeclare the Vertex class to resolve the circular dependency issue 
  * that arises out of our adjacency list graph implementation. The compiler 
  * needs to know the size of each type contained as members of the Edge class. 
  * We are only using Vertex*, so the exact size of Vertex does not matter. This 
@@ -13,6 +13,13 @@
  */
 class Vertex; 
 
+/**
+ * @brief This class represents a transaction between two individuals. This 
+ * class stores the value exhanged in the transaction, the amount spend on gas 
+ * in order to complete the transaction, and the price of gas at the time of 
+ * this transaction. Refer to the Vertex class for more details on how 
+ * individuals are represented. 
+ */
 class Edge {
   public:
     /**
@@ -136,7 +143,7 @@ class Edge {
 
     /**
      * @brief a bool state used by graph algorithms to track whether or not this 
-     * Edge has been explored in some iteration of the algorithm. 
+     * Edge has been explored in the current iteration of the algorithm. 
      */
     bool was_explored_;
 };
