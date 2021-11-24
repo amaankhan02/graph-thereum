@@ -39,7 +39,7 @@ class Vertex {
     void addEdge(Edge* e);
 
     /**
-     * @brief 
+     * @brief Get
      * 
      * @return const std::vector<Edge*>& 
      */

@@ -19,6 +19,6 @@ bool Vertex::wasExplored() const {
   return was_explored_; 
 }
 
-void Vertex::setExplored(bool explored) { 
-  was_explored_ = explored; 
+void Vertex::setExplored(bool was_explored) { 
+  was_explored_ = was_explored; 
 }
