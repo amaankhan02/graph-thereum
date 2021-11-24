@@ -9,7 +9,8 @@ Edge::Edge(Vertex* source,
     gas_(gas), gas_price_(gas_price) {}
 
 Vertex* Edge::getAdjacentVertex(Vertex* start) const {
-  // If the starting vertex of this edge is one of the endpoints, return the other endpont
+  // If the starting vertex of this edge is one of the endpoints...
+  // return the other endpont
   return start == source_ ? destination_ : source_;
 }
 

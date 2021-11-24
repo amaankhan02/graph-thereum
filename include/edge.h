@@ -2,6 +2,15 @@
 #include <string>
 #include "vertex.h"
 
+/**
+ * @brief Predeclare the Vertex class to resolve the circular dependency issue 
+ * that arises out of our adjacency list graph implementation. The compiler 
+ * needs to know the size of each type contained as members of the Edge class. 
+ * We are only using Vertex*, so the exact size of Vertex does not matter. This 
+ * means we can predeclare the Vertex class in the Edge header file and finish 
+ * the implementation of the Vertex class in its own respective header and 
+ * implementation files. 
+ */
 class Vertex; 
 
 class Edge {
