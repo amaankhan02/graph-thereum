@@ -15,7 +15,7 @@
 class Edge;
 
 /**
- * @brief This class represents an individual involed in a transaction. An 
+ * @brief This class represents an individual involved in a transaction. An 
  * individual is represented solely by their address on the blockchain and by 
  * the transactions they are involved in. Refer to the Edge class for more 
  * detail on how transactions are represented. 
@@ -32,23 +32,24 @@ class Vertex {
     Vertex(const std::string& address);
 
     /**
-     * @brief 
+     * @brief Adds a new edge to the list of incident edges. Assumed to be used safely
+     * (edge should border this vertex, and not already exist)
      * 
-     * @param e an Edge* 
+     * @param e an Edge* to be added as an incident edge to this vertex
      */
     void addEdge(Edge* e);
 
     /**
-     * @brief Get
+     * @brief Gets all incident edges to this vertex
      * 
      * @return const std::vector<Edge*>& 
      */
     const std::vector<Edge*>& getIncidentEdges() const;
 
     /**
-     * @brief 
+     * @brief Returns the blockchain address of the person represented by this Vertex
      * 
-     * @return const std::string& 
+     * @return const std::string& the address, as a const ref
      */
     const std::string& getAddress() const;
 
