@@ -15,7 +15,7 @@ class Vertex;
 
 /**
  * @brief This class represents a transaction between two individuals. This 
- * class stores the value exhanged in the transaction, the amount spend on gas 
+ * class stores the value exchanged in the transaction, the amount spent on gas (transaction fees) 
  * in order to complete the transaction, and the price of gas at the time of 
  * this transaction. Refer to the Vertex class for more details on how 
  * individuals are represented. 
@@ -43,7 +43,8 @@ class Edge {
      * represents, this function returns a pointer to the Vertex that represents 
      * the destination of the transaction. If the passed Vertex is the 
      * destination of this transaction, the function will return a pointer to 
-     * Vertex that represents the source of the transaction. 
+     * Vertex that represents the source of the transaction. Assumes that the 
+     * passed vertex is indeed one of the endpoints of this edge
      * 
      * @param start a pointer to a Vertex 
      * @return a Vertex* representing the Vertex adjacent to the passed Vertex 
