@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include <ctime>
 
 #include "include/graph.h"
@@ -10,12 +9,13 @@
 using std::string;
 
 int main(int argc, char* argv[]) {
-  CLI arguments(argc, argv, {{"-d", CLI::DataType::STRING}, {"-b", CLI::DataType::BOOL}});
+  CLI arguments(argc, argv, {{"-f", CLI::DataType::STRING},
+                             {"-b", CLI::DataType::BOOL}});
   clock_t c1, c2;
 
   std::cout << "Loading graph..." << std::endl;
   c1 = clock();
-  Graph* g = Graph::from_file(*static_cast<string*>(arguments.get("-d")));
+  Graph* g = Graph::from_file(*static_cast<string*>(arguments.get("-f")));
   c2 = clock();
   print_elapsed(c1, c2, "loading graph from csv");
 

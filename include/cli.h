@@ -13,22 +13,21 @@ class CLI {
     };
 
     CLI(int arg_count, char* arg_values[],
-        const std::vector<std::pair<std::string, DataType>>& flag);
+        const std::vector<std::pair<std::string, DataType>>& potential_args);
 
     ~CLI();
 
     void* get(const std::string& flag) const;
   private:
-    struct ArgumentValue {
-      std::string value_;
+    struct Argument {
+      void* value_;
       DataType data_type_;
 
-      ArgumentValue() : value_(""), data_type_() {}
-      ArgumentValue(const std::string& value, DataType data_type)
+      Argument() : value_(nullptr), data_type_() {}
+      Argument(void* value, DataType data_type)
         : value_(value), data_type_(data_type) {}
     };
 
-    std::unordered_map<std::string, ArgumentValue> args_;
-    std::unordered_map<std::string, void*> parsed_values_;
+    std::unordered_map<std::string, Argument> args_;
     int arg_count_;
 };

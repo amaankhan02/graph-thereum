@@ -1,107 +1,60 @@
 #include "../include/cli.h"
 #include <iostream>
 
-using std::make_pair;
 using std::vector;
 using std::string;
 using std::pair;
 
 CLI::CLI(int arg_count, char* arg_values[],
-         const vector<pair<string, DataType>>& flags)
+         const vector<pair<string, DataType>>& potential_args)
     : arg_count_(arg_count) {
-  for (const pair<string, DataType>& p : flags) {
-    args_.insert(make_pair(p.first, ArgumentValue("", p.second)));
+  // internally configure all potential arguments we could see
+  for (const pair<string, DataType>& p : potential_args) {
     void* default_val = nullptr;
 
-    switch (p.second) {
-      case DataType::INT: {
-        default_val = new int(0);
-        break;
-      }
-      case DataType::BOOL: {
-        default_val = new bool(false);
-        break;
-      }
-      case DataType::DOUBLE: {
-        default_val = new double(0.0);
-        break;
-      }
-      case DataType::STRING: {
-        default_val = new string("");
-        break;
-      }
-    }
+    if (p.second == INT)         default_val = new int(0);
+    else if (p.second == BOOL)   default_val = new bool(false);
+    else if (p.second == DOUBLE) default_val = new double(0.0);
+    else if (p.second == STRING) default_val = new string("");
 
-    parsed_values_.insert(make_pair(p.first, default_val));
+    args_.insert(make_pair(p.first, Argument(default_val, p.second)));
   }
 
-  // skip the executable name (the 0th argument) by starting at 1
+  // load all of the arguments passed via the command line
   for (int i = 1; i < arg_count_; ++i) {
+    // skip the executable name (the 0th argument) by starting at 1
     string flag = arg_values[i];
     auto iter = args_.find(flag);
 
     if (iter == args_.end()) {
       std::cerr << "Unknown flag: " << flag << std::endl;
     } else {
-      switch (iter->second.data_type_) {
-        case DataType::INT: {
-          ++i;
-          iter->second.value_ = arg_values[i];
-          *static_cast<int*>(parsed_values_[flag]) = std::stoi(arg_values[i]);
-          break;
-        }
-        case DataType::BOOL: {
-          iter->second.value_ = "true";
-          *static_cast<bool*>(parsed_values_[flag]) = true;
-          break;
-        }
-        case DataType::DOUBLE: {
-          ++i;
-          iter->second.value_ = arg_values[i];
-          *static_cast<double*>(parsed_values_[flag]) = std::stod(arg_values[i]);
-          break;
-        }
-        case DataType::STRING: {
-          ++i;
-          iter->second.value_ = arg_values[i];
-          *static_cast<string*>(parsed_values_[flag]) = arg_values[i];
-          break;
-        }
-      }
+      if (iter->second.data_type_ == INT)
+        *static_cast<int*>(args_[flag].value_) = std::stoi(arg_values[++i]);
+      else if (iter->second.data_type_ == BOOL)
+        *static_cast<bool*>(args_[flag].value_) = true;
+      else if (iter->second.data_type_ == DOUBLE)
+        *static_cast<double*>(args_[flag].value_) = std::stod(arg_values[++i]);
+      else if (iter->second.data_type_ == STRING)
+        *static_cast<string*>(args_[flag].value_) = arg_values[++i];
     }
   }
 }
 
 CLI::~CLI() {
-  for (pair<std::string, void*> p : parsed_values_) {
-    DataType t = args_[p.first].data_type_;
-    switch (t) {
-      case INT: {
-        int* ptr = static_cast<int*>(p.second);
-        delete ptr;
-        break;
-      }
-      case BOOL: {
-        bool* ptr = static_cast<bool*>(p.second);
-        delete ptr;
-        break;
-      }
-      case DOUBLE: {
-        double* ptr = static_cast<double*>(p.second);
-        delete ptr;
-        break;
-      }
-      case STRING: {
-        string* ptr = static_cast<string*>(p.second);
-        delete ptr;
-        break;
-      }
-    }
+  for (pair<std::string, Argument> p : args_) {
+    if (args_[p.first].data_type_ == INT)
+      delete static_cast<int*>(p.second.value_);
+    else if (args_[p.first].data_type_ == BOOL)
+      delete static_cast<bool*>(p.second.value_);
+    else if (args_[p.first].data_type_ == DOUBLE)
+      delete static_cast<double*>(p.second.value_);
+    else if (args_[p.first].data_type_ == STRING)
+      delete static_cast<string*>(p.second.value_);
   }
 }
 
 void* CLI::get(const std::string& flag) const {
-  auto iter = parsed_values_.find(flag);
-  return iter != parsed_values_.end() ? iter->second : nullptr;
+  auto iter = args_.find(flag);
+  return iter != args_.end() ? iter->second.value_ : nullptr;
 }
-
