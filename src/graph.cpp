@@ -1,7 +1,7 @@
 #include "../include/graph.h"
+#include <iostream>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 
 using std::unordered_map;
 using std::stringstream;
@@ -67,10 +67,9 @@ Graph* Graph::from_file(const std::string& path) {
       string to_address, from_address, value, gas, gas_price;
 
       getline(comma_separated, csv_element, ',');  // discard 0th element (pandas index)
-      getline(comma_separated, csv_element, ',');  // discard 1st element (transaction index)
       getline(comma_separated, from_address, ','); // from_address
       getline(comma_separated, to_address, ',');   // to_address
-      getline(comma_separated, value, ',');        // value
+      getline(comma_separated, value, ',');        // truncated_value
       getline(comma_separated, gas, ',');          // gas
       getline(comma_separated, gas_price, ',');    // gas_price
 
@@ -94,12 +93,11 @@ Graph* Graph::from_file(const std::string& path) {
       std::cout << gas << " " << gas_price << " " << value << std::endl; 
 
       Edge* transaction = new Edge(
-        from, to, std::stoll(value), std::stoll(gas), std::stoll(gas_price)
+        from, to, std::stod(value), std::stoll(gas), std::stoll(gas_price)
       );
 
       from->addEdge(transaction);
       to->addEdge(transaction);
-      break;
     }
   }
 
@@ -107,17 +105,16 @@ Graph* Graph::from_file(const std::string& path) {
 }
 
 /*
-,tIdx,from_address,to_address,value,gas,gas_price,timestamp
-0,5,0xc1aced320a22ea96164fb660291900f9630fded5,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 12:01:53+00:00
-1,5,0x9f6725c5fba117c5f27f5a31cbd902d4b3af6458,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 03:45:05+00:00
-2,11,0x509c872654a041893531be535fea935e70fdb7ef,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 11:02:17+00:00
-3,3,0x21d13cc5bc168a51d8469ed223e18d57f0bb9bd1,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,100000000000000000000,800000,20000000000,2016-11-04 01:33:45+00:00
-4,3,0xcc8c0432ad2d85991b4f4b5cf6e5209d6aeb2baa,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 09:57:16+00:00
-5,8,0x026547975a4d16043a9effe63c079bca92087ac6,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 13:04:16+00:00
-6,6,0xa0c8a37d2d429d102dbb638cb50b33c931258647,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 06:56:58+00:00
-7,19,0xc62c8adc0c949ecb5e137329083424534dd87d13,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000000000000000,800000,20000000000,2016-11-04 02:42:38+00:00
+,from_address,to_address,truncated_value,gas,gas_price
+0,0xc1aced320a22ea96164fb660291900f9630fded5,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000.0,800000,20000000000
+1,0x9f6725c5fba117c5f27f5a31cbd902d4b3af6458,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000.0,800000,20000000000
+2,0x509c872654a041893531be535fea935e70fdb7ef,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000.0,800000,20000000000
+3,0x21d13cc5bc168a51d8469ed223e18d57f0bb9bd1,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,100000000.0,800000,20000000000
+4,0xcc8c0432ad2d85991b4f4b5cf6e5209d6aeb2baa,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000.0,800000,20000000000
+5,0x026547975a4d16043a9effe63c079bca92087ac6,0x80aa81029df9afdc70a621c86d7a81d7e9ed7e3a,10000000.0,800000,20000000000
 */
-// std::stoll
+
+// std::stoll, std::stod
 
 /*
 #include<iostream>

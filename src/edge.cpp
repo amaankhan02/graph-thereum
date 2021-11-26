@@ -2,7 +2,7 @@
 
 Edge::Edge(Vertex* source, 
            Vertex* destination, 
-           uint64_t value, 
+           double value, 
            uint64_t gas, 
            uint64_t gas_price) 
   : source_(source), destination_(destination), value_(value), 
@@ -22,7 +22,7 @@ Vertex* Edge::getDestination() const {
   return destination_; 
 }
 
-uint64_t Edge::getValue() const { 
+double Edge::getValue() const { 
   return value_; 
 }
 

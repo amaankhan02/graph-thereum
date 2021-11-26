@@ -28,12 +28,13 @@ class Edge {
      * @param source a Vertex* indicating the source of the transaction
      * @param destination a Vertex* indicating the destination of the 
      * transaction
-     * @param value a uint64_t indicating the value exchanged in the transaction
+     * @param value a double indicating the value exchanged in the transaction 
+     * in the trillions (multuply by 10^12 to get the actual value)
      * @param gas a uint64_t indicating the gas used in the transaction
      * @param gas_price a uint64_t indicating the price of gas at the time of 
      * the transaction
      */
-    Edge(Vertex* source, Vertex* destination, uint64_t value, 
+    Edge(Vertex* source, Vertex* destination, double value, 
          uint64_t gas, uint64_t gas_price);
 
     /**
@@ -68,12 +69,12 @@ class Edge {
 
     /**
      * @brief Get the value exhanged as part of the transaction represented by 
-     * this Edge.
+     * this Edge in the trillions (multuply by 10^12 to get the actual value).
      * 
-     * @return a uint64_t that indicating the value exchanged in this 
+     * @return a double that indicating the value exchanged in this 
      * transaction.
      */
-    uint64_t getValue() const;
+    double getValue() const;
 
     /**
      * @brief Get the gas used as part of the transaction represented by 
@@ -125,9 +126,10 @@ class Edge {
 
     /**
      * @brief a uint64_t indicating the value exchanged in the transaction that 
-     * this Edge represents.
+     * this Edge represents in the trillions (multuply by 10^12 to get the 
+     * actual value).
      */
-    uint64_t value_;
+    double value_;
 
     /**
      * @brief a uint64_t indicating the amount of gas used in the transaction
