@@ -1,4 +1,6 @@
 #include "../include/bfs.h"
+#include "../include/utils.h"
+
 #include <iostream>
 #include <queue>
 
@@ -84,10 +86,14 @@ void run_bfs(Graph* g) {
   //////////////////////////////////////////////////////////////////////////////
   ///                            Run BFS on graph                            ///
   //////////////////////////////////////////////////////////////////////////////
-  std::cout << "Running BFS..." << std::endl;
+  std::cout << "\nRunning BFS..." << std::endl;
+  clock_t c1, c2;
+  c1 = clock();
   int num_connected_components = bfs(g);
+  c2 = clock();
+  print_elapsed(c1, c2, "BFS");
   std::cout << "There are " << num_connected_components
-            << " connected components in the graph." << std::endl;
+            << " connected components in the graph.\n" << std::endl;
 
   //////////////////////////////////////////////////////////////////////////////
   ///            Ensure all vertices HAVE been explored AFTER BFS            ///
