@@ -6,7 +6,7 @@ Edge::Edge(Vertex* source,
            uint64_t gas, 
            uint64_t gas_price) 
   : source_(source), destination_(destination), value_(value), 
-    gas_(gas), gas_price_(gas_price) {}
+    gas_(gas), gas_price_(gas_price), was_explored_(false) {}
 
 Vertex* Edge::getAdjacentVertex(Vertex* start) const {
   // If the starting vertex of this edge is one of the endpoints...

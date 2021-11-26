@@ -63,8 +63,7 @@ Graph* Graph::from_file(const std::string& path) {
 
     while (getline(infile, line)) {
       std::stringstream comma_separated(line);
-      string csv_element;
-      string to_address, from_address, value, gas, gas_price;
+      string csv_element, to_address, from_address, value, gas, gas_price;
 
       getline(comma_separated, csv_element, ',');  // discard 0th element (pandas index)
       getline(comma_separated, from_address, ','); // from_address
@@ -90,16 +89,19 @@ Graph* Graph::from_file(const std::string& path) {
         g->addVertex(to);
       }
 
-      std::cout << gas << " " << gas_price << " " << value << std::endl; 
-
       Edge* transaction = new Edge(
         from, to, std::stod(value), std::stoll(gas), std::stoll(gas_price)
       );
 
       from->addEdge(transaction);
       to->addEdge(transaction);
+
+      g->addEdge(transaction);
     }
   }
+
+  std::cout << "Loaded " << g->getEdges().size() << " edges and "
+            << g->getVertices().size() << " vertices." << std::endl;
 
   return g;
 }

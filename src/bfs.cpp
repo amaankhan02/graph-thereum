@@ -32,6 +32,7 @@ void bfs(Graph* g, Vertex* start) {
     q.pop();
 
     for (Edge* indicent : v->getIncidentEdges()) {
+      indicent->setExplored(true);
       Vertex* adjacent = indicent->getAdjacentVertex(v);
       if (!adjacent->wasExplored()) {
         // set indicent as discovery edge
