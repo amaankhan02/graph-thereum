@@ -47,24 +47,24 @@ CLI::CLI(int arg_count, char* arg_values[],
         case DataType::INT: {
           ++i;
           iter->second.value_ = arg_values[i];
-          parsed_values_[flag] = new int(std::stoi(arg_values[i]));
+          *static_cast<int*>(parsed_values_[flag]) = std::stoi(arg_values[i]);
           break;
         }
         case DataType::BOOL: {
           iter->second.value_ = "true";
-          parsed_values_[flag] = new bool(true);
+          *static_cast<bool*>(parsed_values_[flag]) = true;
           break;
         }
         case DataType::DOUBLE: {
           ++i;
           iter->second.value_ = arg_values[i];
-          parsed_values_[flag] = new double(std::stod(arg_values[i]));
+          *static_cast<double*>(parsed_values_[flag]) = std::stod(arg_values[i]);
           break;
         }
         case DataType::STRING: {
           ++i;
           iter->second.value_ = arg_values[i];
-          parsed_values_[flag] = new string(arg_values[i]);
+          *static_cast<string*>(parsed_values_[flag]) = arg_values[i];
           break;
         }
       }
