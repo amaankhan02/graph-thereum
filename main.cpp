@@ -13,4 +13,6 @@ int main(int argc, char* argv[]) {
 
   std::cout << "Pointers are " << sizeof(void*) << "B" << std::endl;
   std::cout << "uint64_t is " << sizeof(uint64_t) << "B" << std::endl;
+
+  delete g;
 }
