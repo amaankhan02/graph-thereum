@@ -4,8 +4,8 @@
 #include <vector>
 #include <string>
 
-#include "edge.h"
 #include "vertex.h"
+#include "edge.h"
 
 class Graph {
   public:
@@ -18,12 +18,9 @@ class Graph {
     ~Graph();
 
     /**
-     * @brief Adds an edge to the graph. If either the source Vertex of the Edge
-     * does not already exist in the graph, the source Vertex is added. If the 
-     * destination Vertex of the Edge does not already exist in the graph, the 
-     * destination Vertex is added.  
+     * @brief Adds an edge to the graph.
      * 
-     * @param e an Edge to add to the graph
+     * @param e an Edge to add to the graph.
      */
     void addEdge(Edge* e);
 
@@ -33,11 +30,9 @@ class Graph {
 
     bool containsVertex(const std::string& address) const;
 
-    std::vector<Vertex*> getAdjacentVertices(Vertex* v) const;
+    const std::unordered_map<std::string, Vertex*>& getVertices() const;
 
-    const std::unordered_map<std::string, Vertex*>& getVertices() const { return vertices_; }
-
-    const std::vector<Edge*>& getEdges() const { return edges_; }
+    const std::vector<Edge*>& getEdges() const;
 
     static Graph* from_file(const std::string& path);
   private:

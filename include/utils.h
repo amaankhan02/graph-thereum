@@ -2,6 +2,7 @@
 #include <string_view>
 #include <ctime>
 
+// Constants used to print in color to the command line
 // Taken from https://stackoverflow.com/a/9158263
 #define RESET       "\033[0m"
 #define BLACK       "\033[30m"             /* Black */
@@ -21,4 +22,13 @@
 #define BOLDCYAN    "\033[1m\033[36m"      /* Bold Cyan */
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
+/**
+ * @brief Computes the time elapsed between the two given clock cycle counts and
+ * prints the CPU time in seconds along with the name of the associated action.
+ * 
+ * @param c1 a clock_t indicating the clock at the start of the action.
+ * @param c2 a clock_t indicating the clock at the end of the action.
+ * @param action a string indicating the name of the action associated with the 
+ * given clocks and computed elapsed time.
+ */
 void print_elapsed(clock_t& c1, clock_t& c2, const std::string_view& action);

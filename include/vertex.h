@@ -32,24 +32,28 @@ class Vertex {
     Vertex(const std::string& address);
 
     /**
-     * @brief Adds a new edge to the list of incident edges. Assumed to be used safely
-     * (edge should border this vertex, and not already exist)
+     * @brief Adds a new edge to the list of incident edges. Assumed to be used 
+     * safely (edge should border this vertex, and not already exist).
      * 
-     * @param e an Edge* to be added as an incident edge to this vertex
+     * @param e an Edge* to be added as an incident edge to this vertex.
      */
     void addEdge(Edge* e);
 
     /**
-     * @brief Gets all incident edges to this vertex
+     * @brief Gets all incident edges to this vertex. Each indicent edge 
+     * represents a transaction that the person represented by this Vertex was
+     * involved in.
      * 
-     * @return const std::vector<Edge*>& 
+     * @return const std::vector<Edge*>& the edges indicident to this Vertex.
      */
     const std::vector<Edge*>& getIncidentEdges() const;
 
     /**
-     * @brief Returns the blockchain address of the person represented by this Vertex
+     * @brief Returns the blockchain address of the person represented by this 
+     * Vertex.
      * 
-     * @return const std::string& the address, as a const ref
+     * @return a const std::string& indicating the address of the person that 
+     * this Vertex represents.
      */
     const std::string& getAddress() const;
 
@@ -74,19 +78,20 @@ class Vertex {
     void setExplored(bool explored);
   private: 
     /**
-     * @brief 
-     * 
+     * @brief The blockchain address of the person represented by this 
+     * Vertex.
      */
     std::string address_;
 
     /**
-     * @brief 
-     * 
+     * @brief All of the edges that are indicident to this Vertex. Each indicent 
+     * edge represents a transaction that the person represented by this Vertex 
+     * was involved in.
      */
     std::vector<Edge*> incident_edges_;
 
     /**
-     * @brief a bool state used by graph algorithms to track whether or not this 
+     * @brief A bool state used by graph algorithms to track whether or not this 
      * Vertex has been explored in the current iteration of the algorithm. 
      */
     bool was_explored_;

@@ -1,26 +1,28 @@
 #include <iostream>
 #include <ctime>
 
+#include "include/argument_parser.h"
 #include "include/graph.h"
 #include "include/utils.h"
 #include "include/bfs.h"
-#include "include/cli.h"
 
 using std::string;
 using std::vector;
 
 int main(int argc, char* argv[]) {
   string filepath;
-  bool should_run_bfs;
+  bool should_run_bfs, should_run_betweeness;
 
-  vector<CLI::ArgumentConfig> acs = {
-      CLI::ArgumentConfig("-f", CLI::DataType::STRING, true, &filepath,
-                          "The path to the dataset to load as a graph."),
-      CLI::ArgumentConfig("-b", CLI::DataType::BOOL, false, &should_run_bfs,
-                          "Indicates whether or not to run BFS on the graph."),
-  };
+  ArgumentParser ap;
 
-  CLI::parse_args(argc, argv, acs);
+  ap.add_argument("-f", ArgumentParser::DataType::STRING, true, &filepath, 
+                  "The path to the dataset to load as a graph.");
+  ap.add_argument("-b", ArgumentParser::DataType::BOOL, false, &should_run_bfs,
+                  "Indicates whether or not to run BFS on the graph.");
+  ap.add_argument("-c", ArgumentParser::DataType::BOOL, false, &should_run_betweeness,
+                  "Indicates whether or not to run betweeness centrality algorithms on the graph.");
+
+  ap.parse(argc, argv);
   clock_t c1, c2;
 
   std::cout << "Loading graph..." << std::endl;

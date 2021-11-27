@@ -8,6 +8,8 @@ using std::string;
 using std::vector;
 using std::queue;
 using std::pair;
+using std::cout;
+using std::endl;
 
 int bfs(Graph* g) {
   // Set all vertices as unexplored to start
@@ -61,27 +63,27 @@ void run_bfs(Graph* g) {
   ///         Ensure all vertices HAVE NOT been explored BEFORE BFS          ///
   //////////////////////////////////////////////////////////////////////////////
   bool vertices_explored = false;
-  for (pair<string, Vertex*> p : g->getVertices()) {
+  for (pair<string, Vertex *> p : g->getVertices()) {
     vertices_explored |= p.second->wasExplored();
   }
 
   if (!vertices_explored)
-    std::cout << "No vertex has been explored." << std::endl;
+    cout << GREEN << "No vertices have been explored." << RESET << endl;
   else
-    std::cerr << "One or more vertices has been explored." << std::endl;
+    cout << BOLDRED << "One or more vertices has been explored." << RESET << endl;
 
   //////////////////////////////////////////////////////////////////////////////
   ///           Ensure all edges HAVE NOT been explored BEFORE BFS           ///
   //////////////////////////////////////////////////////////////////////////////
   bool edges_explored = false;
-  for (Edge* e : g->getEdges()) {
+  for (Edge *e : g->getEdges()) {
     edges_explored |= e->wasExplored();
   }
 
   if (!edges_explored)
-    std::cout << "No edge has been explored." << std::endl;
+    cout << GREEN << "No edges have been explored." << RESET << endl;
   else
-    std::cerr << "One or more edges has been explored." << std::endl;
+    cout << BOLDRED << "One or more edges has been explored." << RESET << endl;
 
   //////////////////////////////////////////////////////////////////////////////
   ///                            Run BFS on graph                            ///
@@ -99,14 +101,14 @@ void run_bfs(Graph* g) {
   ///            Ensure all vertices HAVE been explored AFTER BFS            ///
   //////////////////////////////////////////////////////////////////////////////
   vertices_explored = true;
-  for (pair<string, Vertex*> p : g->getVertices()) {
+  for (pair<string, Vertex *> p : g->getVertices()) {
     vertices_explored &= p.second->wasExplored();
   }
 
   if (vertices_explored)
-    std::cout << "All vertices have been explored." << std::endl;
+    cout << GREEN << "All vertices have been explored." << RESET << endl;
   else
-    std::cerr << "One or more vertices has not been explored." << std::endl;
+    cout << BOLDRED << "One or more vertices was not explored." << RESET << endl;
 
   //////////////////////////////////////////////////////////////////////////////
   ///             Ensure all edges HAVE been explored AFTER BFS              ///
@@ -117,7 +119,7 @@ void run_bfs(Graph* g) {
   }
 
   if (edges_explored)
-    std::cout << "All edges have been explored." << std::endl;
+    cout << GREEN << "All edges have been explored." << RESET << endl;
   else
-    std::cerr << "One or more edges has not been explored." << std::endl;
+    cout << BOLDRED << "One or more edges was not explored." << RESET << endl;
 }
