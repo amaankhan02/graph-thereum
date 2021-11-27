@@ -12,22 +12,25 @@ class CLI {
       STRING
     };
 
-    CLI(int arg_count, char* arg_values[],
-        const std::vector<std::pair<std::string, DataType>>& potential_args);
-
-    ~CLI();
-
-    void* get(const std::string& flag) const;
-  private:
-    struct Argument {
-      void* value_;
+    struct ArgumentConfig {
+      std::string flag_;
+      std::string description_;
       DataType data_type_;
+      bool required_;
+      bool filled_;
+      void* variable_to_fill_;
 
-      Argument() : value_(nullptr), data_type_() {}
-      Argument(void* value, DataType data_type)
-        : value_(value), data_type_(data_type) {}
+      ArgumentConfig() : flag_(), description_(), data_type_(), required_(false),
+                         filled_(false), variable_to_fill_() {}
+
+      ArgumentConfig(const std::string& flag, DataType data_type, bool required,
+                     void* var, const std::string& description="")
+        : flag_(flag), description_(description), data_type_(data_type),
+          required_(required), filled_(false), variable_to_fill_(var) {}
     };
 
-    std::unordered_map<std::string, Argument> args_;
-    int arg_count_;
+    static void parse_args(int arg_count, char* arg_values[],
+                           std::vector<ArgumentConfig>& arg_configs);
+  private:
+    static std::string type_as_string(DataType t);
 };

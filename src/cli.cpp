@@ -1,60 +1,69 @@
 #include "../include/cli.h"
+#include "../include/utils.h"
 #include <iostream>
 
+using std::unordered_map;
+using std::make_pair;
 using std::vector;
 using std::string;
 using std::pair;
 
-CLI::CLI(int arg_count, char* arg_values[],
-         const vector<pair<string, DataType>>& potential_args)
-    : arg_count_(arg_count) {
+void CLI::parse_args(int arg_count, char* arg_values[],
+                     std::vector<ArgumentConfig>& arg_configs) {
+  unordered_map<std::string, ArgumentConfig*> args;
+
   // internally configure all potential arguments we could see
-  for (const pair<string, DataType>& p : potential_args) {
-    void* default_val = nullptr;
+  for (ArgumentConfig& ac : arg_configs) {
+    if (ac.data_type_ == INT)
+      *static_cast<int*>(ac.variable_to_fill_) = 0;
+    else if (ac.data_type_ == BOOL)
+      *static_cast<bool*>(ac.variable_to_fill_) = false;
+    else if (ac.data_type_ == DOUBLE)
+      *static_cast<double*>(ac.variable_to_fill_) = 0.0;
+    else if (ac.data_type_ == STRING)
+      *static_cast<string*>(ac.variable_to_fill_) = "";
 
-    if (p.second == INT)         default_val = new int(0);
-    else if (p.second == BOOL)   default_val = new bool(false);
-    else if (p.second == DOUBLE) default_val = new double(0.0);
-    else if (p.second == STRING) default_val = new string("");
-
-    args_.insert(make_pair(p.first, Argument(default_val, p.second)));
+    args.insert(make_pair(ac.flag_, &ac));
   }
 
   // load all of the arguments passed via the command line
-  for (int i = 1; i < arg_count_; ++i) {
+  for (int i = 1; i < arg_count; ++i) {
     // skip the executable name (the 0th argument) by starting at 1
     string flag = arg_values[i];
-    auto iter = args_.find(flag);
+    auto iter = args.find(flag);
 
-    if (iter == args_.end()) {
-      std::cerr << "Unknown flag: " << flag << std::endl;
+    if (iter == args.end()) {
+      std::cerr << BOLDRED << "Unknown flag: " << flag << RESET << std::endl;
     } else {
-      if (iter->second.data_type_ == INT)
-        *static_cast<int*>(args_[flag].value_) = std::stoi(arg_values[++i]);
-      else if (iter->second.data_type_ == BOOL)
-        *static_cast<bool*>(args_[flag].value_) = true;
-      else if (iter->second.data_type_ == DOUBLE)
-        *static_cast<double*>(args_[flag].value_) = std::stod(arg_values[++i]);
-      else if (iter->second.data_type_ == STRING)
-        *static_cast<string*>(args_[flag].value_) = arg_values[++i];
+      args[flag]->filled_ = true;
+      void* to_fill = args[flag]->variable_to_fill_;
+
+      if (iter->second->data_type_ == INT)
+        *static_cast<int*>(to_fill) = std::stoi(arg_values[++i]);
+      else if (iter->second->data_type_ == BOOL)
+        *static_cast<bool*>(to_fill) = true;
+      else if (iter->second->data_type_ == DOUBLE)
+        *static_cast<double*>(to_fill) = std::stod(arg_values[++i]);
+      else if (iter->second->data_type_ == STRING)
+        *static_cast<string*>(to_fill) = arg_values[++i];
+    }
+  }
+
+  // check if any required arguments have not been provided
+  for (pair<string, ArgumentConfig*> p : args) {
+    if (p.second->required_ && !p.second->filled_) {
+      std::cerr << BOLDRED << "Missing required positional argument " << p.first
+                << ": [" << type_as_string(p.second->data_type_) << "] "
+                << p.second->description_ << RESET << std::endl;
     }
   }
 }
 
-CLI::~CLI() {
-  for (pair<std::string, Argument> p : args_) {
-    if (args_[p.first].data_type_ == INT)
-      delete static_cast<int*>(p.second.value_);
-    else if (args_[p.first].data_type_ == BOOL)
-      delete static_cast<bool*>(p.second.value_);
-    else if (args_[p.first].data_type_ == DOUBLE)
-      delete static_cast<double*>(p.second.value_);
-    else if (args_[p.first].data_type_ == STRING)
-      delete static_cast<string*>(p.second.value_);
-  }
-}
+std::string CLI::type_as_string(DataType t) {
+  if (t == INT)    return "INTEGER";
+  if (t == BOOL)   return "BOOLEAN";
+  if (t == DOUBLE) return "DOUBLE";
+  if (t == STRING) return "STRING";
 
-void* CLI::get(const std::string& flag) const {
-  auto iter = args_.find(flag);
-  return iter != args_.end() ? iter->second.value_ : nullptr;
+  return "";
 }
