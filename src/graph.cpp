@@ -1,4 +1,5 @@
 #include "../include/graph.h"
+#include "../include/utils.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -50,6 +51,10 @@ const vector<Edge*>& Graph::getEdges() const {
 }
 
 Graph* Graph::from_file(const std::string& path) {
+  clock_t c1, c2;
+  c1 = clock();
+  
+  std::cout << "Loading graph..." << std::endl;
   Graph* g = new Graph();
 
   std::ifstream infile(path);
@@ -98,6 +103,9 @@ Graph* Graph::from_file(const std::string& path) {
 
   std::cout << "Loaded " << g->getEdges().size() << " edges and "
             << g->getVertices().size() << " vertices." << std::endl;
+
+  c2 = clock();
+  print_elapsed(c1, c2, "loading graph from csv");
 
   return g;
 }
