@@ -102,7 +102,7 @@ class ArgumentParser {
                           filled_(false), variable_to_fill_() {}
 
       /**
-       * @brief Construct a new Argument Config object
+       * @brief Construct a new Argument Config object.
        * 
        * @param flag 
        * @param data_type 

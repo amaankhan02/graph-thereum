@@ -94,8 +94,8 @@ void run_bfs(Graph* g) {
   int num_connected_components = bfs(g);
   c2 = clock();
   print_elapsed(c1, c2, "BFS");
-  std::cout << "There are " << num_connected_components
-            << " connected components in the graph.\n" << std::endl;
+  cout << "There are " << num_connected_components
+       << " connected components in the graph.\n" << endl;
 
   //////////////////////////////////////////////////////////////////////////////
   ///            Ensure all vertices HAVE been explored AFTER BFS            ///

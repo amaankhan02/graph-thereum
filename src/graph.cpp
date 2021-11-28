@@ -15,6 +15,23 @@ using std::pair;
 Graph::Graph() { }
 
 Graph::~Graph() {
+  _delete();
+}
+
+Graph::Graph(const Graph& other) {
+  _copy(other);
+}
+
+const Graph& Graph::operator=(const Graph& rhs) {
+  if (this != &rhs) {
+    _delete();
+    _copy(rhs);
+  }
+
+  return *this;
+}
+
+void Graph::_delete() {
   for (pair<string, Vertex*> v : vertices_) {
     delete v.second;
   }
@@ -24,12 +41,36 @@ Graph::~Graph() {
   }
 }
 
-void Graph::addEdge(Edge* e) {
-  edges_.push_back(e);
+void Graph::_copy(const Graph& rhs) {
+  for (pair<string, Vertex*> v : rhs.getVertices()) {
+    addVertex(v.second->getAddress());
+  }
+
+  for (Edge* e : rhs.getEdges()) {
+    addEdge(
+      getVertex(e->getSource()->getAddress()),
+      getVertex(e->getDestination()->getAddress()),
+      e->getValue(), e->getGas(), e->getGasPrice()
+    );
+  }
 }
 
-void Graph::addVertex(Vertex* v) {
-  vertices_.insert(make_pair(v->getAddress(), v));
+Edge* Graph::addEdge(Vertex* source, Vertex* destination, double value, 
+                     uint64_t gas, uint64_t gas_price) {
+  Edge* e = new Edge(source, destination, value, gas, gas_price);
+  edges_.push_back(e);
+
+  source->addEdge(e);
+  destination->addEdge(e);
+
+  return e;
+}
+
+Vertex* Graph::addVertex(const std::string& address) {
+  Vertex* v = new Vertex(address);
+  vertices_.insert(make_pair(address, v));
+
+  return v;
 }
 
 Vertex* Graph::getVertex(const std::string& address) const {
@@ -50,7 +91,7 @@ const vector<Edge*>& Graph::getEdges() const {
   return edges_;
 }
 
-Graph* Graph::from_file(const std::string& path) {
+Graph* Graph::fromFile(const std::string& path) {
   clock_t c1, c2;
   c1 = clock();
   
@@ -74,30 +115,15 @@ Graph* Graph::from_file(const std::string& path) {
       getline(comma_separated, gas, ',');          // gas
       getline(comma_separated, gas_price, ',');    // gas_price
 
-      Vertex* from = NULL;
-      Vertex* to = NULL;
+      Vertex* from = g->getVertex(from_address);
+      if (from == NULL) from = g->addVertex(from_address);
+      
+      Vertex* to = g->getVertex(to_address);
+      if (to == NULL) to = g->addVertex(to_address);
 
-      if (g->containsVertex(from_address)) {
-        from = g->getVertex(from_address);
-      } else {
-        from = new Vertex(from_address);
-        g->addVertex(from);
-      }
-
-      if (g->containsVertex(to_address)) {
-        to = g->getVertex(to_address);
-      } else {
-        to = new Vertex(to_address);
-        g->addVertex(to);
-      }
-
-      Edge* transaction = new Edge(
+      Edge* transaction = g->addEdge(
         from, to, std::stod(value), std::stoull(gas), std::stoull(gas_price)
       );
-
-      from->addEdge(transaction);
-      to->addEdge(transaction);
-      g->addEdge(transaction);
     }
   }
 

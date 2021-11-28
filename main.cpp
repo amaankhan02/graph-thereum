@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
   ap.parse(argc, argv);
 
-  Graph* g = Graph::from_file(filepath);
+  Graph* g = Graph::fromFile(filepath);
   std::cout << std::endl;
 
   if (should_run_bfs) {
