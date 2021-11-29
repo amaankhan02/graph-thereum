@@ -22,3 +22,15 @@ bool Vertex::wasExplored() const {
 void Vertex::setExplored(bool was_explored) { 
   was_explored_ = was_explored; 
 }
+
+void Vertex::setDistance(uint64_t distance){
+  distance_ = distance;
+}
+
+uint64_t Vertex::getDistance(){
+  return distance_;
+};
+
+bool Vertex::operator>(Vertex*& other){
+  return (distance_ > other->getDistance());
+}

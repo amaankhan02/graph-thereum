@@ -76,6 +76,13 @@ class Vertex {
      * Vertex.
      */
     void setExplored(bool explored);
+
+    void setDistance(uint64_t distance);
+
+    uint64_t getDistance();
+
+    bool operator>(Vertex*& other); // to enable priority_queue
+
   private: 
     /**
      * @brief The blockchain address of the person represented by this 
@@ -95,4 +102,7 @@ class Vertex {
      * Vertex has been explored in the current iteration of the algorithm. 
      */
     bool was_explored_;
+
+    uint64_t distance_; // for djikstra's implementation
+
 };
