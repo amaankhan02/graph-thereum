@@ -59,7 +59,7 @@ class Graph {
      * @return an Edge* pointing to the newly created Edge.
      */
     Edge* addEdge(Vertex* source, Vertex* destination, double value, 
-                 uint64_t gas, uint64_t gas_price); 
+                  uint64_t gas, uint64_t gas_price); 
 
     /**
      * @brief Construct a new Vertex object and adds it to the graph. By default 
@@ -134,15 +134,16 @@ class Graph {
     std::unordered_map<std::string, Vertex*> vertices_;
 
     /**
-     * @brief 
-     * 
+     * @brief Delete all of the associated Vertex objects and Edge objects 
+     * that are allocated on the heap.
      */
     void _delete();
 
     /**
-     * @brief 
+     * @brief Create a deep copy of the passed Graph object and of all of the 
+     * associated Vertex objects and Edge objects allocated on the heap.
      * 
-     * @param rhs 
+     * @param other a Graph to take a deep copy of.
      */
-    void _copy(const Graph& rhs);
+    void _copy(const Graph& other);
 };

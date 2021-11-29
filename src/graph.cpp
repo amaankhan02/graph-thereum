@@ -41,12 +41,12 @@ void Graph::_delete() {
   }
 }
 
-void Graph::_copy(const Graph& rhs) {
-  for (pair<string, Vertex*> v : rhs.getVertices()) {
+void Graph::_copy(const Graph& other) {
+  for (pair<string, Vertex*> v : other.getVertices()) {
     addVertex(v.second->getAddress());
   }
 
-  for (Edge* e : rhs.getEdges()) {
+  for (Edge* e : other.getEdges()) {
     addEdge(
       getVertex(e->getSource()->getAddress()),
       getVertex(e->getDestination()->getAddress()),
