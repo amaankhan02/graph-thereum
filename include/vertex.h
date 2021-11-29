@@ -77,12 +77,35 @@ class Vertex {
      */
     void setExplored(bool explored);
 
+    /**
+     * @brief Set the distance from some other arbitary Vertex. Used in the 
+     * implementation of Dijkstra's algorithm to find the shortest path between
+     * two vertices. 
+     * 
+     * @param distance a uint64_t with which to update the distance.
+     */
     void setDistance(uint64_t distance);
 
+    /**
+     * @brief Get the distance from some other arbitary Vertex. Used in the 
+     * implementation of Dijkstra's algorithm to find the shortest path between
+     * two vertices. 
+     * 
+     * @return a uint64_t used in the implementation of Dijkstra's algorithm to 
+     * find the shortest path between two vertices.
+     */
     uint64_t getDistance();
 
-    bool operator>(Vertex*& other); // to enable priority_queue
-
+    /**
+     * @brief Compares the distance parameters of two Vertex objects. This 
+     * operator is used by the priority queue in the implementation of 
+     * Dijkstra's algorithm to find the shortest path between two vertices.
+     * 
+     * @param other the Vertex object with which to compare distances with.
+     * @return true if this Vertex has a greater distance than the other vertex.
+     * @return false if this Vertex has a smaller distance than the other vertex.
+     */
+    bool operator>(Vertex*& other); 
   private: 
     /**
      * @brief The blockchain address of the person represented by this 
@@ -103,6 +126,9 @@ class Vertex {
      */
     bool was_explored_;
 
-    uint64_t distance_; // for djikstra's implementation
-
+    /**
+     * @brief A uint64_t used in the implementation of Dijkstra's algorithm to 
+     * find the shortest path between two vertices.
+     */
+    uint64_t distance_; 
 };

@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
   if (should_run_djikstra) {
     uint64_t answer = djikstra(g);
-    cout << "\n\nShortest path was " << answer << std::endl;
+    std::cout << "\n\nShortest path was " << answer << std::endl;
   }
 
   delete g;

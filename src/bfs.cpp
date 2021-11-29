@@ -63,7 +63,7 @@ void run_bfs(Graph* g) {
   ///         Ensure all vertices HAVE NOT been explored BEFORE BFS          ///
   //////////////////////////////////////////////////////////////////////////////
   bool vertices_explored = false;
-  for (pair<string, Vertex *> p : g->getVertices()) {
+  for (pair<string, Vertex*> p : g->getVertices()) {
     vertices_explored |= p.second->wasExplored();
   }
 
@@ -76,7 +76,7 @@ void run_bfs(Graph* g) {
   ///           Ensure all edges HAVE NOT been explored BEFORE BFS           ///
   //////////////////////////////////////////////////////////////////////////////
   bool edges_explored = false;
-  for (Edge *e : g->getEdges()) {
+  for (Edge* e : g->getEdges()) {
     edges_explored |= e->wasExplored();
   }
 
@@ -101,7 +101,7 @@ void run_bfs(Graph* g) {
   ///            Ensure all vertices HAVE been explored AFTER BFS            ///
   //////////////////////////////////////////////////////////////////////////////
   vertices_explored = true;
-  for (pair<string, Vertex *> p : g->getVertices()) {
+  for (pair<string, Vertex*> p : g->getVertices()) {
     vertices_explored &= p.second->wasExplored();
   }
 

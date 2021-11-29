@@ -1,11 +1,21 @@
 #pragma once
 #include "graph.h"
 #include "vertex.h"
-#include "edge.h"
-#include <queue>
 
-
+/**
+ * @brief 
+ * 
+ * @param g 
+ * @return uint64_t 
+ */
 uint64_t djikstra(Graph* g);
 
-
-uint64_t djikstra_helper(Graph* g, Vertex* start, Vertex* end);
+/**
+ * @brief 
+ * 
+ * @param g 
+ * @param start 
+ * @param end 
+ * @return uint64_t 
+ */
+uint64_t djikstra(Graph* g, Vertex* start, Vertex* end);

@@ -95,7 +95,8 @@ class Graph {
     bool containsVertex(const std::string& address) const;
 
     /**
-     * @brief Get all the vertices in this graph.
+     * @brief Get all the vertices in this graph. Returns a const reference to 
+     * the std::unordered_map<std::string, Vertex*> of vertices. 
      * 
      * @return a std::unordered_map<std::string, Vertex*> containing all the
      * vertices in this graph, indexed by the associated blockchain addresses.
