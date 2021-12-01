@@ -47,7 +47,14 @@ uint64_t djikstra_helper(Graph* g, Vertex* start, Vertex* end) {
 
 uint64_t djikstra(Graph* g){
 
-    const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();
-    return djikstra_helper(g, temp.begin()->second, (temp.begin()+3)->second());
+    const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();\
+    auto it = temp.begin();
+    Vertex* start = it->second;
+    
+    for (int i = 0; i < 200; ++i) ++it;
+
+    Vertex* end = it->second;
+
+    return djikstra_helper(g, start, end);
 };
 
