@@ -9,17 +9,6 @@
 class ArgumentParser {
   public:
     /**
-     * @brief 
-     * 
-     */
-    enum DataType {
-      INT,
-      BOOL,
-      DOUBLE,
-      STRING
-    };
-
-    /**
      * @brief Construct a new Argument Parser object.
      */
     ArgumentParser() : args_() { }
@@ -28,13 +17,45 @@ class ArgumentParser {
      * @brief 
      * 
      * @param flag 
-     * @param data_type 
      * @param required 
      * @param var 
      * @param description 
      */
-    void add_argument(const std::string& flag, DataType data_type, bool required,
-                      void* var, const std::string& description="");
+    void add_argument(const std::string& flag, bool required, int* var, 
+                      const std::string& description="");
+
+    /**
+     * @brief 
+     * 
+     * @param flag 
+     * @param required 
+     * @param var 
+     * @param description 
+     */
+    void add_argument(const std::string& flag, bool required, bool* var, 
+                      const std::string& description="");
+
+    /**
+     * @brief 
+     * 
+     * @param flag 
+     * @param required 
+     * @param var 
+     * @param description 
+     */
+    void add_argument(const std::string& flag, bool required, std::string* var, 
+                      const std::string& description="");
+
+    /**
+     * @brief 
+     * 
+     * @param flag 
+     * @param required 
+     * @param var 
+     * @param description 
+     */
+    void add_argument(const std::string& flag, bool required, double* var, 
+                      const std::string& description="");
     
     /**
      * @brief 
@@ -44,6 +65,17 @@ class ArgumentParser {
      */
     void parse(int arg_count, char* arg_values[]);
   private:
+    /**
+     * @brief 
+     * 
+     */
+    enum DataType {
+      INT,
+      BOOL,
+      DOUBLE,
+      STRING
+    };
+    
     /**
      * @brief This struct is used to model the command line arguments that a 
      * program can expect to see when its associated executable is run on a 
@@ -102,7 +134,7 @@ class ArgumentParser {
                           filled_(false), variable_to_fill_() {}
 
       /**
-       * @brief Construct a new Argument Config object
+       * @brief Construct a new Argument Config object.
        * 
        * @param flag 
        * @param data_type 

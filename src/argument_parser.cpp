@@ -7,19 +7,28 @@ using std::make_pair;
 using std::string;
 using std::pair;
 
-void ArgumentParser::add_argument(const string& flag, DataType data_type, 
-                                  bool required, void* var, 
+void ArgumentParser::add_argument(const string& flag, bool required, int* var, 
                                   const string& description) {
-  if (data_type == INT)
-    *static_cast<int*>(var) = 0;
-  else if (data_type == BOOL)
-    *static_cast<bool*>(var) = false;
-  else if (data_type == DOUBLE)
-    *static_cast<double*>(var) = 0.0;
-  else if (data_type == STRING)
-    *static_cast<string*>(var) = "";
+  *var = 0;     
+  args_[flag] = ArgumentConfig(flag, INT, required, var, description);
+}
 
-  args_[flag] = ArgumentConfig(flag, data_type, required, var, description);
+void ArgumentParser::add_argument(const string& flag, bool required, bool* var, 
+                                  const string& description) {
+  *var = false;
+  args_[flag] = ArgumentConfig(flag, BOOL, required, var, description);
+}
+
+void ArgumentParser::add_argument(const string& flag, bool required, string* var, 
+                                  const string& description) {
+  *var = "";
+  args_[flag] = ArgumentConfig(flag, STRING, required, var, description);
+}
+
+void ArgumentParser::add_argument(const string& flag, bool required, double* var, 
+                                  const string& description) {
+  *var = 0.0;
+  args_[flag] = ArgumentConfig(flag, DOUBLE, required, var, description);
 }
 
 void ArgumentParser::parse(int arg_count, char* arg_values[]) {
