@@ -8,7 +8,7 @@
  * @param g 
  * @return uint64_t 
  */
-uint64_t djikstra(Graph* g);
+uint64_t dijkstra(Graph* g);
 
 /**
  * @brief 
@@ -18,4 +18,4 @@ uint64_t djikstra(Graph* g);
  * @param end 
  * @return uint64_t 
  */
-uint64_t djikstra(Graph* g, Vertex* start, Vertex* end);
+uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end);

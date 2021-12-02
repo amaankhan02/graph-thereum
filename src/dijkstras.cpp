@@ -2,7 +2,7 @@
 #include "../include/edge.h"
 #include <queue>
 
-uint64_t djikstra(Graph* g, Vertex* start, Vertex* end) {
+uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
   std::priority_queue<Vertex*> q;
 
   // set everything to infinity
@@ -43,13 +43,15 @@ uint64_t djikstra(Graph* g, Vertex* start, Vertex* end) {
 
   return end->getDistance();
 }
+
+uint64_t dijkstra(Graph* g) {
     const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();
     auto it = temp.begin();
     Vertex* start = it->second;
     
-    for (int i = 0; i < 200; ++i) ++it;
+    for (int i = 0; i < 5; ++i) ++it;
 
     Vertex* end = it->second;
 
-    return djikstra_helper(g, start, end);
+    return dijkstra(g, start, end);
 };
