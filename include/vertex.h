@@ -96,6 +96,10 @@ class Vertex {
      */
     uint64_t getDistance();
 
+    Vertex* getParent();
+
+    void setParent(Vertex* parent);
+
     /**
      * @brief Compares the distance parameters of two Vertex objects. This 
      * operator is used by the priority queue in the implementation of 
@@ -106,6 +110,7 @@ class Vertex {
      * @return false if this Vertex has a smaller distance than the other vertex.
      */
     bool operator>(Vertex*& other); 
+    
   private: 
     /**
      * @brief The blockchain address of the person represented by this 
@@ -131,4 +136,6 @@ class Vertex {
      * find the shortest path between two vertices.
      */
     uint64_t distance_; 
+
+    Vertex* parent_;
 };

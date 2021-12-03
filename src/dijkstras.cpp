@@ -16,6 +16,8 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
     // vertex.second is pointer to the vertex
     vertex.second->setDistance(0xFFFFFFFFFFFFFFFF); 
 
+    vertex.second->setParent(nullptr);
+
     // record that we have not yet visited this vertex
     vertex.second->setExplored(false);
 
@@ -41,6 +43,7 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
 
         if (temp_dist < incicident_edge->getAdjacentVertex(U)->getDistance()) {
           incicident_edge->getAdjacentVertex(U)->setDistance(temp_dist);
+          incicident_edge->getAdjacentVertex(U)->setParent(U);
         }
       }
     }
