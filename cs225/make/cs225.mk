@@ -103,4 +103,4 @@ clean:
 tidy: clean
 	rm -rf doc
 
-.PHONY: all tidy clean output_msg
+.PHONY: all tidy clean output_msg data
