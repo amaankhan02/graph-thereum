@@ -34,3 +34,11 @@ uint64_t Vertex::getDistance(){
 bool Vertex::operator>(Vertex*& other){
   return (distance_ > other->getDistance());
 }
+
+Vertex* Vertex::getParent(){
+  return parent_;
+}
+
+void Vertex::setParent(Vertex* parent) {
+  parent_ = parent; 
+}

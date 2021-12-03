@@ -1,6 +1,8 @@
 #pragma once
 #include "graph.h"
 #include "vertex.h"
+#include <iostream>
+
 
 /**
  * @brief 
