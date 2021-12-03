@@ -20,8 +20,7 @@ void wasEntireGraphWasVisited(Graph* g, bool visited) {
   }
 }
 
-TEST_CASE("Simple BFS on Graph with 1 Connected Component", "[bfs]")
-{
+TEST_CASE("Simple BFS on Graph with 1 Connected Component", "[bfs]") {
   Graph g;
 
 	Vertex* v1 = g.addVertex("0x1");
@@ -42,8 +41,7 @@ TEST_CASE("Simple BFS on Graph with 1 Connected Component", "[bfs]")
   wasEntireGraphWasVisited(&g, true);
 }
 
-TEST_CASE("Simple BFS on Graph with 2 Connected Components", "[bfs]")
-{
+TEST_CASE("Simple BFS on Graph with 2 Connected Components", "[bfs]") {
   Graph g;
 
 	Vertex* v1 = g.addVertex("0x1");
@@ -62,8 +60,7 @@ TEST_CASE("Simple BFS on Graph with 2 Connected Components", "[bfs]")
   wasEntireGraphWasVisited(&g, true);
 }
 
-TEST_CASE("Simple BFS on Graph with 4 Connected Components", "[bfs]")
-{
+TEST_CASE("Simple BFS on Graph with 4 Connected Components", "[bfs]") {
   Graph g;
 
 	Vertex* v1 = g.addVertex("0x1");
