@@ -3,7 +3,7 @@
 #include "../include/graph.h"
 #include "../include/edge.h"
 #include "../include/bfs.h"
-#include "../include/dijstras.h"
+#include "../include/dijkstras.h"
 
 #include <iostream>
 #include <string>
@@ -11,8 +11,7 @@
 using std::string;
 using std::pair;
 
-TEST_CASE("Simple dijkstras distance is accurate on Graph with 1 Connected Component and 8 nodes", "[dijkstras]")
-{
+TEST_CASE("Simple dijkstras distance is accurate on Graph with 1 Connected Component and 8 nodes", "[dijkstras]") {
   Graph g;
 
   Vertex* v1 = g.addVertex("0x1");
@@ -35,8 +34,8 @@ TEST_CASE("Simple dijkstras distance is accurate on Graph with 1 Connected Compo
   g.addEdge(v6, v7, 51, 1, 1);
   g.addEdge(v7, v8, 1, 1, 1);
 
-  uint64_t distance = dijkstra(g, v1, v8);
-  REQUIRE( num_connected_components == 4);
+  uint64_t distance = dijkstra(&g, v1, v8);
+  REQUIRE(distance == 4);
 }
 
 
