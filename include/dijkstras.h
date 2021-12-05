@@ -1,6 +1,8 @@
 #pragma once
 #include "graph.h"
+#include "edge.h"
 #include "vertex.h"
+// #include "vertexp.h"
 #include <iostream>
 
 

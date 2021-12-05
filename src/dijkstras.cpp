@@ -1,10 +1,10 @@
 #include "../include/dijkstras.h"
-#include "../include/edge.h"
+// #include "../include/edge.h"
 #include <queue>
 #include <iostream>
 
 uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
-  std::priority_queue<Vertex*> q;
+  std::priority_queue<vertptr, std::vector<vertptr>, MyComparator> q;
 
   // set everything to infinity
   std::cout << "Printing vertices in order now" << std::endl;
@@ -14,41 +14,58 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
     std::cout << vertex.second->getAddress() << std::endl;
 
     // vertex.second is pointer to the vertex
-    vertex.second->setDistance(0xFFFFFFFFFFFFFFFF); 
+    if (vertex.second==start) {
+      vertex.second->setDistance(0);
+    }
+    else {
+      vertex.second->setDistance(0xFFFFFFFFFFFFFFFF); 
+    }
 
     vertex.second->setParent(nullptr);
 
     // record that we have not yet visited this vertex
     vertex.second->setExplored(false);
 
-    if (vertex.second != start) {
+    // if (vertex.second != start) {
+      // q.push(VertexPointer(vertex.second));
       q.push(vertex.second);
-    }
+    // }
   }
 
-  start->setDistance(0);
+  // start->setDistance(0);
   uint64_t temp_dist;
 
   while (!q.empty()) {
+
     Vertex* U = q.top();
-    q.pop();
+    while (U->wasExplored()){
+      U = q.top();
+      q.pop();
+    }
+    std::cout << "U is " << U->getAddress() << " with current dist " << U->getDistance() << std::endl;
+    U->setExplored(true);
+
 
     for (auto incicident_edge : U->getIncidentEdges()) {
-      if (!incicident_edge->getAdjacentVertex(U)->wasExplored()) {
-        if (U->getDistance() == 0xFFFFFFFFFFFFFFFF) {
-          temp_dist = incicident_edge->getGasPrice();
-        } else {
-          temp_dist = U->getDistance() + incicident_edge->getGasPrice();
-        }
+      Vertex* V = incicident_edge->getAdjacentVertex(U);
+      if (!(V->wasExplored())) {
 
-        if (temp_dist < incicident_edge->getAdjacentVertex(U)->getDistance()) {
-          incicident_edge->getAdjacentVertex(U)->setDistance(temp_dist);
-          incicident_edge->getAdjacentVertex(U)->setParent(U);
+        std::cout <<"Unexplored neighbor for U is " << V->getAddress() << std::endl;
+        temp_dist = U->getDistance() + incicident_edge->getGasPrice();
+
+        if (temp_dist < V->getDistance()) {
+          V->setDistance(temp_dist);
+          V->setParent(U);
+          q.push(V);
+          std::cout << "did relax to " << temp_dist << std::endl;
+        }
+        else {
+          std::cout << "did not relax" << std::endl;
         }
       }
     }
     
-    U->setExplored(true);
+    q.pop();
   }
 
   return end->getDistance();

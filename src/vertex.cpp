@@ -31,9 +31,9 @@ uint64_t Vertex::getDistance(){
   return distance_;
 };
 
-bool Vertex::operator>(Vertex*& other){
-  return (distance_ > other->getDistance());
-}
+// bool Vertex::operator>(Vertex& other){
+//   return (distance_ > other.getDistance());
+// }
 
 Vertex* Vertex::getParent(){
   return parent_;

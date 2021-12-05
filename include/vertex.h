@@ -106,10 +106,10 @@ class Vertex {
      * Dijkstra's algorithm to find the shortest path between two vertices.
      * 
      * @param other the Vertex object with which to compare distances with.
-     * @return true if this Vertex has a greater distance than the other vertex.
-     * @return false if this Vertex has a smaller distance than the other vertex.
+     * @return true if this Vertex has a smaller distance than the other vertex.
+     * @return false if this Vertex has a greater or equa;l distance than the other vertex.
      */
-    bool operator>(Vertex*& other); 
+    // bool operator>(Vertex& other); 
     
   private: 
     /**
@@ -138,4 +138,12 @@ class Vertex {
     uint64_t distance_; 
 
     Vertex* parent_;
+};
+
+typedef Vertex* vertptr;
+
+struct MyComparator {
+  bool operator() (vertptr arg1, vertptr arg2) {
+    return (arg1->getDistance() > arg2->getDistance());
+  }
 };
