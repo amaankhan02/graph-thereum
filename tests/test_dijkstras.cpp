@@ -43,15 +43,15 @@ TEST_CASE("dijkstras simple 2, dist only", "[dijkstras]") {
   Vertex* v7 = g.addVertex("0x7");
   Vertex* v8 = g.addVertex("0x8");
 
-  g.addEdge(v1, v2, 1, 1, 1);
-  g.addEdge(v1, v3, 1, 1, 1);
-  g.addEdge(v2, v4, 1, 1, 1);
-  g.addEdge(v3, v5, 1, 1, 1);
-  g.addEdge(v4, v5, 1, 1, 1);
-  g.addEdge(v4, v6, 1, 1, 1);
-  g.addEdge(v4, v7, 1, 1, 1);
-  g.addEdge(v5, v7, 1, 1, 1);
-  g.addEdge(v6, v7, 1, 1, 1);
+  g.addEdge(v1, v2, 1, 1, 50);
+  g.addEdge(v1, v3, 1, 1, 21);
+  g.addEdge(v2, v4, 1, 1, 42);
+  g.addEdge(v3, v5, 1, 1, 57);
+  g.addEdge(v4, v5, 1, 1, 53);
+  g.addEdge(v4, v6, 1, 1, 57);
+  g.addEdge(v4, v7, 1, 1, 40);
+  g.addEdge(v5, v7, 1, 1, 63);
+  g.addEdge(v6, v7, 1, 1, 51);
   g.addEdge(v7, v8, 1, 1, 1);
 
   uint64_t distance = dijkstra(&g, v1, v8);
@@ -70,15 +70,15 @@ TEST_CASE("Simple dijkstras path is accurate on Graph with 1 Connected Component
   Vertex* v7 = g.addVertex("0x7");
   Vertex* v8 = g.addVertex("0x8");
 
-  g.addEdge(v1, v2, 50, 1, 1);
-  g.addEdge(v1, v3, 21, 1, 1);
-  g.addEdge(v2, v4, 42, 1, 1);
-  g.addEdge(v3, v5, 57, 1, 1);
-  g.addEdge(v4, v5, 53, 1, 1);
-  g.addEdge(v4, v6, 57, 1, 1);
-  g.addEdge(v4, v7, 40, 1, 1);
-  g.addEdge(v5, v7, 63, 1, 1);
-  g.addEdge(v6, v7, 51, 1, 1);
+  g.addEdge(v1, v2, 1, 1, 50);
+  g.addEdge(v1, v3, 1, 1, 21);
+  g.addEdge(v2, v4, 1, 1, 42);
+  g.addEdge(v3, v5, 1, 1, 57);
+  g.addEdge(v4, v5, 1, 1, 53);
+  g.addEdge(v4, v6, 1, 1, 57);
+  g.addEdge(v4, v7, 1, 1, 40);
+  g.addEdge(v5, v7, 1, 1, 63);
+  g.addEdge(v6, v7, 1, 1, 51);
   g.addEdge(v7, v8, 1, 1, 1);
 
   uint64_t distance = dijkstra(&g, v1, v8);
