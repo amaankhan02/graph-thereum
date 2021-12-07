@@ -13,7 +13,7 @@
 * Dijkstra’s Algorithm:
   * Dijkstra’s algorithm, given a source node, finds the shortest path to every node. We will be using this to find the shortest weighted path between two nodes. In terms of our dataset, this tells us how expensive it would be for person 1 (node 1) to transact with person 2 directly (node 2). 
   * The information we need from the dataset is from the ‘transactions’ dataset where we need the from_address, to_address, and receipt_cumalitive. The from and to address represents the 2 nodes, and the receipt_cumalitive represents the weight. That is, the total amount of gas used in the transaction.
-  * The output will be a list of shortest paths to every node in the graph, which will return only the shortest path to the second node that we are looking for. 
+  * The output will be a list of shortest paths to every node in the graph from a single start node, and the function will return only the shortest path to the second node that we are looking for (arbitrarily chosen). We will plot and do very basic statistical analysis on that created list. 
   * Runtime for Dijkstra’s algorithm is O(m*logn). <br />
  
 * Breadth First Traversal: <br />
