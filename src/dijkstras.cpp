@@ -1,17 +1,17 @@
 #include "../include/dijkstras.h"
 // #include "../include/edge.h"
 #include <queue>
-#include <iostream>
+// #include <iostream>
 
 uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
   std::priority_queue<vertptr, std::vector<vertptr>, MyComparator> q;
 
   // set everything to infinity
-  std::cout << "Printing vertices in order now" << std::endl;
+  // std::cout << "Printing vertices in order now" << std::endl;
 
   for (auto vertex : g->getVertices()) {
 
-    std::cout << vertex.second->getAddress() << std::endl;
+    // std::cout << vertex.second->getAddress() << std::endl;
 
     // vertex.second is pointer to the vertex
     if (vertex.second==start) {
@@ -42,7 +42,7 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
       U = q.top();
       q.pop();
     }
-    std::cout << "U is " << U->getAddress() << " with current dist " << U->getDistance() << std::endl;
+    // std::cout << "U is " << U->getAddress() << " with current dist " << U->getDistance() << std::endl;
     U->setExplored(true);
 
 
@@ -57,10 +57,10 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
           V->setDistance(temp_dist);
           V->setParent(U);
           q.push(V);
-          std::cout << "did relax to " << temp_dist << std::endl;
+          // std::cout << "did relax to " << temp_dist << std::endl;
         }
         else {
-          std::cout << "did not relax" << std::endl;
+          // std::cout << "did not relax" << std::endl;
         }
       }
     }
@@ -71,23 +71,41 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
   return end->getDistance();
 }
 
-uint64_t dijkstra(Graph* g) {
-    // std::cout << "Entered dijkstra helper function " << std::endl;
+// uint64_t dijkstra(Graph* g) {
 
-    const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();
-    auto it = temp.begin();
+//     const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();
+//     auto it = temp.begin();
 
-    // std::cout << "About to identify start vertex " << std::endl;
-    Vertex* start = it->second;
+//     Vertex* start = it->second;
 
-    std::cout << "Start vertex is " << start->getAddress() << std::endl;
+//     // std::cout << "Start vertex is " << start->getAddress() << std::endl;
     
-    for (int i = 0; i < 1; ++i) ++it;
+//     for (int i = 0; i < 1; ++i) ++it;
 
+//     Vertex* end = it->second;
+//     // std::cout << "End vertex is " << end->getAddress() << std::endl;
+
+
+//     return dijkstra(g, start, end);
+// };
+
+uint64_t dijkstra(Graph* g) {
+
+  const std::unordered_map<std::string, Vertex*>& temp = g->getVertices();
+  std::vector<uint64_t> outlist;
+  auto it = temp.begin();
+
+  Vertex* start = it->second;
+
+  // std::cout << "Start vertex is " << start->getAddress() << std::endl;
+  
+  for (auto it = temp.begin(); it != temp.end(); ++it) {
     Vertex* end = it->second;
-    std::cout << "End vertex is " << end->getAddress() << std::endl;
+    auto val = dijkstra(g,start,end);
+    outlist.push_back(val);
+    std::cout << val << std::endl;
+  }
+  
+  return outlist[3];
 
-    // std::cout << "Segfault even before calling dijkstra helper function " << std::endl;
-
-    return dijkstra(g, start, end);
 };
