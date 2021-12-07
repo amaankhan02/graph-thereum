@@ -46,12 +46,12 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
     U->setExplored(true);
 
 
-    for (auto incicident_edge : U->getIncidentEdges()) {
-      Vertex* V = incicident_edge->getAdjacentVertex(U);
+    for (auto incident_edge : U->getIncidentEdges()) {
+      Vertex* V = incident_edge->getAdjacentVertex(U);
       if (!(V->wasExplored())) {
 
         std::cout <<"Unexplored neighbor for U is " << V->getAddress() << std::endl;
-        temp_dist = U->getDistance() + incicident_edge->getGasPrice();
+        temp_dist = U->getDistance() + incident_edge->getGasPrice();
 
         if (temp_dist < V->getDistance()) {
           V->setDistance(temp_dist);
