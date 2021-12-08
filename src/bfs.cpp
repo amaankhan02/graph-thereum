@@ -35,7 +35,7 @@ int bfs(Graph* g) {
   return num_connected_components;
 }
 
-void bfs(Graph* g, Vertex* start) {
+int bfs(Graph* g, Vertex* start) {
   queue<Vertex*> q;
   start->setExplored(true);
   q.push(start);
@@ -56,6 +56,10 @@ void bfs(Graph* g, Vertex* start) {
       } */
     }
   }
+
+  // this bfs traverses a single connected component 
+  // return to keep this interface consistent
+  return 1; 
 }
 
 void run_bfs(Graph* g) {
@@ -122,4 +126,67 @@ void run_bfs(Graph* g) {
     cout << GREEN << "All edges have been explored." << RESET << endl;
   else
     cout << BOLDRED << "One or more edges was not explored." << RESET << endl;
+}
+
+vector<Vertex*> get_largest_component(Graph* g) {
+  // Set all vertices as unexplored to start
+  for (pair<string, Vertex*> p : g->getVertices()) {
+    p.second->setExplored(false);
+  }
+
+  // Set all edges as unexplored to start
+  for (Edge* e : g->getEdges()) {
+    e->setExplored(false);
+  }
+
+  vector<Vertex*> largest_connected_component;
+
+  // Run BFS on each connected component of the graph
+  for (pair<string, Vertex*> p : g->getVertices()) {
+    if (!p.second->wasExplored()) {
+      vector<Vertex*> result = get_largest_component(g, p.second);
+
+      if (result.size() > largest_connected_component.size()) {
+        largest_connected_component = result;
+      }
+    }
+  }
+
+  // Set all vertices as unexplored to reset
+  for (pair<string, Vertex*> p : g->getVertices()) {
+    p.second->setExplored(false);
+  }
+
+  // Set all edges as unexplored to reset
+  for (Edge* e : g->getEdges()) {
+    e->setExplored(false);
+  }
+
+  return largest_connected_component;
+}
+
+vector<Vertex*> get_largest_component(Graph* g, Vertex* start) {
+  queue<Vertex*> q;
+  start->setExplored(true);
+  q.push(start);
+
+  std::vector<Vertex*> result;
+  result.push_back(start);
+
+  while (!q.empty()) {
+    Vertex* v = q.front();
+    q.pop();
+
+    for (Edge* indicent : v->getIncidentEdges()) {
+      indicent->setExplored(true);
+      Vertex* adjacent = indicent->getAdjacentVertex(v);
+      if (!adjacent->wasExplored()) {
+        result.push_back(adjacent);
+        adjacent->setExplored(true);
+        q.push(adjacent);
+      }
+    }
+  }
+
+  return result;  
 }

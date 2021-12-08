@@ -18,7 +18,11 @@ int bfs(Graph* g);
  * @param g a Graph* to perform the search upon
  * @param start the Vertex* to begin the search from
  */
-void bfs(Graph* g, Vertex* start);
+int bfs(Graph* g, Vertex* start);
+
+std::vector<Vertex*> get_largest_component(Graph* g);
+
+std::vector<Vertex*> get_largest_component(Graph* g, Vertex* start);
 
 /**
  * @brief Perform breadth first search upon all connected compontents within the

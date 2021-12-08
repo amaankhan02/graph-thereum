@@ -122,6 +122,14 @@ class Graph {
      * @return Graph* a graph constructed from the data in the CSV file.
      */
     static Graph* fromFile(const std::string& path);
+
+    /**
+     * @brief 
+     * 
+     * @param vertices 
+     * @return Graph* 
+     */
+    static Graph* fromVertexList(const std::vector<Vertex*>& vertices);
   private:
     /**
      * @brief A collection of all the edges in this graph in an arbitrary order.

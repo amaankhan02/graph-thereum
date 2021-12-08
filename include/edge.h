@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include "vertex.h"
 
@@ -113,6 +114,15 @@ class Edge {
      * @param explored a bool indicating the new exploration state of this Edge.
      */
     void setExplored(bool explored);
+
+    /**
+     * @brief 
+     * 
+     * @param os 
+     * @param e
+     * @return std::ostream& 
+     */
+    friend std::ostream& operator<<(std::ostream& os, const Edge& e);
   private:
     /**
      * @brief A Vertex* indicating the source of the transaction that this Edge 

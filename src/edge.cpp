@@ -1,5 +1,7 @@
 #include "../include/edge.h"
 
+using std::ostream;
+
 Edge::Edge(Vertex* source, 
            Vertex* destination, 
            double value, 
@@ -40,4 +42,10 @@ bool Edge::wasExplored() const {
 
 void Edge::setExplored(bool explored) { 
   was_explored_ = explored; 
+}
+
+ostream& operator<<(ostream& os, const Edge& e) {
+  os << e.source_->getAddress() << "," << e.destination_->getAddress() << "," 
+     << e.value_ << "," << e.gas_ << "," << e.gas_price_; 
+  return os;
 }

@@ -1,9 +1,12 @@
 #include "../include/graph.h"
 #include "../include/utils.h"
+
+#include <unordered_set>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
+using std::unordered_set;
 using std::unordered_map;
 using std::stringstream;
 using std::make_pair;
@@ -74,7 +77,6 @@ Vertex* Graph::addVertex(const std::string& address) {
 }
 
 Vertex* Graph::getVertex(const std::string& address) const {
-  /// @todo we can speed this up and remove the NULL check if we trust that address is valid
   auto it = vertices_.find(address);
   return it == vertices_.end() ? NULL : it->second;
 }
@@ -132,6 +134,50 @@ Graph* Graph::fromFile(const std::string& path) {
 
   c2 = clock();
   print_elapsed(c1, c2, "loading graph from csv");
+
+  return g;
+}
+
+Graph* Graph::fromVertexList(const vector<Vertex*>& vertices) {
+  Graph* g = new Graph();
+  unordered_set<string> component;
+  
+  for (Vertex* v : vertices) {
+    // Add each edge in the list of vertices to the new graph
+    g->addVertex(v->getAddress());
+
+    // Mark each indicent edge of each vertex in provided graph as unvisited.
+    for (Edge* e : v->getIncidentEdges()) {
+      e->setExplored(false);
+    }
+  }
+
+  for (Vertex* v : vertices) {
+    for (Edge* e : v->getIncidentEdges()) {
+      if (e->wasExplored()) continue;
+
+      // mark edges we add as visited so we do not duplicate edges
+      e->setExplored(true); 
+
+      // Check if both the source and destination of the indicent edge are 
+      // contained in the provided graph. If not, do not add the edge.
+      Vertex* from = g->getVertex(e->getSource()->getAddress());
+      if (from == NULL) continue;
+      
+      Vertex* to = g->getVertex(e->getDestination()->getAddress());
+      if (to == NULL) continue;
+
+      // Duplicate the edge and add to the new graph
+      g->addEdge(from, to, e->getValue(), e->getGas(), e->getGasPrice());
+    }
+  }
+
+  for (Vertex* v : vertices) {
+    // Mark each indicent edge of each vertex in provided graph as unvisited.
+    for (Edge* e : v->getIncidentEdges()) {
+      e->setExplored(false);
+    }
+  }
 
   return g;
 }
