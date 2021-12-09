@@ -20,8 +20,21 @@ int bfs(Graph* g);
  */
 int bfs(Graph* g, Vertex* start);
 
+/**
+ * @brief Get the largest component object
+ * 
+ * @param g 
+ * @return std::vector<Vertex*> 
+ */
 std::vector<Vertex*> get_largest_component(Graph* g);
 
+/**
+ * @brief Get the largest component object
+ * 
+ * @param g 
+ * @param start 
+ * @return std::vector<Vertex*> 
+ */
 std::vector<Vertex*> get_largest_component(Graph* g, Vertex* start);
 
 /**

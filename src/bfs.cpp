@@ -92,7 +92,7 @@ void run_bfs(Graph* g) {
   //////////////////////////////////////////////////////////////////////////////
   ///                            Run BFS on graph                            ///
   //////////////////////////////////////////////////////////////////////////////
-  std::cout << "\nRunning BFS..." << std::endl;
+  cout << "\nRunning BFS..." << endl;
   clock_t c1, c2;
   c1 = clock();
   int num_connected_components = bfs(g);
@@ -170,7 +170,7 @@ vector<Vertex*> get_largest_component(Graph* g, Vertex* start) {
   start->setExplored(true);
   q.push(start);
 
-  std::vector<Vertex*> result;
+  vector<Vertex*> result;
   result.push_back(start);
 
   while (!q.empty()) {

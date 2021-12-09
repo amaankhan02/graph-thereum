@@ -10,6 +10,7 @@ using std::unordered_set;
 using std::unordered_map;
 using std::stringstream;
 using std::make_pair;
+using std::ifstream;
 using std::fstream;
 using std::string;
 using std::vector;
@@ -69,19 +70,19 @@ Edge* Graph::addEdge(Vertex* source, Vertex* destination, double value,
   return e;
 }
 
-Vertex* Graph::addVertex(const std::string& address) {
+Vertex* Graph::addVertex(const string& address) {
   Vertex* v = new Vertex(address);
   vertices_.insert(make_pair(address, v));
 
   return v;
 }
 
-Vertex* Graph::getVertex(const std::string& address) const {
+Vertex* Graph::getVertex(const string& address) const {
   auto it = vertices_.find(address);
   return it == vertices_.end() ? NULL : it->second;
 }
 
-bool Graph::containsVertex(const std::string& address) const {
+bool Graph::containsVertex(const string& address) const {
   return vertices_.find(address) != vertices_.end();
 }
 
@@ -93,21 +94,21 @@ const vector<Edge*>& Graph::getEdges() const {
   return edges_;
 }
 
-Graph* Graph::fromFile(const std::string& path) {
+Graph* Graph::fromFile(const string& path) {
   clock_t c1, c2;
   c1 = clock();
   
   std::cout << "Loading graph..." << std::endl;
   Graph* g = new Graph();
 
-  std::ifstream infile(path);
+  ifstream infile(path);
   string line;
 
   if (infile.is_open()) {
     getline(infile, line); // skip the first line containing column names
 
     while (getline(infile, line)) {
-      std::stringstream comma_separated(line);
+      stringstream comma_separated(line);
       string csv_element, to_address, from_address, value, gas, gas_price;
 
       getline(comma_separated, csv_element, ',');  // discard 0th index element
