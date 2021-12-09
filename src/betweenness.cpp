@@ -39,7 +39,8 @@ unordered_map<string, double>* computeBetweennessCentrality(Graph* graph) {
       }
 
       if (w != dResult->start_node_) {
-        (*centrality)[w->getAddress()] += wContainer.dependency_;
+        // divide by because its an undirected graph so each edge is counted twice (since algo is for directed graphs)
+        (*centrality)[w->getAddress()] += (wContainer.dependency_)/2.0;  
       }
     }
 
