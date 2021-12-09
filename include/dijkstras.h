@@ -4,20 +4,23 @@
 #include "vertex.h"
 #include <iostream>
 #include <unordered_map>
-
-struct DijkstraResults {
-  Vertex* start_node_;
-  std::unordered_map<std::string, DijkstraResultsContainer> results_;
-
-  DijkstraResults(Vertex* start) : start_node_(start), results_() { }
-};
+#include <stack>
 
 struct DijkstraResultsContainer {
   uint64_t distance_;
   double centrality_;
   std::vector<Vertex*> parents_;
+  double dependency_;
 
-  DijkstraResultsContainer() : distance_(), centrality_(), parents_() { }
+  DijkstraResultsContainer() : distance_(0), centrality_(0.0), parents_(), delta_(0.0) {}
+};
+
+struct DijkstraResults {
+  Vertex* start_node_;
+  std::unordered_map<std::string, DijkstraResultsContainer> results_;
+  std::stack<Vertex*> distanceOrderedVertices_;
+
+  DijkstraResults(Vertex* start) : start_node_(start), results_() { }
 };
 
 /**

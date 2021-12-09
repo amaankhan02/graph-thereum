@@ -5,8 +5,7 @@ using std::priority_queue;
 using std::vector;
 
 DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end) {
-  DijkstraResults* results = new DijkstraResults(start);
-
+  DijkstraResults* dr = new DijkstraResults(start);
   std::priority_queue<Vertex*, vector<Vertex*>, MyComparator> q;
 
   for (auto vertex : g->getVertices()) {
@@ -16,7 +15,12 @@ DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end) {
     // record that we have not yet visited this vertex
     vertex.second->setExplored(false);
     q.push(vertex.second);
+
+    dr->results_[vertex.second->getAddress()];
   }
+
+  DijkstraResultsContainer &start_container = dr->results_[start->getAddress()];
+  start_container.centrality_ = 1;
 
   start->setDistance(0);
   uint64_t temp_dist;
@@ -29,8 +33,9 @@ DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end) {
     }
     // std::cout << "U is " << U->getAddress() << " with current dist " << U->getDistance() << std::endl;
     U->setExplored(true);
+    dr->distanceOrderedVertices_.push(U);
 
-
+    DijkstraResultsContainer &U_container = dr->results_[U->getAddress()];
     for (auto incident_edge : U->getIncidentEdges()) {
       Vertex* V = incident_edge->getAdjacentVertex(U);
       if (!(V->wasExplored())) {
@@ -38,11 +43,15 @@ DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end) {
         std::cout <<"Unexplored neighbor for U is " << V->getAddress() << std::endl;
         temp_dist = U->getDistance() + incident_edge->getGas();
 
-        if (temp_dist < V->getDistance()) {
+        if (temp_dist < V->getDistance()) { // found a new shortest path
           V->setDistance(temp_dist);
           V->setParent(U);
           q.push(V);
-          // std::cout << "did relax to " << temp_dist << std::endl;
+          // Betweenness Centrality calculations
+          DijkstraResultsContainer &V_container = dr->results_[V->getAddress()];
+          V_container.centrality_ += U_container.centrality_;
+          V_container.parents_.push_back(U);
+          V_container.distance_ = temp_dist;
         }
         else {
           // std::cout << "did not relax" << std::endl;
