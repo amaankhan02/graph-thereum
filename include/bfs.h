@@ -11,7 +11,7 @@
  */
 int bfs(Graph* g);
 
-/**
+/** 
  * @brief Perform breadth first search upon all connected compontents within the
  * passed graph starting at the passed Vertex.
  * 
