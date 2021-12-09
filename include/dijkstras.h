@@ -7,12 +7,17 @@
 
 struct DijkstraResults {
   Vertex* start_node_;
-  std::unordered_map<std::string, uint64_t> distances_;
-  std::unordered_map<std::string, double> centrality_;
-  std::unordered_map<std::string, std::vector<Vertex*>> parents_;
+  std::unordered_map<std::string, DijkstraResultsContainer> results_;
 
-  DijkstraResults(Vertex* start) 
-    : start_node_(start), distances_(), centrality_(), parents_() { }
+  DijkstraResults(Vertex* start) : start_node_(start), results_() { }
+};
+
+struct DijkstraResultsContainer {
+  uint64_t distance_;
+  double centrality_;
+  std::vector<Vertex*> parents_;
+
+  DijkstraResultsContainer() : distance_(), centrality_(), parents_() { }
 };
 
 /**
