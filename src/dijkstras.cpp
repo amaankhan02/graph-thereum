@@ -1,42 +1,27 @@
 #include "../include/dijkstras.h"
-// #include "../include/edge.h"
 #include <queue>
-// #include <iostream>
+
+using std::priority_queue;
+using std::vector;
 
 uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
-  std::priority_queue<vertptr, std::vector<vertptr>, MyComparator> q;
+  DijkstraResults* results = new DijkstraResults(start);
 
-  // set everything to infinity
-  // std::cout << "Printing vertices in order now" << std::endl;
+  std::priority_queue<Vertex*, vector<Vertex*>, MyComparator> q;
 
   for (auto vertex : g->getVertices()) {
-
-    // std::cout << vertex.second->getAddress() << std::endl;
-
-    // vertex.second is pointer to the vertex
-    if (vertex.second==start) {
-      vertex.second->setDistance(0);
-    }
-    else {
-      vertex.second->setDistance(0xFFFFFFFFFFFFFFFF); 
-    }
-
-    vertex.second->setParent(nullptr);
+    vertex.second->setDistance(0xFFFFFFFFFFFFFFFF); 
+    vertex.second->setParent(NULL);
 
     // record that we have not yet visited this vertex
     vertex.second->setExplored(false);
-
-    // if (vertex.second != start) {
-      // q.push(VertexPointer(vertex.second));
-      q.push(vertex.second);
-    // }
+    q.push(vertex.second);
   }
 
-  // start->setDistance(0);
+  start->setDistance(0);
   uint64_t temp_dist;
 
   while (!q.empty()) {
-
     Vertex* U = q.top();
     while (U->wasExplored()){
       U = q.top();
@@ -51,7 +36,7 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
       if (!(V->wasExplored())) {
 
         std::cout <<"Unexplored neighbor for U is " << V->getAddress() << std::endl;
-        temp_dist = U->getDistance() + incident_edge->getGasPrice();
+        temp_dist = U->getDistance() + incident_edge->getGas();
 
         if (temp_dist < V->getDistance()) {
           V->setDistance(temp_dist);
@@ -68,7 +53,8 @@ uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
     q.pop();
   }
 
-  return end->getDistance();
+  // return end->getDistance();
+  return results;
 }
 
 // uint64_t dijkstra(Graph* g) {

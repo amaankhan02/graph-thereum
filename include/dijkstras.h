@@ -2,9 +2,18 @@
 #include "graph.h"
 #include "edge.h"
 #include "vertex.h"
-// #include "vertexp.h"
 #include <iostream>
+#include <unordered_map>
 
+struct DijkstraResults {
+  Vertex* start_node_;
+  std::unordered_map<std::string, uint64_t> distances_;
+  std::unordered_map<std::string, double> centrality_;
+  std::unordered_map<std::string, std::vector<Vertex*>> parents_;
+
+  DijkstraResults(Vertex* start) 
+    : start_node_(start), distances_(), centrality_(), parents_() { }
+};
 
 /**
  * @brief 
@@ -22,4 +31,4 @@ uint64_t dijkstra(Graph* g);
  * @param end 
  * @return uint64_t 
  */
-uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end);
+DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end);

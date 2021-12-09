@@ -21,13 +21,21 @@ TEST_CASE("V small dijkstra", "[dijkstras]") {
   Vertex* v3 = g.addVertex("0x3");
   Vertex* v4 = g.addVertex("0x4");
 
+  /*
+   *    v1 ---1--- v2 
+   *    |           |
+   *    |           2
+   *    |           |
+   *    -----4---- v3 ---3--- v4
+   */
+
   g.addEdge(v1, v2, 1, 1, 2);
-  g.addEdge(v1, v3, 1, 1, 12);
-  g.addEdge(v2, v3, 1, 1, 3);
-  g.addEdge(v3, v4, 1, 1, 2);
+  g.addEdge(v1, v3, 1, 4, 12);
+  g.addEdge(v2, v3, 1, 2, 3);
+  g.addEdge(v3, v4, 1, 3, 2);
 
   uint64_t distance = dijkstra(&g, v1, v4);
-  REQUIRE(distance == 7);
+  REQUIRE(distance == 6);
 }
 
 

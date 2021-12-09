@@ -143,7 +143,7 @@ class Vertex {
 typedef Vertex* vertptr;
 
 struct MyComparator {
-  bool operator() (vertptr arg1, vertptr arg2) {
+  bool operator() (Vertex* arg1, Vertex* arg2) {
     return (arg1->getDistance() > arg2->getDistance());
   }
 };
