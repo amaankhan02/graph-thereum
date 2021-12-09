@@ -5,19 +5,19 @@
 #include <iostream>
 #include <unordered_map>
 
-struct DijkstraResults {
-  Vertex* start_node_;
-  std::unordered_map<std::string, DijkstraResultsContainer> results_;
-
-  DijkstraResults(Vertex* start) : start_node_(start), results_() { }
-};
-
 struct DijkstraResultsContainer {
   uint64_t distance_;
   double centrality_;
   std::vector<Vertex*> parents_;
 
   DijkstraResultsContainer() : distance_(), centrality_(), parents_() { }
+};
+
+struct DijkstraResults {
+  Vertex* start_node_;
+  std::unordered_map<std::string, DijkstraResultsContainer> results_;
+
+  DijkstraResults(Vertex* start) : start_node_(start), results_() { }
 };
 
 /**
@@ -36,4 +36,4 @@ uint64_t dijkstra(Graph* g);
  * @param end 
  * @return uint64_t 
  */
-DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end);
+DijkstraResults* dijkstra(Graph* g, Vertex* start);
