@@ -4,7 +4,7 @@
 using std::priority_queue;
 using std::vector;
 
-uint64_t dijkstra(Graph* g, Vertex* start, Vertex* end) {
+DijkstraResults* dijkstra(Graph* g, Vertex* start, Vertex* end) {
   DijkstraResults* results = new DijkstraResults(start);
 
   std::priority_queue<Vertex*, vector<Vertex*>, MyComparator> q;
@@ -87,11 +87,12 @@ uint64_t dijkstra(Graph* g) {
   
   for (auto it = temp.begin(); it != temp.end(); ++it) {
     Vertex* end = it->second;
-    auto val = dijkstra(g,start,end);
-    outlist.push_back(val);
+    DijkstraResults* val = dijkstra(g,start,end);
+    outlist.push_back(val->distances_[end->getAddress()]);
     std::cout << val << std::endl;
+
+    delete val;
   }
   
   return outlist[3];
-
 };
