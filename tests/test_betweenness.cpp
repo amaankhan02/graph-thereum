@@ -11,12 +11,6 @@
 using std::unordered_map;
 using std::string;
 
-/**
- *          E ---------- A
- *          |            |
- *          |            |
- *          F
- */
 TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[betweenness]") {
   Graph g;
 
@@ -37,11 +31,48 @@ TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[be
 
   unordered_map<string, double>* results = computeBetweennessCentrality(&g);
 
-  REQUIRE( (*results)[c->getAddress()] == 6 );
+  REQUIRE( (*results)[a->getAddress()] == 0.0 );
+  REQUIRE( (*results)[b->getAddress()] == 0.0 );
+  REQUIRE( (*results)[c->getAddress()] == 6.0 );
+  REQUIRE( (*results)[d->getAddress()] == 6.0 );
+  REQUIRE( (*results)[e->getAddress()] == 0.0 );
+  REQUIRE( (*results)[f->getAddress()] == 0.0 );
 
   delete results;
 }
 
+/**
+ *
+ *          E ----------- A
+ *          |             |
+ *          |             |
+ *          F             B
+ *          \           /   \
+ *           \         /     \
+ *            \ ----- C ----- D
+ *
+ * Betweenness Centrality of Each Vertex and Amount Each Path Contributes:
+ *      - A: 1.5
+ *          - E --> A --> B --> D (+0.5)
+ *          - E --> F --> C --> D (+0.0)
+ *          - E --> A --> B       (+1.0)
+ *      - B: 2.5
+ *          - E --> A --> B --> D (+0.5)
+ *          - E --> F --> C --> D (+0.0)
+ *          - A --> B --> C       (+1.0)
+ *          - A --> B --> D       (+1.0)
+ *      - C: 2.5
+ *          - E --> F --> C --> D (+0.5)
+ *          - E --> A --> B --> D (+0.0)
+ *          - F --> C --> D       (+1.0)
+ *          - F --> C --> B       (+1.0)
+ *      - D: 0.0
+ *          - D is not a central node in any shortest paths
+ *      - E: 1.0
+ *          - F --> E --> A       (+1.0)
+ *      - F: 1.0
+ *          - E --> F --> C       (+1.0)
+ */
 TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   Graph g;
 
@@ -63,6 +94,11 @@ TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   unordered_map<string, double>* results = computeBetweennessCentrality(&g);
 
   REQUIRE( (*results)[a->getAddress()] == 1.5 );
+  REQUIRE( (*results)[b->getAddress()] == 2.5 );
+  REQUIRE( (*results)[c->getAddress()] == 2.5 );
+  REQUIRE( (*results)[d->getAddress()] == 0.0 );
+  REQUIRE( (*results)[e->getAddress()] == 1.0 );
+  REQUIRE( (*results)[f->getAddress()] == 1.0 );
 
   delete results;
 }
