@@ -91,8 +91,11 @@ int main(int argc, char* argv[]) {
 
   if (should_run_dijkstra) {
 //    uint64_t answer = dijkstra(g);
-    uint64_t answer = 0;
-    std::cout << "\n\nShortest path was " << answer << std::endl;
+    auto start = g->getVertices().begin();
+    dijkstra(g, start->second);
+    std::cout << "Ran dijkstra's algorithm" << std::endl;
+    saveDistances(g,"results/dijsktra_output.csv");
+    std::cout << "Saved all shortest paths to results/dijsktra_output.csv" << std::endl;
   }
 
   if (largest_connected_component != NULL) {
