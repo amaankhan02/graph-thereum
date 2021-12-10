@@ -19,8 +19,7 @@ unordered_map<string, double> compute_betweenness_centrality(Graph* graph) {
   for (pair<string, Vertex*> vertexPair : graph->getVertices()) {
     // single-shortest-path
     dijkstra(graph, vertexPair.second);
-    if (++i % 1000 == 0)
-      std::cout << i << std::endl;
+
     // accumulation
     while (graph->hasDistanceOrderedVertices()) {
       Vertex* w = graph->popDistanceOrderedVertex();
