@@ -102,3 +102,43 @@ TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   REQUIRE( results[e->getAddress()] == 1.0 );
   REQUIRE( results[f->getAddress()] == 1.5 );
 }
+
+/**       4
+ *    E ----- A
+ *    |       |
+ *  8 |       | 6
+ *    |       |
+ *    F       B
+ *    \     /  \
+ *  16 \ 12/    \ 1
+ *      \ /      \
+ *       C ------ D
+ *           1
+ */
+TEST_CASE("Betweenness Centrality on Graph with Unequal Edge Weights", "[betweenness]") {
+  Graph g;
+
+  Vertex* a = g.addVertex("0x1");
+  Vertex* b = g.addVertex("0x2");
+  Vertex* c = g.addVertex("0x3");
+  Vertex* d = g.addVertex("0x4");
+  Vertex* e = g.addVertex("0x5");
+  Vertex* f = g.addVertex("0x6");
+
+  g.addEdge(a, b, 1, 6, 1);
+  g.addEdge(a, e, 1, 4, 1);
+  g.addEdge(e, f, 1, 8, 1);
+  g.addEdge(f, c, 1, 16, 1);
+  g.addEdge(b, c, 1, 12, 1);
+  g.addEdge(b, d, 1, 1, 1);
+  g.addEdge(d, c, 1, 1, 1);
+
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
+
+  REQUIRE( results[a->getAddress()] == 4.5 );
+  // REQUIRE( results[b->getAddress()] == 2.5 );
+  // REQUIRE( results[c->getAddress()] == 2.5 );
+  // REQUIRE( results[d->getAddress()] == 0.0 );
+  // REQUIRE( results[e->getAddress()] == 1.0 );
+  // REQUIRE( results[f->getAddress()] == 1.5 );
+}
