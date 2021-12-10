@@ -20,14 +20,15 @@ using std::pair;
 
 int main(int argc, char* argv[]) {
   string dataset_filepath, cc_addresses_filepath;
-  bool should_run_bfs, should_run_betweeness, should_run_dijkstra;
+  bool should_run_bfs, should_run_dijkstra;
+  int num_betweenness_to_print;
 
   ArgumentParser ap;
 
   ap.add_argument("-f", true, &dataset_filepath, "The path to the dataset to load as a graph.");
   ap.add_argument("-b", false, &should_run_bfs, "Indicates whether or not to run BFS on the graph.");
   ap.add_argument("-d", false, &should_run_dijkstra, "Indicates whether or not to run Djikstra's on the graph.");
-  ap.add_argument("-c", false, &should_run_betweeness, "Indicates whether or not to run betweeness centrality algorithms on the graph.");
+  ap.add_argument("-c", false, &num_betweenness_to_print, "Indicates the number of nodes to print the betweeness centrality of. Prints the BC of the k nodes with the largest BC.");
   ap.add_argument("-l", false, &cc_addresses_filepath, "The path to save addresses of the largest connected component. Does nothing if not specified.");
 
   ap.parse(argc, argv);
@@ -69,7 +70,7 @@ int main(int argc, char* argv[]) {
     of.close();
   }
 
-  if (should_run_betweeness) {
+  if (num_betweenness_to_print > 0) {
     std::cout << YELLOW << "Computing betweenness centrality on graph..." 
               << RESET << std::endl;
     unordered_map<string, double> bc = compute_betweenness_centrality(g);
