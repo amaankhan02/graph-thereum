@@ -29,19 +29,18 @@ TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[be
   g.addEdge(d, f, 1, 1, 1);
   g.addEdge(e, f, 1, 1, 1);
 
-  unordered_map<string, double>* results = computeBetweennessCentrality(&g);
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
 
-  REQUIRE( (*results)[a->getAddress()] == 0.0 );
-  REQUIRE( (*results)[b->getAddress()] == 0.0 );
-  REQUIRE( (*results)[c->getAddress()] == 6.0 );
-  REQUIRE( (*results)[d->getAddress()] == 6.0 );
-  REQUIRE( (*results)[e->getAddress()] == 0.0 );
-  REQUIRE( (*results)[f->getAddress()] == 0.0 );
-
-  delete results;
+  REQUIRE( results[a->getAddress()] == 0.0 );
+  REQUIRE( results[b->getAddress()] == 0.0 );
+  REQUIRE( results[c->getAddress()] == 6.0 );
+  REQUIRE( results[d->getAddress()] == 6.0 );
+  REQUIRE( results[e->getAddress()] == 0.0 );
+  REQUIRE( results[f->getAddress()] == 0.0 );
 }
 
 /**
+ * All Edge Weights are 1:
  *
  *          E ----------- A
  *          |             |
@@ -70,8 +69,11 @@ TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[be
  *          - D is not a central node in any shortest paths
  *      - E: 1.0
  *          - F --> E --> A       (+1.0)
- *      - F: 1.0
+ *      - F: 1.5
  *          - E --> F --> C       (+1.0)
+ *          - E --> F --> C --> D (+0.5)
+ *          - E --> A --> B --> D (+0.0)
+ *
  */
 TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   Graph g;
@@ -91,14 +93,12 @@ TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   g.addEdge(b, d, 1, 1, 1);
   g.addEdge(d, c, 1, 1, 1);
 
-  unordered_map<string, double>* results = computeBetweennessCentrality(&g);
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
 
-  REQUIRE( (*results)[a->getAddress()] == 1.5 );
-  REQUIRE( (*results)[b->getAddress()] == 2.5 );
-  REQUIRE( (*results)[c->getAddress()] == 2.5 );
-  REQUIRE( (*results)[d->getAddress()] == 0.0 );
-  REQUIRE( (*results)[e->getAddress()] == 1.0 );
-  REQUIRE( (*results)[f->getAddress()] == 1.0 );
-
-  delete results;
+  REQUIRE( results[a->getAddress()] == 1.5 );
+  REQUIRE( results[b->getAddress()] == 2.5 );
+  REQUIRE( results[c->getAddress()] == 2.5 );
+  REQUIRE( results[d->getAddress()] == 0.0 );
+  REQUIRE( results[e->getAddress()] == 1.0 );
+  REQUIRE( results[f->getAddress()] == 1.5 );
 }

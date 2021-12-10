@@ -4,7 +4,7 @@
 #include "edge.h"
 
 /**
- * Predeclare the Edge class to resolve the circular dependency issue 
+ * @brief Predeclare the Edge class to resolve the circular dependency issue
  * that arises out of our adjacency list graph implementation. The compiler 
  * needs to know the size of each type contained as members of the Vertex class. 
  * We are only using Edge*, so the exact size of Edge does not matter. This 
@@ -94,23 +94,25 @@ class Vertex {
      * @return a uint64_t used in the implementation of Dijkstra's algorithm to 
      * find the shortest path between two vertices.
      */
-    uint64_t getDistance();
+    uint64_t getDistance() const;
 
-    Vertex* getParent();
+    Vertex* getParent() const;
 
     void setParent(Vertex* parent);
 
-    /**
-     * @brief Compares the distance parameters of two Vertex objects. This 
-     * operator is used by the priority queue in the implementation of 
-     * Dijkstra's algorithm to find the shortest path between two vertices.
-     * 
-     * @param other the Vertex object with which to compare distances with.
-     * @return true if this Vertex has a smaller distance than the other vertex.
-     * @return false if this Vertex has a greater or equa;l distance than the other vertex.
-     */
-    // bool operator>(Vertex& other); 
-    
+    void addCentralityParent(Vertex* parent);
+
+    void incrementCentrality(double amount);
+
+    double getCentrality() const;
+
+    void incrementDependency(double amount);
+
+    double getDependency() const;
+
+    const std::vector<Vertex*>& getCentralityParents() const;
+
+    void reset();
   private: 
     /**
      * @brief The blockchain address of the person represented by this 
@@ -137,12 +139,42 @@ class Vertex {
      */
     uint64_t distance_; 
 
+    /**
+     * @brief
+     */
     Vertex* parent_;
+
+    /**
+     * @brief
+     */
+    std::vector<Vertex*> centrality_parents_;
+
+    /**
+     * @brief
+     */
+    double centrality_;
+
+    /**
+     * @brief
+     */
+    double dependency_;
 };
 
-typedef Vertex* vertptr;
-
+/**
+ * @brief
+ */
 struct MyComparator {
+  /**
+   * @brief Compares the distance parameters of two Vertex objects. This
+   * operator is used by the priority queue in the implementation of
+   * Dijkstra's algorithm to find the shortest path between two vertices.
+   *
+   * @param arg1 one of the Vertex objects with which to compare distances with.
+   * @param arg2 the other Vertex object with which to compare distances with.
+   *
+   * @return true if arg1 has a larger distance than arg2.
+   * @return false if arg1 has a smaller distance than arg2.
+   */
   bool operator() (Vertex* arg1, Vertex* arg2) {
     return (arg1->getDistance() > arg2->getDistance());
   }

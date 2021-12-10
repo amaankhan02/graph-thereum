@@ -7,4 +7,4 @@
 #include "edge.h"
 #include "vertex.h"
 
-std::unordered_map<std::string, double>* computeBetweennessCentrality(Graph* graph);
+std::unordered_map<std::string, double> compute_betweenness_centrality(Graph* graph);

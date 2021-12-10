@@ -8,44 +8,35 @@ using std::vector;
 using std::string;
 using std::pair;
 
-unordered_map<string, double>* computeBetweennessCentrality(Graph* graph) {
-  auto* centrality = new unordered_map<string, double>();
+unordered_map<string, double> compute_betweenness_centrality(Graph* graph) {
+  unordered_map<string, double> betweenness_centrality;
 
   for (pair<string, Vertex*> vertexPair : graph->getVertices()) {
-//    centrality.insert({vertexPair.second->getAddress(), 0.0});
-//    centrality[vertexPair.second->getAddress()] = 0.0;
-    centrality->insert(make_pair(vertexPair.second->getAddress(), 0.0));
+    betweenness_centrality.insert({vertexPair.second->getAddress(), 0.0});
   }
 
   for (pair<string, Vertex*> vertexPair : graph->getVertices()) {
     // single-shortest-path
-    DijkstraResults* dResult = dijkstra(graph, vertexPair.second);
+    dijkstra(graph, vertexPair.second);
 
     // accumulation
-    while (!dResult->distance_ordered_vertices_.empty()) {
-      Vertex* w = dResult->distance_ordered_vertices_.top();
-      dResult->distance_ordered_vertices_.pop();
-      DijkstraResultsContainer& wContainer = dResult->results_[w->getAddress()];
+    while (graph->hasDistanceOrderedVertices()) {
+      Vertex* w = graph->popDistanceOrderedVertex();
 
-      for (Vertex* v : wContainer.parents_) {
-        DijkstraResultsContainer& vContainer = dResult->results_[v->getAddress()];
-        if (wContainer.centrality_ == 0) {
-          std::cout << "Here" << std::endl;
+      for (Vertex* v : w->getCentralityParents()) {
+        if (w->getCentrality() == 0) continue;
 
-          continue;
-        }
-        vContainer.dependency_ += (vContainer.centrality_ / wContainer.centrality_) * (1 + wContainer.dependency_);
-//        vContainer.dependency_ += (vContainer.centrality_ / wContainer.centrality_) * (1 + wContainer.dependency_);
+        v->incrementDependency((v->getCentrality() / w->getCentrality()) * (1 + w->getDependency()));
       }
 
-      if (w != dResult->start_node_) {
-        // divide by because its an undirected graph so each edge is counted twice (since algo is for directed graphs)
-        (*centrality)[w->getAddress()] += (wContainer.dependency_)/2.0;  
+      // only add centrality to paths that do not start/end at the starting vertex
+      if (w != vertexPair.second) {
+        // divide by because its an undirected graph so each edge is counted
+        // twice (since algo is for directed graphs)
+        betweenness_centrality[w->getAddress()] += w->getDependency() / 2.0;
       }
     }
-
-    delete dResult;
   }
 
-  return centrality;
+  return betweenness_centrality;
 }

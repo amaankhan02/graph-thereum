@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <stack>
 
 #include "vertex.h"
 #include "edge.h"
@@ -111,6 +112,14 @@ class Graph {
      */
     const std::vector<Edge*>& getEdges() const;
 
+    void pushDistanceOrderedVertex(Vertex* v);
+
+    Vertex* popDistanceOrderedVertex();
+
+    void resetDistanceOrderedVertices();
+
+    bool hasDistanceOrderedVertices() const;
+
     /**
      * @brief Constructs a Graph with all edges and vertices allocated on the 
      * heap by loading etherium transactions from a CSV file. CSV records are 
@@ -141,6 +150,11 @@ class Graph {
      * associated address in the etherium blockchain.
      */
     std::unordered_map<std::string, Vertex*> vertices_;
+
+    /**
+     * @brief
+     */
+    std::stack<Vertex*> distance_ordered_vertices_;
 
     /**
      * @brief Delete all of the associated Vertex objects and Edge objects 

@@ -14,7 +14,7 @@ using std::endl;
 int bfs(Graph* g) {
   // Set all vertices as unexplored to start
   for (pair<string, Vertex*> p : g->getVertices()) {
-    p.second->setExplored(false);
+    p.second->reset();
   }
 
   // Set all edges as unexplored to start
@@ -131,7 +131,7 @@ void run_bfs(Graph* g) {
 vector<Vertex*> get_largest_component(Graph* g) {
   // Set all vertices as unexplored to start
   for (pair<string, Vertex*> p : g->getVertices()) {
-    p.second->setExplored(false);
+    p.second->reset();
   }
 
   // Set all edges as unexplored to start

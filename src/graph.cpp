@@ -182,3 +182,21 @@ Graph* Graph::fromVertexList(const vector<Vertex*>& vertices) {
 
   return g;
 }
+
+void Graph::pushDistanceOrderedVertex(Vertex* v) {
+  distance_ordered_vertices_.push(v);
+}
+
+Vertex* Graph::popDistanceOrderedVertex() {
+  Vertex* v = distance_ordered_vertices_.top();
+  distance_ordered_vertices_.pop();
+  return v;
+}
+
+void Graph::resetDistanceOrderedVertices() {
+  while(!distance_ordered_vertices_.empty()) distance_ordered_vertices_.pop();
+}
+
+bool Graph::hasDistanceOrderedVertices() const {
+  return !distance_ordered_vertices_.empty();
+}
