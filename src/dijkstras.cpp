@@ -25,12 +25,13 @@ void dijkstra(Graph* g, Vertex* start) {
     Vertex* U = q.top();
     while (U->wasExplored()) {
       if (q.empty()) return;
-      U = q.top();
       q.pop();
+      U = q.top();
     }
 
-    U->setExplored(true);
     g->pushDistanceOrderedVertex(U);
+    U->setExplored(true);
+    q.pop();
 
 //    DijkstraResultsContainer& U_container = dr->results_[U->getAddress()];
     for (auto incident_edge : U->getIncidentEdges()) {
@@ -49,8 +50,6 @@ void dijkstra(Graph* g, Vertex* start) {
         }
       }
     }
-    
-    q.pop();
   }
 }
 
