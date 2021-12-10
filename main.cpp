@@ -83,7 +83,7 @@ int main(int argc, char* argv[]) {
 
     make_heap(bc_heap.begin(), bc_heap.end(), compare_bc_heap); 
 
-    for (size_t i = 0; i < 5; ++i) {
+    for (int i = 0; i < num_betweenness_to_print; ++i) {
       std::cout << BLUE << "Betweenness Centrality of Address " 
                 << bc_heap[i].first << ": " << bc_heap[i].second << RESET << std::endl;
     }
