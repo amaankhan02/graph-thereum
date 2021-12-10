@@ -26,7 +26,7 @@ int bfs(Graph* g, Vertex* start);
  * @param g 
  * @return std::vector<Vertex*> 
  */
-std::vector<Vertex*> get_largest_component(Graph* g);
+std::vector<Vertex*> find_largest_component(Graph* g);
 
 /**
  * @brief Get the largest component object
@@ -35,7 +35,7 @@ std::vector<Vertex*> get_largest_component(Graph* g);
  * @param start 
  * @return std::vector<Vertex*> 
  */
-std::vector<Vertex*> get_largest_component(Graph* g, Vertex* start);
+std::vector<Vertex*> find_largest_component(Graph* g, Vertex* start);
 
 /**
  * @brief Perform breadth first search upon all connected compontents within the

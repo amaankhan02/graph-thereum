@@ -42,5 +42,5 @@ void print_elapsed(clock_t& c1, clock_t& c2, const std::string_view& action);
  * @return true 
  * @return false 
  */
-bool compare_bc_heap(const std::pair<std::string, double>& p1, 
+bool compare_bc_pair(const std::pair<std::string, double>& p1,
                      const std::pair<std::string, double>& p2);

@@ -96,22 +96,72 @@ class Vertex {
      */
     uint64_t getDistance() const;
 
+    /**
+     * @brief Get the Parent object
+     * 
+     * @return Vertex* 
+     */
     Vertex* getParent() const;
 
+    /**
+     * @brief Set the Parent object
+     * 
+     * @param parent 
+     */
     void setParent(Vertex* parent);
 
+    /**
+     * @brief 
+     * 
+     * @param parent 
+     */
     void addCentralityParent(Vertex* parent);
 
+    /**
+     * @brief 
+     * 
+     * @param amount 
+     */
     void incrementCentrality(double amount);
 
+    /**
+     * @brief Get the Centrality object
+     * 
+     * @return double 
+     */
     double getCentrality() const;
 
+    /**
+     * @brief 
+     * 
+     * @param amount 
+     */
     void incrementDependency(double amount);
 
+    /**
+     * @brief Get the Dependency object
+     * 
+     * @return double 
+     */
     double getDependency() const;
 
+    /**
+     * @brief Get the Vertex* that precede this Vertex in any number of shortest 
+     * paths between two arbitrary vertices. 
+     * 
+     * @return a const std::vector<Vertex*>& containing pointers to predecessor
+     * vertices filled after computing shortest paths between some arbitrary 
+     * vertex and all other vertices in the graph. 
+     */
     const std::vector<Vertex*>& getCentralityParents() const;
 
+    /**
+     * @brief Reset all internal state that is accessed and updated when running
+     * various graph algorithms. This function is meant to be used at the start 
+     * of graph algorithms when resetting the all vertex labels and state. This 
+     * function DOES NOT clear this Vertex's collection of indicent edges or the 
+     * blockchain address.
+     */
     void reset();
   private: 
     /**
@@ -140,30 +190,41 @@ class Vertex {
     uint64_t distance_; 
 
     /**
-     * @brief
+     * @brief A Vertex* that stores the predecessor of this vertex in some 
+     * shortest path between 2 arbitrary vertices. This field is used when 
+     * running Dijkstra's algorithm to find the shortest path from one vertex
+     * to all other vertices. 
      */
     Vertex* parent_;
 
     /**
-     * @brief
+     * @brief A vector of Vertex* that stores the parents of this vertex in any
+     * number of shortest paths. This vector is used when computing betweenness
+     * centrality.
      */
     std::vector<Vertex*> centrality_parents_;
 
     /**
-     * @brief
+     * @brief A double used when computing betweenness centrality. This value 
+     * represents the number of shortest paths between 2 other arbitrary 
+     * vertices that this vertex appears in.
      */
     double centrality_;
 
     /**
-     * @brief
+     * @brief A double used when computing betweenness centrality. This value 
+     * represents the ratio of shortest paths between 2 other 
+     * arbitrary vertices that this vertex lies on.
      */
     double dependency_;
 };
 
 /**
- * @brief
+ * @brief This comparator is used to compare the distance values of two Vertex*. 
+ * This comparator struct is used to construct a priority queue of Vertex* in
+ * our implementation of Dijkstra's algorithm. 
  */
-struct MyComparator {
+struct VertexPointerComparator {
   /**
    * @brief Compares the distance parameters of two Vertex objects. This
    * operator is used by the priority queue in the implementation of
