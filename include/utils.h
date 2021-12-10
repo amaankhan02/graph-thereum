@@ -1,5 +1,6 @@
 #pragma once
 #include <string_view>
+#include <string>
 #include <ctime>
 
 // Constants used to print in color to the command line
@@ -32,3 +33,14 @@
  * given clocks and computed elapsed time.
  */
 void print_elapsed(clock_t& c1, clock_t& c2, const std::string_view& action);
+
+/**
+ * @brief 
+ * 
+ * @param p1 
+ * @param p2 
+ * @return true 
+ * @return false 
+ */
+bool compare_bc_heap(const std::pair<std::string, double>& p1, 
+                     const std::pair<std::string, double>& p2);

@@ -1,15 +1,22 @@
+#include <unordered_map>
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <queue>
 
 #include "include/argument_parser.h"
+#include "include/betweenness.h"
+#include "include/dijkstras.h"
 #include "include/graph.h"
 #include "include/utils.h"
 #include "include/bfs.h"
-#include "include/dijkstras.h"
 
+using std::priority_queue;
+using std::unordered_map;
+using std::make_heap;
 using std::vector;
 using std::string;
+using std::pair;
 
 int main(int argc, char* argv[]) {
   string dataset_filepath, cc_addresses_filepath;
@@ -62,8 +69,23 @@ int main(int argc, char* argv[]) {
     of.close();
   }
 
+  if (false) {
+    std::cout << YELLOW << "Computing betweenness centrality on graph..." 
+              << RESET << std::endl;
+    unordered_map<string, double> bc = compute_betweenness_centrality(g);
+    std::cout << YELLOW << "Finished computing betweenness centrality on graph..." 
+              << RESET << std::endl;
+
+    vector<pair<string, double>> bc_heap;
+    for (pair<string, double> p : bc)
+      bc_heap.push_back(p);
+
+    make_heap(bc_heap.begin(), bc_heap.end(), compare_bc_heap); 
+  }
+
   if (should_run_dijkstra) {
-    uint64_t answer = dijkstra(g);
+//    uint64_t answer = dijkstra(g);
+    uint64_t answer = 0;
     std::cout << "\n\nShortest path was " << answer << std::endl;
   }
 

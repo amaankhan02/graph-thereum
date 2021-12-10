@@ -33,42 +33,21 @@ void dijkstra(Graph* g, Vertex* start) {
     U->setExplored(true);
     q.pop();
 
-//    DijkstraResultsContainer& U_container = dr->results_[U->getAddress()];
     for (auto incident_edge : U->getIncidentEdges()) {
-      Vertex* V = incident_edge->getAdjacentVertex(U);
-      if (!V->wasExplored()) {
+      Vertex& V = *incident_edge->getAdjacentVertex(U);
+      if (!V.wasExplored()) {
         temp_dist = U->getDistance() + incident_edge->getGas();
 
-        if (temp_dist <= V->getDistance()) { // found a new shortest path
-          V->setDistance(temp_dist);
-          V->setParent(U);
-          q.push(V);
+        if (temp_dist <= V.getDistance()) { // found a new shortest path
+          V.setDistance(temp_dist);
+          V.setParent(U);
+          q.push(&V);
 
           // Betweenness Centrality calculations
-          V->incrementCentrality(U->getCentrality());
-          V->addCentralityParent(U);
+          V.incrementCentrality(U->getCentrality());
+          V.addCentralityParent(U);
         }
       }
     }
   }
-}
-
-uint64_t dijkstra(Graph* g) {
-  const unordered_map<string, Vertex*>& temp = g->getVertices();
-  vector<uint64_t> outlist;
-  auto it = temp.begin();
-
-  Vertex* start = it->second;
-
-//  for (auto it = temp.begin(); it != temp.end(); ++it) {
-//    Vertex* end = it->second;
-//    DijkstraResults* val = dijkstra(g,start);
-//    outlist.push_back(val->results_[end->getAddress()].distance_);
-//    std::cout << val << std::endl;
-//
-//    delete val;
-//  }
-  
-//  return outlist[3];
-return 0;
 }

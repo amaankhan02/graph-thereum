@@ -1,18 +1,7 @@
 #pragma once
+#include "vertex.h"
 #include "graph.h"
 #include "edge.h"
-#include "vertex.h"
-#include <iostream>
-#include <unordered_map>
-#include <stack>
-
-/**
- * @brief 
- * 
- * @param g 
- * @return uint64_t 
- */
-uint64_t dijkstra(Graph* g);
 
 /**
  * @brief 
