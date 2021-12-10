@@ -65,7 +65,7 @@ TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[be
   g.addEdge(d, f, 1, 1, 1);
   g.addEdge(e, f, 1, 1, 1);
 
-  unordered_map<string, double> results = compute_betweenness_centrality_parallel(&g);
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
 
   REQUIRE( results[a->getAddress()] == 0.0 );
   REQUIRE( results[b->getAddress()] == 0.0 );
@@ -129,7 +129,7 @@ TEST_CASE("Simple Betweenness Centrality 2", "[betweenness]") {
   g.addEdge(b, d, 1, 1, 1);
   g.addEdge(d, c, 1, 1, 1);
 
-  unordered_map<string, double> results = compute_betweenness_centrality_parallel(&g);
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
 
   REQUIRE( results[a->getAddress()] == 1.5 );
   REQUIRE( results[b->getAddress()] == 2.5 );
@@ -169,7 +169,7 @@ TEST_CASE("Betweenness Centrality on Graph with Unequal Edge Weights", "[between
   g.addEdge(b, d, 1, 1, 1);
   g.addEdge(d, c, 1, 1, 1);
 
-  unordered_map<string, double> results = compute_betweenness_centrality_parallel(&g);
+  unordered_map<string, double> results = compute_betweenness_centrality(&g);
 
   REQUIRE( results[a->getAddress()] == 4.5 );
   // REQUIRE( results[b->getAddress()] == 2.5 );

@@ -7,11 +7,11 @@
 
 #include <iostream>
 #include <string>
-#include <list>
+#include <vector>
 
+using std::vector;
 using std::string;
 using std::pair;
-using std::list;
 
 /**
  *    v1 ---1--- v2
@@ -69,6 +69,21 @@ TEST_CASE("V small dijkstra", "[dijkstras]") {
    REQUIRE( v8->getDistance() == 4 );
  }
 
+ /**
+  * All Edge Weights are 1:
+  *
+  *     1 ----- 2 ----- 4
+  *     |         ____/ | \____
+  *     |        /      |      \
+  *     3 ----- 5 ----- 7 ----- 6
+  *                     |
+  *                     8
+  *
+  *     Potential Shortest Paths from 1 --> 8:
+  *         A. 1 --> 2 --> 4 --> 7 --> 8
+  *         B. 1 --> 3 --> 5 --> 7 --> 8
+  *
+  */
  TEST_CASE("Simple dijkstras path is accurate on Graph with 1 Connected Component and 8 nodes", "[dijkstras]") {
    Graph g;
 
@@ -94,8 +109,8 @@ TEST_CASE("V small dijkstra", "[dijkstras]") {
 
    dijkstra(&g, v1);
 
-   list<Vertex*> correct_path = list<Vertex*> {v8, v7, v4, v2, v1};
-   list<Vertex*> output_path = list<Vertex*> {};
+   vector<Vertex*> correct_path = {v8, v7, v5, v3, v1};
+   vector<Vertex*> output_path;
 
    Vertex* current = v8;
    while(current != NULL) {
