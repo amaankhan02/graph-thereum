@@ -1,4 +1,4 @@
-#include "../cs225/catch/catch.hpp"
+#include "../include/catch/catch.hpp"
 #include "../include/betweenness.h"
 #include "../include/vertex.h"
 #include "../include/graph.h"

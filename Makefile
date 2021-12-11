@@ -44,10 +44,9 @@ $(EXE): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS))
 # Ensure .objs/ exists:
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)/cs225
-	@mkdir -p $(OBJS_DIR)/cs225/catch
 	@mkdir -p $(OBJS_DIR)/tests
 	@mkdir -p $(OBJS_DIR)/src
+	@mkdir -p $(OBJS_DIR)/src/catch
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
@@ -57,10 +56,10 @@ $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 
 # Rules for compiling test suite.
 # - Grab every .cpp file in tests/, compile them to .o files
-# - Build the test program w/ catchmain.cpp from cs225
+# - Build the test program w/ catchmain.cpp from src
 OBJS_TEST += $(filter-out $(EXE_OBJ), $(OBJS))
 CPP_TEST = $(wildcard tests/*.cpp)
-CPP_TEST += cs225/catch/catchmain.cpp
+CPP_TEST += src/catch/catchmain.cpp
 OBJS_TEST += $(CPP_TEST:.cpp=.o)
 
 $(TEST): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
@@ -69,9 +68,8 @@ $(TEST): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
 # Additional dependencies for object files are included in the clang++
 # generated .d files (from $(DEPFILE_FLAGS)):
 -include $(OBJS_DIR)/*.d
--include $(OBJS_DIR)/cs225/*.d
--include $(OBJS_DIR)/cs225/catch/*.d
--include $(OBJS_DIR)/cs225/lodepng/*.d
+-include $(OBJS_DIR)/src/*.d
+-include $(OBJS_DIR)/src/catch/*.d
 -include $(OBJS_DIR)/tests/*.d
 
 # Custom Clang version enforcement Makefile rule:
@@ -79,17 +77,13 @@ ccred=$(shell echo -e "\033[0;31m")
 ccyellow=$(shell echo -e "\033[0;33m")
 ccend=$(shell echo -e "\033[0m")
 
-# IS_EWS=$(shell hostname | grep "ews.illinois.edu") 
-# IS_CORRECT_CLANG=$(shell clang -v 2>&1 | grep "version 6")
-# ifneq ($(strip $(IS_EWS)),)
-# ifeq ($(strip $(IS_CORRECT_CLANG)),)
-# CLANG_VERSION_MSG = $(error $(ccred) On EWS, please run 'module load llvm/6.0.1' first when running CS225 assignments. $(ccend))
-# endif
-# else
-# ifneq ($(strip $(SKIP_EWS_CHECK)),True)
-# CLANG_VERSION_MSG = $(warning $(ccyellow) Looks like you are not on EWS. Be sure to test on EWS before the deadline. $(ccend))
-# endif
-# endif
+IS_EWS=$(shell hostname | grep "ews.illinois.edu") 
+IS_CORRECT_CLANG=$(shell clang -v 2>&1 | grep "version 6")
+ifneq ($(strip $(IS_EWS)),)
+ifeq ($(strip $(IS_CORRECT_CLANG)),)
+CLANG_VERSION_MSG = $(error $(ccred) On EWS, please run 'module load llvm/6.0.1' first when running this project. $(ccend))
+endif
+endif
 
 output_msg: ; $(CLANG_VERSION_MSG)
 
