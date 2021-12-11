@@ -44,6 +44,24 @@ void ArgumentParser::parse(int arg_count, char* arg_values[]) {
       args_[flag].filled_ = true;
       void* to_fill = args_[flag].variable_to_fill_;
 
+      // handle case where flag is provided but no value is given (except bools)
+      if (iter->second.data_type_ != BOOL) {
+        if (i + 1 == arg_count) {
+          // avoid segfault if the value to the last argument is not provided
+          std::cout << BOLDRED << "Invalid argument " << flag
+                    << ": [" << type_as_string(args_[flag].data_type_) << "] "
+                    << args_[flag].description_ << RESET << std::endl;
+          break;
+        } else if (args_.find(arg_values[i + 1]) != args_.end()) {
+          // handle case where flag is immediately followed by another flag
+          std::cout << BOLDRED << "Invalid argument " << flag
+                    << ": [" << type_as_string(args_[flag].data_type_) << "] "
+                    << args_[flag].description_ << RESET << std::endl;
+          continue;
+        }
+      }
+      
+      // if current argument in iteration is valid, parse and save value
       if (iter->second.data_type_ == INT)
         *static_cast<int*>(to_fill) = std::stoi(arg_values[++i]);
       else if (iter->second.data_type_ == BOOL)
@@ -58,7 +76,7 @@ void ArgumentParser::parse(int arg_count, char* arg_values[]) {
   // check if any required arguments have not been provided
   for (pair<string, ArgumentConfig> p : args_) {
     if (p.second.required_ && !p.second.filled_) {
-      std::cout << BOLDRED << "Missing required positional argument " << p.first
+      std::cout << BOLDRED << "Missing required argument " << p.first
                 << ": [" << type_as_string(p.second.data_type_) << "] "
                 << p.second.description_ << RESET << std::endl;
     }

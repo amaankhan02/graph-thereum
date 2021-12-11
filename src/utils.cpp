@@ -10,6 +10,6 @@ void print_elapsed(clock_t& c1, clock_t& c2, const std::string_view& action) {
             << " seconds." << RESET << std::endl;
 }
 
-bool compare_bc_heap(const pair<string, double>& p1, const pair<string, double>& p2) {
-  return p1.second < p2.second;
+bool compare_bc_pair(const pair<string, double>& p1, const pair<string, double>& p2) {
+  return p1.second > p2.second;
 }

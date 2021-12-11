@@ -128,7 +128,7 @@ void run_bfs(Graph* g) {
     cout << BOLDRED << "One or more edges was not explored." << RESET << endl;
 }
 
-vector<Vertex*> get_largest_component(Graph* g) {
+vector<Vertex*> find_largest_component(Graph* g) {
   // Set all vertices as unexplored to start
   for (pair<string, Vertex*> p : g->getVertices()) {
     p.second->reset();
@@ -144,7 +144,7 @@ vector<Vertex*> get_largest_component(Graph* g) {
   // Run BFS on each connected component of the graph
   for (pair<string, Vertex*> p : g->getVertices()) {
     if (!p.second->wasExplored()) {
-      vector<Vertex*> result = get_largest_component(g, p.second);
+      vector<Vertex*> result = find_largest_component(g, p.second);
 
       if (result.size() > largest_connected_component.size()) {
         largest_connected_component = result;
@@ -165,7 +165,7 @@ vector<Vertex*> get_largest_component(Graph* g) {
   return largest_connected_component;
 }
 
-vector<Vertex*> get_largest_component(Graph* g, Vertex* start) {
+vector<Vertex*> find_largest_component(Graph* g, Vertex* start) {
   queue<Vertex*> q;
   start->setExplored(true);
   q.push(start);

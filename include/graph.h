@@ -112,12 +112,32 @@ class Graph {
      */
     const std::vector<Edge*>& getEdges() const;
 
+    /**
+     * @brief 
+     * 
+     * @param v 
+     */
     void pushDistanceOrderedVertex(Vertex* v);
 
+    /**
+     * @brief 
+     * 
+     * @return Vertex* 
+     */
     Vertex* popDistanceOrderedVertex();
 
+    /**
+     * @brief 
+     * 
+     */
     void resetDistanceOrderedVertices();
 
+    /**
+     * @brief 
+     * 
+     * @return true 
+     * @return false 
+     */
     bool hasDistanceOrderedVertices() const;
 
     /**

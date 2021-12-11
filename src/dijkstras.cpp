@@ -8,7 +8,8 @@ using std::string;
 using std::stack;
 
 void dijkstra(Graph* g, Vertex* start) {
-  priority_queue<Vertex*, vector<Vertex*>, MyComparator> q; // creates a priority queue based on distance of vertices
+  // creates a priority queue based on distance of vertices
+  priority_queue<Vertex*, vector<Vertex*>, VertexPointerComparator> q; 
 
   g->resetDistanceOrderedVertices();
   for (auto vertex : g->getVertices()) {

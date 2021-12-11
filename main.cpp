@@ -13,15 +13,15 @@
 
 using std::priority_queue;
 using std::unordered_map;
-using std::make_heap;
 using std::vector;
 using std::string;
 using std::pair;
+using std::sort;
 
 int main(int argc, char* argv[]) {
   string dataset_filepath, cc_addresses_filepath;
-  bool should_run_bfs, should_run_dijkstra;
-  int num_betweenness_to_print;
+  bool should_run_bfs, should_run_dijkstra, verbose;
+  int num_betweenness_to_print, num_threads;
 
   ArgumentParser ap;
 
@@ -30,6 +30,8 @@ int main(int argc, char* argv[]) {
   ap.add_argument("-d", false, &should_run_dijkstra, "Indicates whether or not to run Djikstra's on the graph.");
   ap.add_argument("-c", false, &num_betweenness_to_print, "Indicates the number of nodes to print the betweeness centrality of. Prints the BC of the k nodes with the largest BC.");
   ap.add_argument("-l", false, &cc_addresses_filepath, "The path to save addresses of the largest connected component. Does nothing if not specified.");
+  ap.add_argument("-t", false, &num_threads, "The number of threads to use when computing betweenness centrality. Does nothing if not specified or if not running BC.");
+  ap.add_argument("-v", false, &verbose, "Whether or not to print thread status when running code on multiple threads.");
 
   ap.parse(argc, argv);
 
@@ -37,12 +39,14 @@ int main(int argc, char* argv[]) {
   Graph* largest_connected_component = NULL;
   std::cout << std::endl;
 
+  // Run BFS if the CLI argument to do so was given
   if (should_run_bfs) {
     run_bfs(g);
   }
 
+  // Find the largest connected component if the CLI argument to do so was given
   if (cc_addresses_filepath != "") {
-    vector<Vertex*> cc = get_largest_component(g);
+    vector<Vertex*> cc = find_largest_component(g);
 
     std::cout << YELLOW << "The largest connected component contains " 
               << cc.size() << " vertices." << RESET << std::endl;
@@ -70,30 +74,47 @@ int main(int argc, char* argv[]) {
     of.close();
   }
 
+  // Compute betweenness centrality if the CLI argument to do so was given
   if (num_betweenness_to_print > 0) {
     std::cout << YELLOW << "Computing betweenness centrality on graph..." 
               << RESET << std::endl;
-    unordered_map<string, double> bc = compute_betweenness_centrality(g);
+    unordered_map<string, double> bc = compute_betweenness_centrality(g, num_threads, verbose);
     std::cout << YELLOW << "Finished computing betweenness centrality on graph..." 
               << RESET << std::endl;
 
     vector<pair<string, double>> bc_heap;
-    for (pair<string, double> p : bc)
-      bc_heap.push_back(p);
+    bc_heap.reserve(bc.size());
 
-    make_heap(bc_heap.begin(), bc_heap.end(), compare_bc_heap); 
+    for (pair<string, double> p : bc)
+          bc_heap.push_back(p);
+
+    sort(bc_heap.begin(), bc_heap.end(), compare_bc_pair);
 
     for (int i = 0; i < num_betweenness_to_print; ++i) {
-      std::cout << BLUE << "Betweenness Centrality of Address " 
-                << bc_heap[i].first << ": " << bc_heap[i].second << RESET << std::endl;
+      Vertex* node = g->getVertex(bc_heap[i].first);
+      std::cout << BLUE << "Betweenness Centrality of Address "
+                << bc_heap[i].first << " (" << node->getIncidentEdges().size()
+                << " incident edges): " << bc_heap[i].second << RESET << std::endl;
     }
+
+    std::ofstream of;
+    of.open("data/betweenness_centrality.csv");
+    of << "address,incident_edges,betweenness_centrality" << std::endl;
+    for (auto & i : bc_heap) {
+      Vertex* node = g->getVertex(i.first);
+      of << node->getAddress() << "," << node->getIncidentEdges().size()
+         << "," << i.second << std::endl;
+    }
+    of.close();
   }
 
+  // Run Dijkstra's algorithm if the CLI argument to do so was given
   if (should_run_dijkstra) {
-//    uint64_t answer = dijkstra(g);
-    auto start = g->getVertices().begin();
-    dijkstra(g, start->second);
-    std::cout << "Ran dijkstra's algorithm" << std::endl;
+    Vertex* start = g->getVertices().begin()->second;
+    std::cout << YELLOW << "Running Dijkstra's algorithm starting at vertex " 
+              << "with address " << start->getAddress() << RESET << std::endl;
+    dijkstra(g, start);
+    std::cout << YELLOW << "Finished running Dijkstra's algorithm." << RESET << std::endl;
     saveDistances(g,"results/dijsktra_output.csv");
     std::cout << "Saved all shortest paths to results/dijsktra_output.csv" << std::endl;
   }
