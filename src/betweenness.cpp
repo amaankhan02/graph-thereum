@@ -12,17 +12,18 @@ using std::vector;
 using std::string;
 using std::thread;
 using std::pair;
+using std::move;
 
 std::unordered_map<std::string, double> compute_betweenness_centrality(
     Graph* graph, int num_threads, bool verbose) {
   if (num_threads <= 1) {
-    return compute_betweenness_centrality(graph);
+    return compute_betweenness_centrality_sequential(graph);
   } else {
     return compute_betweenness_centrality_parallel(graph, num_threads, verbose);
   }
 }
 
-unordered_map<string, double> compute_betweenness_centrality(Graph* graph) {
+unordered_map<string, double> compute_betweenness_centrality_sequential(Graph* graph) {
   unordered_map<string, double> betweenness_centrality;
 
   for (pair<string, Vertex*> vertexPair : graph->getVertices()) {
@@ -106,6 +107,7 @@ void compute_betweenness_centrality_parallel_helper(
   auto it = graph->getVertices().begin();
   auto end = graph->getVertices().end();
 
+  // increment the iterator to start at the offset this thread operates on
   int counter = 0;
   while (it != end && counter < thread_index) {
     ++it;
@@ -141,6 +143,8 @@ void compute_betweenness_centrality_parallel_helper(
       }
     }
 
+    // increment the iterator by the number of threads to avoid overlapping 
+    // computation between multiple threads
     counter = 0;
     while (it != end && counter < num_threads) {
       ++it;
