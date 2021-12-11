@@ -18,4 +18,4 @@ def plot(filepath):
   plt.colorbar()
   plt.show()
 
-plot('data/30mb_betweenness_centrality.csv')
+plot('data/30mb_data_betweenness_centrality.csv')
