@@ -99,9 +99,9 @@ output_msg: ; $(CLANG_VERSION_MSG)
 # Standard C++ Makefile rules:
 clean:
 	rm -rf $(EXE) $(TEST) $(OBJS_DIR) $(CLEAN_RM) *.o *.d
-	rm data/*data.csv
 
 tidy: clean
 	rm -rf doc
+	rm data/*data.csv
 
 .PHONY: all tidy clean output_msg data
