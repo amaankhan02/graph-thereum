@@ -1,4 +1,4 @@
-#include "../include/catch/catch.hpp"
+#include "catch.hpp"
 #include "../include/betweenness.h"
 #include "../include/vertex.h"
 #include "../include/graph.h"

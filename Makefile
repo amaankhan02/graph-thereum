@@ -46,7 +46,6 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/tests
 	@mkdir -p $(OBJS_DIR)/src
-	@mkdir -p $(OBJS_DIR)/src/catch
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
@@ -59,7 +58,7 @@ $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 # - Build the test program w/ catchmain.cpp from src
 OBJS_TEST += $(filter-out $(EXE_OBJ), $(OBJS))
 CPP_TEST = $(wildcard tests/*.cpp)
-CPP_TEST += src/catch/catchmain.cpp
+CPP_TEST += tests/catchmain.cpp
 OBJS_TEST += $(CPP_TEST:.cpp=.o)
 
 $(TEST): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
@@ -69,7 +68,6 @@ $(TEST): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
 # generated .d files (from $(DEPFILE_FLAGS)):
 -include $(OBJS_DIR)/*.d
 -include $(OBJS_DIR)/src/*.d
--include $(OBJS_DIR)/src/catch/*.d
 -include $(OBJS_DIR)/tests/*.d
 
 # Custom Clang version enforcement Makefile rule:
