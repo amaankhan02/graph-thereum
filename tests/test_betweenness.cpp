@@ -78,13 +78,13 @@ TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[be
 /**
  * All Edge Weights are 1:
  *
- *          E ----------- A
- *          |             |
- *          |             |
- *          F             B
- *          \           /   \
- *           \         /     \
- *            \ ----- C ----- D
+ *         E ---- A
+ *         |      |
+ *         |      |
+ *         F      B
+ *          \   /   \
+ *           \ /     \
+ *            C ----- D
  *
  * Betweenness Centrality of Each Vertex and Amount Each Path Contributes:
  *      - A: 1.5

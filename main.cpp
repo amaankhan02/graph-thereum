@@ -86,8 +86,7 @@ int main(int argc, char* argv[]) {
     bc_heap.reserve(bc.size());
 
     for (pair<string, double> p : bc)
-          bc_heap.push_back(p);
-
+      bc_heap.push_back(p);
     sort(bc_heap.begin(), bc_heap.end(), compare_bc_pair);
 
     for (int i = 0; i < num_betweenness_to_print; ++i) {
@@ -98,13 +97,17 @@ int main(int argc, char* argv[]) {
     }
 
     std::ofstream of;
-    of.open("data/betweenness_centrality.csv");
+    string base_filepath = dataset_filepath.substr(0, dataset_filepath.size()-4);
+
+    of.open(base_filepath +  + "_betweenness_centrality.csv");
     of << "address,incident_edges,betweenness_centrality" << std::endl;
+
     for (auto & i : bc_heap) {
       Vertex* node = g->getVertex(i.first);
       of << node->getAddress() << "," << node->getIncidentEdges().size()
          << "," << i.second << std::endl;
     }
+    
     of.close();
   }
 
