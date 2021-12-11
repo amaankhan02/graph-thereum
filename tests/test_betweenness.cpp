@@ -11,6 +11,42 @@
 using std::unordered_map;
 using std::string;
 
+/**
+ * All Edge Weights are 1:
+ * 
+ *        A               E
+ *        | \           / |
+ *        |  \         /  | 
+ *        |   C ----- D   |
+ *        |  /         \  |
+ *        | /           \ |
+ *        B               F
+ * 
+ * Betweenness Centrality of Each Vertex and Amount Each Path Contributes:
+ *      - A: 0.0
+ *          - A is not a central node in any shortest paths
+ *      - B: 0.0
+ *          - B is not a central node in any shortest paths
+ *      - C: 6.0
+ *          - A --> C --> D --> E (+1.0)
+ *          - A --> C --> D --> F (+1.0)
+ *          - A --> C --> D       (+1.0)
+ *          - B --> C --> D --> E (+1.0)
+ *          - B --> C --> D --> F (+1.0)
+ *          - B --> C --> D       (+1.0)
+ *      - D: 6.0
+ *          - A --> C --> D --> E (+1.0)
+ *          - A --> C --> D --> F (+1.0)
+ *          - A --> C --> D       (+1.0)
+ *          - B --> C --> D --> E (+1.0)
+ *          - B --> C --> D --> F (+1.0)
+ *          - B --> C --> D       (+1.0)
+ *      - E: 0.0
+ *          - E is not a central node in any shortest paths
+ *      - F: 0.0
+ *          - F is not a central node in any shortest paths
+ *
+ */
 TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[betweenness]") {
   Graph g;
 
