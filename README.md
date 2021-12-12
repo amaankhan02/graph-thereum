@@ -30,4 +30,8 @@ Here are some cool example variations of our executable we think you should run.
 * `make data`   
 *  `make test`  
 *  `./test` will run all tests  
-**_@akul add descriptions of the tests you wrote_**
+
+Tests Overview:
+* BFS: The tests include simple and complex BFS on graphs with varying connected components, checking that the entire graph was visited
+* Dijkstras: The tests include verifying the short path on a simple graph as well as verifying the shortest path on graph with equal edge weights and multiple shortest paths. The tests verify both the correct path and the distance of the path.
+* Betweeness Centrality: The tests include simple betweenness centrality on a graph with equal edge weights as well as on a graph with varying edge weights. 
