@@ -14,7 +14,7 @@ Here is the terminal output from running the BFS:
 
 However, admittedly, this simple average heuristic is limited in the amount it can inform us about the decentralization (or lack thereof) of this network. For that, we will use the betweeness centrality algorithm, whose results you will see later.
 
-After that, we also ran dijkstra's algorithm in a rather interesting way. We isolated the largest connected component and treated it as a graph in isolation. We chose an arbitrary start vertex and then used dijsktra's algorithm to calculate the minimum Gas Cost from every other vertex to that vertex. This serves to estimate the cost of a direct transaction between the fixed start address and every other person on this connected component of the blockchain. As visible from the two visualizations below, the vast majority of the estimated transactions were concentrated between about 1.6M and 1.9M units. This is highlighted in the standard histogram, as well as in the violin chart. 
+After that, we also ran dijkstra's algorithm in a rather interesting way. We identified the largest connected component and treated it as a graph in isolation. We chose an arbitrary start vertex and then used dijsktra's algorithm to calculate the minimum Gas Cost from every other vertex to that vertex. This serves to estimate the cost of a direct transaction between the fixed start address and every other person on this connected component of the blockchain. As visible from the two visualizations below, the vast majority of the estimated transactions were concentrated between about 1.6M and 1.9M units. This is highlighted in the standard histogram, as well as in the violin chart. 
 
 With a fairly small standard deviation, we can be fairly confident that most direct transactions would cost about 1.75M Wei. 
 
@@ -28,3 +28,10 @@ Median	1.710 M
 Mode	1.671 M
 Min	    0.021 M
 Max	    6.423 M
+
+
+After all of this, we arrived at arguably the most exciting and impactful part of this project. Again, for context, one of the core concepts, technically, economically, and even philosophically, of the blockchain movement is decentralization. We set out to use Betweenness Centrality to identify how truly decentralized the Ethereum blockchain network is. The first image provides proof of successfully running the Betweeness Centrality Algorithm based on the terminal output.
+
+![Alt text](img/bc_proof.png?raw=true "Successful Run of Betweenness Centrality")
+
+
