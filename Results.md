@@ -36,7 +36,7 @@ After all of this, we arrived at arguably the most exciting and impactful part o
 
 Another interesting visualization is the relationship between the betweeness centrality of an address on chain and the number of transactions it is involved in (the # of incident edges). 
 
-![Alt text](img/bc_proof.png?raw=true "Betweenness Centrality as a Function of Incident Edges")
+![Alt text](img/betweenness_centrality_analysis.png?raw=true "Betweenness Centrality as a Function of Incident Edges")
 
 In the above visualization, the color of each point represents the number of vertices falling at that point, where a more yellow color means more vertices are represented by that dot. You can see that the vast majority of vertices are then concentrated on the bottom left quadrant of the graph, with only a few transactions and a very low betweenness centrality (BC). As we move to the top right, we see darker points (representing fewer vertices) that are more sparse. In particular, the top right corner has two points comprised of vertices that have a BC that is about 6 orders in magnitude larger than the BC of the majority. That is sligthly concerning from a decentralization perspective, but not so dominant that it is a serious concern. 
 
