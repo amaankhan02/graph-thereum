@@ -97,63 +97,90 @@ class Vertex {
     uint64_t getDistance() const;
 
     /**
-     * @brief Get the Parent object
+     * @brief Get the predecessor of this vertex on some shortest path between 2 
+     * arbitrary vertices. This field is used when running Dijkstra's algorithm 
+     * to find the single source shortest path from one vertex to all other 
+     * vertices.
      * 
-     * @return Vertex* 
+     * @return a Vertex* indicating the predecessor of this Vertex in some
+     * shortest path between 2 arbitrary vertices.
      */
     Vertex* getParent() const;
 
     /**
-     * @brief Set the Parent object
+     * @brief Set the predecessor of this vertex on some shortest path between 2 
+     * arbitrary vertices. This field is used when running Dijkstra's algorithm 
+     * to find the single source shortest path from one vertex to all other 
+     * vertices.
      * 
-     * @param parent 
+     * @param parent a Vertex* indicating the predecessor of this Vertex in some
+     * shortest path between 2 arbitrary vertices.
      */
     void setParent(Vertex* parent);
 
     /**
-     * @brief 
+     * @brief Append a predecessor Vertex to the vector of Vertex* that stores 
+     * the parents of this vertex in any number of shortest paths. This vector 
+     * is used when computing betweenness centrality.
      * 
-     * @param parent 
+     * @param parent a Vertex* indicating the predecessor of this Vertex in some
+     * shortest path between 2 arbitrary vertices.
      */
     void addCentralityParent(Vertex* parent);
 
     /**
-     * @brief 
-     * 
-     * @param amount 
-     */
-    void incrementCentrality(double amount);
-
-    /**
-     * @brief Get the Centrality object
-     * 
-     * @return double 
-     */
-    double getCentrality() const;
-
-    /**
-     * @brief 
-     * 
-     * @param amount 
-     */
-    void incrementDependency(double amount);
-
-    /**
-     * @brief Get the Dependency object
-     * 
-     * @return double 
-     */
-    double getDependency() const;
-
-    /**
-     * @brief Get the Vertex* that precede this Vertex in any number of shortest 
-     * paths between two arbitrary vertices. 
+     * @brief Get all the Vertex* that precede this Vertex in any number of 
+     * shortest paths between two arbitrary vertices. This vector is used when 
+     * computing betweenness centrality.
      * 
      * @return a const std::vector<Vertex*>& containing pointers to predecessor
      * vertices filled after computing shortest paths between some arbitrary 
      * vertex and all other vertices in the graph. 
      */
     const std::vector<Vertex*>& getCentralityParents() const;
+
+    /**
+     * @brief Increment the centrality score used when computing betweenness 
+     * centrality by some amount. This value represents the number of shortest 
+     * paths between 2 other arbitrary vertices that this vertex appears in.
+     * 
+     * @param amount a double indicating the number of shortest paths between 2 
+     * other arbitrary vertices that this vertex appears in.
+     */
+    void incrementCentrality(double amount);
+
+    /**
+     * @brief Get the centrality score used when computing betweenness 
+     * centrality. This value represents the number of shortest paths between 2 
+     * other arbitrary vertices that this vertex appears in.
+     * 
+     * @return a double indicating the number of shortest paths between 2 
+     * other arbitrary vertices that this vertex appears in.
+     */
+    double getCentrality() const;
+
+    /**
+     * @brief Increment the dependency score of this vertex. This dependency 
+     * metric is used when computing betweenness centrality to represent the 
+     * ratio of shortest paths between 2 other arbitrary vertices that this 
+     * vertex lies on.
+     * 
+     * @param amount a double indicating the ratio of shortest paths between 2 
+     * other arbitrary vertices that this vertex lies on with which to increment
+     * this node's dependency score.
+     */
+    void incrementDependency(double amount);
+
+    /**
+     * @brief Get the dependency score of this vertex. This dependency metric is 
+     * used when computing betweenness centrality to represent the ratio of 
+     * shortest paths between 2 other arbitrary vertices that this vertex lies 
+     * on.
+     * 
+     * @return a double indicating the ratio of shortest paths between 2 other 
+     * arbitrary vertices that this vertex lies on.
+     */
+    double getDependency() const;
 
     /**
      * @brief Reset all internal state that is accessed and updated when running
