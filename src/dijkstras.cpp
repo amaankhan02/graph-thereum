@@ -1,4 +1,6 @@
 #include "../include/dijkstras.h"
+#include <iostream>
+#include <fstream>
 #include <queue>
 
 using std::priority_queue;

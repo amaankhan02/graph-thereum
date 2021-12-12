@@ -1,4 +1,4 @@
-#include "../cs225/catch/catch.hpp"
+#include "catch.hpp"
 #include "../include/dijkstras.h"
 #include "../include/vertex.h"
 #include "../include/graph.h"
