@@ -6,7 +6,7 @@
 * **Results**: Results can be found in the `/results` directory, labeled with the function from which they arose. 
 
 ### 2. Executable Instructions:
-
+* `make all`: Run all of `make data`, `make project`, and `make test`.
 * `make data`: Download the necessary data files from Azure Cloud.
 * `make project`: Compile the source code and form the project executable.
 * `make test`: Compile the source code and test code and form the test executable.

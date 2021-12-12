@@ -3,7 +3,7 @@ EXE = project
 TEST = test
 
 # Rule for `all` (first/default rule):
-all: $(EXE)
+all: $(EXE) data $(TEST)
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
