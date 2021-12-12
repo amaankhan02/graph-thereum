@@ -89,6 +89,9 @@ int main(int argc, char* argv[]) {
       bc_heap.push_back(p);
     sort(bc_heap.begin(), bc_heap.end(), compare_bc_pair);
 
+    num_betweenness_to_print = 
+      std::min(num_betweenness_to_print, static_cast<int>(bc_heap.size()));
+
     for (int i = 0; i < num_betweenness_to_print; ++i) {
       Vertex* node = g->getVertex(bc_heap[i].first);
       std::cout << BLUE << "Betweenness Centrality of Address "
@@ -102,10 +105,10 @@ int main(int argc, char* argv[]) {
     of.open(base_filepath +  + "_betweenness_centrality.csv");
     of << "address,incident_edges,betweenness_centrality" << std::endl;
 
-    for (auto & i : bc_heap) {
-      Vertex* node = g->getVertex(i.first);
-      of << node->getAddress() << "," << node->getIncidentEdges().size()
-         << "," << i.second << std::endl;
+    for (pair<string, double>& p : bc_heap) {
+      Vertex* v = g->getVertex(p.first);
+      of << v->getAddress() << "," << v->getIncidentEdges().size()
+         << "," << p.second << std::endl;
     }
     
     of.close();

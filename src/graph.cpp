@@ -14,6 +14,7 @@ using std::ifstream;
 using std::fstream;
 using std::string;
 using std::vector;
+using std::stack;
 using std::pair;
 
 Graph::Graph() { }
@@ -141,7 +142,6 @@ Graph* Graph::fromFile(const string& path) {
 
 Graph* Graph::fromVertexList(const vector<Vertex*>& vertices) {
   Graph* g = new Graph();
-  unordered_set<string> component;
   
   for (Vertex* v : vertices) {
     // Add each edge in the list of vertices to the new graph
@@ -194,7 +194,7 @@ Vertex* Graph::popDistanceOrderedVertex() {
 }
 
 void Graph::resetDistanceOrderedVertices() {
-  while(!distance_ordered_vertices_.empty()) distance_ordered_vertices_.pop();
+  distance_ordered_vertices_ = stack<Vertex*>();
 }
 
 bool Graph::hasDistanceOrderedVertices() const {

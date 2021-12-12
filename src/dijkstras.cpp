@@ -55,12 +55,6 @@ void dijkstra(Graph* g, Vertex* start) {
   }
 }
 
-/**
- * @brief after running dijkstra, save all the shortest distances into a file
- * 
- * @param g graph post dijkstra
- * @param distances_filepath file to save everything into
- */
 void saveDistances(Graph* g, std::string distances_filepath) {
   std::ofstream of;
   of.open(distances_filepath);
