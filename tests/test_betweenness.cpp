@@ -176,12 +176,12 @@ TEST_CASE("Betweenness Centrality on Weighted Graph (unequal edge weights)", "[b
   double actual = results[a->getAddress()];
   double expected = 3.25;
 
-  // REQUIRE( results[a->getAddress()] == 3.5 );  // 3.25
-  // REQUIRE( results[b->getAddress()] == 4.0 );  // 3.833
-  // REQUIRE( results[c->getAddress()] == 1.5 );  // 1.583
-  // REQUIRE( results[d->getAddress()] == 3.5 );  // 1.8333 == 1 5/6 == 11/6
-  // REQUIRE( results[e->getAddress()] == 1.5 );  // 1.41667 =
-  // REQUIRE( results[f->getAddress()] == 0.0 );   // 0.1667 == 1/6
+  REQUIRE( results[a->getAddress()] == 3.5 );  // 3.25
+  REQUIRE( results[b->getAddress()] == 4.0 );  // 3.833
+  REQUIRE( results[c->getAddress()] == 1.5 );  // 1.583
+  REQUIRE( results[d->getAddress()] == 3.5 );  // 1.8333 == 1 5/6 == 11/6
+  REQUIRE( results[e->getAddress()] == 1.5 );  // 1.41667 =
+  REQUIRE( results[f->getAddress()] == 0.0 );   // 0.1667 == 1/6
 }
 
 /**

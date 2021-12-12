@@ -139,6 +139,8 @@ class Vertex {
      */
     const std::vector<Vertex*>& getCentralityParents() const;
 
+    void resetCentralityParents();
+
     /**
      * @brief Increment the centrality score used when computing betweenness 
      * centrality by some amount. This value represents the number of shortest 

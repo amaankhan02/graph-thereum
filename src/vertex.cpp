@@ -68,6 +68,10 @@ const vector<Vertex*>& Vertex::getCentralityParents() const {
   return centrality_parents_;
 }
 
+void Vertex::resetCentralityParents() {
+  centrality_parents_.clear();
+}
+
 void Vertex::reset() {
   dependency_ = 0.0;
   centrality_ = 0.0;
