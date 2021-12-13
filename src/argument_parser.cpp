@@ -31,7 +31,7 @@ void ArgumentParser::add_argument(const string& flag, bool required, double* var
   args_[flag] = ArgumentConfig(flag, DOUBLE, required, var, description);
 }
 
-void ArgumentParser::parse(int arg_count, char* arg_values[]) {
+int ArgumentParser::parse(int arg_count, char* arg_values[]) {
   // load all of the arguments passed via the command line
   for (int i = 1; i < arg_count; ++i) {
     // skip the executable name (the 0th argument) by starting at 1
@@ -41,9 +41,6 @@ void ArgumentParser::parse(int arg_count, char* arg_values[]) {
     if (iter == args_.end()) {
       std::cout << BOLDRED << "Unknown flag: " << flag << RESET << std::endl;
     } else {
-      args_[flag].filled_ = true;
-      void* to_fill = args_[flag].variable_to_fill_;
-
       // handle case where flag is provided but no value is given (except bools)
       if (iter->second.data_type_ != BOOL) {
         if (i + 1 == arg_count) {
@@ -60,6 +57,9 @@ void ArgumentParser::parse(int arg_count, char* arg_values[]) {
           continue;
         }
       }
+
+      void* to_fill = args_[flag].variable_to_fill_;
+      args_[flag].filled_ = true;
       
       // if current argument in iteration is valid, parse and save value
       if (iter->second.data_type_ == INT)
@@ -74,13 +74,17 @@ void ArgumentParser::parse(int arg_count, char* arg_values[]) {
   }
 
   // check if any required arguments have not been provided
+  bool all_required_args_provided = true;
   for (pair<string, ArgumentConfig> p : args_) {
     if (p.second.required_ && !p.second.filled_) {
       std::cout << BOLDRED << "Missing required argument " << p.first
                 << ": [" << type_as_string(p.second.data_type_) << "] "
                 << p.second.description_ << RESET << std::endl;
+      all_required_args_provided = false;
     }
   }
+
+  return all_required_args_provided ? 0 : 1;
 }
 
 std::string ArgumentParser::type_as_string(DataType t) const {

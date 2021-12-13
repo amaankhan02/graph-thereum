@@ -3,8 +3,12 @@
 #include <string>
 
 /**
- * @brief 
- * 
+ * @brief This class is used to define rules for command line arguments to the 
+ * executable that this ArgumentParser is associated with. Add rules for command
+ * line arguments using the `add_argument` function, then call the `parse` 
+ * function to fill the variables pointed at in the rule definitions either with
+ * the arguments pass in the command line or with the default values of the type
+ * if the arguments were not specified.
  */
 class ArgumentParser {
   public:
@@ -14,60 +18,103 @@ class ArgumentParser {
     ArgumentParser() : args_() { }
 
     /**
-     * @brief 
+     * @brief Add a rule for an integer argument in the executable that this
+     * ArgumentParser is linked to. The argument will default to `0` unless the 
+     * argument is passed in via the command line.
      * 
-     * @param flag 
-     * @param required 
-     * @param var 
-     * @param description 
+     * @param flag a string indicating the flag used to declare the command line 
+     * argument. 
+     * @param required a bool indicating whether this command line argument is 
+     * required in the context of the executable.
+     * @param var an int* that points to a variable that will be filled with the
+     * value passed in the command line, if the argument is passed. 
+     * @param description a string containing the details on the usage and 
+     * purpose for this argument.
      */
     void add_argument(const std::string& flag, bool required, int* var, 
                       const std::string& description="");
 
     /**
-     * @brief 
+     * @brief Add a rule for a boolean argument in the executable that this
+     * ArgumentParser is linked to. The argument will default to `false` unless 
+     * the argument is passed in via the command line.
      * 
-     * @param flag 
-     * @param required 
-     * @param var 
-     * @param description 
+     * @param flag a string indicating the flag used to declare the command line 
+     * argument. 
+     * @param required a bool indicating whether this command line argument is 
+     * required in the context of the executable.
+     * @param var a bool* that points to a variable that will be filled with the
+     * value passed in the command line, if the argument is passed. 
+     * @param description a string containing the details on the usage and 
+     * purpose for this argument.
      */
     void add_argument(const std::string& flag, bool required, bool* var, 
                       const std::string& description="");
 
     /**
-     * @brief 
+     * @brief Add a rule for a string argument in the executable that this
+     * ArgumentParser is linked to. The argument will default to an empty string
+     * unless the argument is passed in via the command line.
      * 
-     * @param flag 
-     * @param required 
-     * @param var 
-     * @param description 
+     * @param flag a string indicating the flag used to declare the command line 
+     * argument. 
+     * @param required a bool indicating whether this command line argument is 
+     * required in the context of the executable.
+     * @param var a string* that points to a variable that will be filled with 
+     * the value passed in the command line, if the argument is passed. 
+     * @param description a string containing the details on the usage and 
+     * purpose for this argument.
      */
     void add_argument(const std::string& flag, bool required, std::string* var, 
                       const std::string& description="");
 
     /**
-     * @brief 
+     * @brief Add a rule for a double argument in the executable that this
+     * ArgumentParser is linked to. The argument will default to `0.0` unless 
+     * the argument is passed in via the command line.
      * 
-     * @param flag 
-     * @param required 
-     * @param var 
-     * @param description 
+     * @param flag a string indicating the flag used to declare the command line 
+     * argument. 
+     * @param required a bool indicating whether this command line argument is 
+     * required in the context of the executable.
+     * @param var a double* that points to a variable that will be filled with 
+     * the value passed in the command line, if the argument is passed. 
+     * @param description a string containing the details on the usage and 
+     * purpose for this argument.
      */
     void add_argument(const std::string& flag, bool required, double* var, 
                       const std::string& description="");
     
     /**
-     * @brief 
+     * @brief Parse all of the command line arguments and fill all of the 
+     * variables each argument rule points at with the values specified in the 
+     * command line, if they were specified. This function will return an error
+     * code if either at least one required command line argument was not 
+     * specified or if at least one command line argument passed was invalid
+     * according to the rule with the matching command line argument flag. If 
+     * all of the arguments could be processed and all required arguments were
+     * specified, this function returns a success status of 0.
      * 
-     * @param arg_count 
-     * @param arg_values 
+     * @param arg_count an int indicating the number of arguments included in 
+     * the command used to run the executable this ArgumentParser is linked to. 
+     * The `argc` parameter in a `main` function in a `.cpp` file should be 
+     * passed direcly into this parameter.
+     * @param arg_values an array of char* containing each arguments included in 
+     * the command used to run the executable this ArgumentParser is linked to. 
+     * The `argv` parameter in a `main` function in a `.cpp` file should be 
+     * passed directly into this parameter. 
+     * @return 0 if all required command line arguments were provided. 
+     * @return 1 if a required command line argument was not provided.
      */
-    void parse(int arg_count, char* arg_values[]);
+    int parse(int arg_count, char* arg_values[]);
   private:
     /**
-     * @brief 
-     * 
+     * @brief This enumeration is used internally to keep track of the 
+     * underlying type of each command line argument's representative variable.
+     * This allows us to use a single data structure to keep track of all 
+     * arguments with varying underlying types. This information enables us to 
+     * store the representative variables as void* internally and type cast to
+     * a pointer to the specific variable whenever required. 
      */
     enum DataType {
       INT,
@@ -131,26 +178,31 @@ class ArgumentParser {
        * @brief Construct a default ArgumentConfig object.
        */
       ArgumentConfig() : flag_(), description_(), data_type_(), required_(false),
-                          filled_(false), variable_to_fill_() {}
+                          filled_(false), variable_to_fill_() { }
 
       /**
-       * @brief Construct a new Argument Config object.
+       * @brief Construct a new Argument Config object with the given parameters.
        * 
-       * @param flag 
-       * @param data_type 
-       * @param required 
-       * @param var 
-       * @param description 
+       * @param flag a string indicating the flag used to declare the command 
+       * line argument. 
+       * @param data_type a DataType enumeration indicating the type that the 
+       * argument this struct represents must take. 
+       * @param required a bool indicating whether this command line argument is
+       * required in the context of the executable. 
+       * @param var a void* that points to the variable to populate with the 
+       * value passed in via the command line. 
+       * @param description a string containing the description of the use of 
+       * this command line argument in the context of the executable. 
        */
       ArgumentConfig(const std::string& flag, DataType data_type, bool required,
                      void* var, const std::string& description)
         : flag_(flag), description_(description), data_type_(data_type),
-          required_(required), filled_(false), variable_to_fill_(var) {}
+          required_(required), filled_(false), variable_to_fill_(var) { }
     };
 
     /**
-     * @brief 
-     * 
+     * @brief This structure associates each command line argument rule with the
+     * flag used to define the value of an argument in the command line.
      */
     std::unordered_map<std::string, ArgumentConfig> args_;
 
