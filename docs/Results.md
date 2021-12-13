@@ -1,5 +1,5 @@
 
-CS225 Final Project - GraphThereum
+GraphThereum
 
 Aman Khinvasara, Amaan Khan, Akul Gupta, and Neil Kaushikkar
 
