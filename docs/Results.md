@@ -12,7 +12,7 @@ Our first basic algorithm was a basic Breadth First Search/Traversal. Through th
 Here is the terminal output from running the BFS:
 
 
-![Alt text](img/bfs_proof.PNG?raw=true "Title")
+![Alt text](../img/bfs_proof.PNG?raw=true "Title")
 
 However, admittedly, this simple average heuristic is limited in the amount it can inform us about the decentralization (or lack thereof) of this network. For that, we will use the betweeness centrality algorithm, whose results you will see later.
 
