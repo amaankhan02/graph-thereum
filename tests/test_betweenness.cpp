@@ -51,7 +51,7 @@ using std::string;
 TEST_CASE("Simple Betweenness Centrality on Graph with Equal Edge Weights", "[betweenness]") {
   Graph g;
 
-	Vertex* a = g.addVertex("0x1");
+  Vertex* a = g.addVertex("0x1");
   Vertex* b = g.addVertex("0x2");
   Vertex* c = g.addVertex("0x3");
   Vertex* d = g.addVertex("0x4");
@@ -223,7 +223,7 @@ TEST_CASE("Betweenness Centrality on Weighted Graph (unequal edge weights)", "[b
 TEST_CASE("Betweenness Centrality on Weighted Graph (unequal edge weights) 2", "[betweenness]") {
   Graph g;
 
-	Vertex* a = g.addVertex("0x1");
+  Vertex* a = g.addVertex("0x1");
   Vertex* b = g.addVertex("0x2");
   Vertex* c = g.addVertex("0x3");
   Vertex* d = g.addVertex("0x4");

@@ -19,7 +19,7 @@ using std::pair;
 using std::sort;
 
 int main(int argc, char* argv[]) {
-  string dataset_filepath, cc_addresses_filepath;
+  string dataset_filepath, cc_addresses_filepath, dijkstras_outfile, dijkstra_start_vertex;
   bool should_run_bfs, should_run_dijkstra, verbose;
   int num_betweenness_to_print, num_threads;
 
@@ -27,13 +27,17 @@ int main(int argc, char* argv[]) {
 
   ap.add_argument("-f", true, &dataset_filepath, "The path to the dataset to load as a graph.");
   ap.add_argument("-b", false, &should_run_bfs, "Indicates whether or not to run BFS on the graph.");
-  ap.add_argument("-d", false, &should_run_dijkstra, "Indicates whether or not to run Djikstra's on the graph.");
+  ap.add_argument("-d", false, &dijkstras_outfile, "Indicates whether or not to run Djikstra's on the graph.");
+  ap.add_argument("-s", false, &dijkstra_start_vertex, "Indicates the address of the address to perform Dijkstra's algorithm from.");
   ap.add_argument("-c", false, &num_betweenness_to_print, "Indicates the number of nodes to print the betweeness centrality of. Prints the BC of the k nodes with the largest BC.");
   ap.add_argument("-l", false, &cc_addresses_filepath, "The path to save addresses of the largest connected component. Does nothing if not specified.");
   ap.add_argument("-t", false, &num_threads, "The number of threads to use when computing betweenness centrality. Does nothing if not specified or if not running BC.");
   ap.add_argument("-v", false, &verbose, "Whether or not to print thread status when running code on multiple threads.");
 
-  ap.parse(argc, argv);
+  int arg_status = ap.parse(argc, argv);
+
+  // error out if the arguments could not be parsed successfully
+  if (arg_status == 1) return 1; 
 
   Graph* g = Graph::fromFile(dataset_filepath);
   Graph* largest_connected_component = NULL;
@@ -42,6 +46,7 @@ int main(int argc, char* argv[]) {
   // Run BFS if the CLI argument to do so was given
   if (should_run_bfs) {
     run_bfs(g);
+    std::cout << std::endl;
   }
 
   // Find the largest connected component if the CLI argument to do so was given
@@ -69,9 +74,50 @@ int main(int argc, char* argv[]) {
     }
 
     std::cout << GREEN << "Saved the largest connected component as a CSV to " 
-              << cc_addresses_filepath << "." << RESET << std::endl;
+              << cc_addresses_filepath << ".\n" << RESET << std::endl;
 
     of.close();
+  }
+
+  if (largest_connected_component != NULL) {
+    delete largest_connected_component;
+  }
+
+  // Run Dijkstra's algorithm if the CLI argument to do so was given
+  if (!dijkstras_outfile.empty()) {
+    // try and look for the vertex passed in via the command line to start from  
+    Vertex* start = g->getVertex(dijkstra_start_vertex);
+    if (start == NULL) {
+      if (!dijkstra_start_vertex.empty()) {
+        std::cout << YELLOW << "Could not find vertex with address " 
+                  << dijkstra_start_vertex << RESET << std::endl;
+        
+      }
+      
+      start = g->getVertices().begin()->second;
+    } 
+
+    std::cout << YELLOW << "Beginning Dijkstra's single source shortest path "
+              << "algorithm from vertex with address " << start->getAddress()
+              << "..." << RESET << std::endl;
+
+    clock_t c1 = clock();
+    dijkstra(g, start);
+    clock_t c2 = clock();
+
+    print_elapsed(c1, c2, "Dijkstra's algorithm");
+
+    std::ofstream of;
+    of.open(dijkstras_outfile);
+    of << "address,incident_edges,distance" << std::endl;
+
+    for (pair<string, Vertex*> v : g->getVertices()) {
+      of << v.second->getAddress() << "," << v.second->getIncidentEdges().size()
+         << "," << v.second->getDistance() << std::endl;
+    }
+
+    std::cout << GREEN << "Saved all shortest paths to " << dijkstras_outfile 
+              << RESET << "\n" << std::endl;
   }
 
   // Compute betweenness centrality if the CLI argument to do so was given
@@ -112,21 +158,7 @@ int main(int argc, char* argv[]) {
     }
     
     of.close();
-  }
-
-  // Run Dijkstra's algorithm if the CLI argument to do so was given
-  if (should_run_dijkstra) {
-    Vertex* start = g->getVertices().begin()->second;
-    std::cout << YELLOW << "Running Dijkstra's algorithm starting at vertex " 
-              << "with address " << start->getAddress() << RESET << std::endl;
-    dijkstra(g, start);
-    std::cout << YELLOW << "Finished running Dijkstra's algorithm." << RESET << std::endl;
-    saveDistances(g,"results/dijsktra_output.csv");
-    std::cout << "Saved all shortest paths to results/dijsktra_output.csv" << std::endl;
-  }
-
-  if (largest_connected_component != NULL) {
-    delete largest_connected_component;
+    std::cout << std::endl;
   }
 
   delete g;
