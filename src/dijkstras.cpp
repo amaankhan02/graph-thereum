@@ -54,15 +54,3 @@ void dijkstra(Graph* g, Vertex* start) {
     }
   }
 }
-
-void saveDistances(Graph* g, std::string distances_filepath) {
-  std::ofstream of;
-  of.open(distances_filepath);
-
-  for (auto v : g->getVertices()) {
-    if (v == *(g->getVertices().begin())) {
-      continue;
-    }
-    of << v.second -> getDistance() << std::endl;
-  }
-}

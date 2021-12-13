@@ -124,9 +124,11 @@ int main(int argc, char* argv[]) {
   if (num_betweenness_to_print > 0) {
     std::cout << YELLOW << "Computing betweenness centrality on graph..." 
               << RESET << std::endl;
+    
+    clock_t c1 = clock();
     unordered_map<string, double> bc = compute_betweenness_centrality(g, num_threads, verbose);
-    std::cout << YELLOW << "Finished computing betweenness centrality on graph..." 
-              << RESET << std::endl;
+    clock_t c2 = clock();
+    print_elapsed(c1, c2, "Brandes's betweenness centrality algorithm");
 
     vector<pair<string, double>> bc_heap;
     bc_heap.reserve(bc.size());
@@ -158,6 +160,11 @@ int main(int argc, char* argv[]) {
     }
     
     of.close();
+
+    std::cout << GREEN << "Saved all betweenness centrality of all vertices to "
+              << base_filepath << "_betweenness_centrality.csv" << RESET << "\n" 
+              << std::endl;
+
     std::cout << std::endl;
   }
 

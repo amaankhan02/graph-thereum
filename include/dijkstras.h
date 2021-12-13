@@ -17,14 +17,3 @@
  * of the shortest paths to all other nodes in the given graph.
  */
 void dijkstra(Graph* g, Vertex* start);
-
-/**
- * @brief Saves the distance to each vertex in the given graph to the file 
- * indicated in the second parameter. This function assumes that Dijkstra's 
- * algorithm to comute the shortest path from one vertex to all other vertices
- * in a graph has been run upon the passed graph.
- * 
- * @param g a Graph* indicating the graph with which, for all vertices in the 
- * graph, to save the distances from some starting vertex to the current vertex.
- */
-void saveDistances(Graph* g, std::string distances_filepath);
