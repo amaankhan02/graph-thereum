@@ -45,4 +45,7 @@ In the above visualization, the color of each point represents the number of ver
 
 Another useful, and even simpler, way of understanding the decentralization aspect is to view the BC as a percentage. What you notice in the following picture is that the BC percentages (BC/total number of shortest paths) are all so close to 0 that they could not even be represented in c++ (python output displayed), meaning that no single actor or address on the blockchain plays a non-negligible role in the overall network - hooray for decentralization!
 
+
+![Alt text](img/bc_proportion.png?raw=true "Betweenness Centrality Scores as Percentages, all Negligible")
+
 Using these powerful graph algorithms, we learned an immense amount both about the technical implementation of these algorithms and even more excitingly, about the Ethereum blockchain. It was very interesting to understand the transaction cost structure, as well as to validate that the network was indeed highly decentralized. This was a very exciting project that we are all very happy we had the opportunity to participate in!
