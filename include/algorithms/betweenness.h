@@ -4,9 +4,9 @@
 #include <future>
 #include <map>
 
-#include "graph.h"
-#include "edge.h"
-#include "vertex.h"
+#include "core/vertex.h"
+#include "core/graph.h"
+#include "core/edge.h"
 
 /**
  * @brief Run Brandes' algorithm to compute betweenness centrality upon the 

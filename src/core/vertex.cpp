@@ -1,4 +1,4 @@
-#include "vertex.h"
+#include "core/vertex.h"
 
 using std::string;
 using std::vector;

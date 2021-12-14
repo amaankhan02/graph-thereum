@@ -4,12 +4,12 @@
 #include <vector>
 #include <queue>
 
-#include "argument_parser.h"
-#include "betweenness.h"
-#include "dijkstras.h"
-#include "graph.h"
-#include "utils.h"
-#include "bfs.h"
+#include "utils/argument_parser.h"
+#include "algorithms/betweenness.h"
+#include "algorithms/dijkstras.h"
+#include "algorithms/bfs.h"
+#include "utils/utils.h"
+#include "core/graph.h"
 
 using std::priority_queue;
 using std::unordered_map;

@@ -1,6 +1,6 @@
 #pragma once
-#include "vertex.h"
-#include "graph.h"
+#include "core/vertex.h"
+#include "core/graph.h"
 #include <string>
 
 /**

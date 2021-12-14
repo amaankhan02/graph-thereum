@@ -1,6 +1,6 @@
-#include "betweenness.h"
-#include "dijkstras.h"
-#include "utils.h"
+#include "algorithms/betweenness.h"
+#include "algorithms/dijkstras.h"
+#include "utils/utils.h"
 #include <vector>
 
 using std::unordered_map;

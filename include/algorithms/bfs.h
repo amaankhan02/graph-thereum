@@ -1,6 +1,6 @@
 #pragma once
-#include "graph.h"
-#include "vertex.h"
+#include "core/vertex.h"
+#include "core/graph.h"
 
 /**
  * @brief Perform breadth first search upon all connected compontents within the

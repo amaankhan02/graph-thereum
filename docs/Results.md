@@ -12,7 +12,7 @@ Our first basic algorithm was a basic Breadth First Search/Traversal. Through th
 Here is the terminal output from running the BFS:
 
 
-![Alt text](../img/bfs_proof.PNG?raw=true "Title")
+![Alt text](img/bfs_proof.PNG?raw=true "Title")
 
 However, admittedly, this simple average heuristic is limited in the amount it can inform us about the decentralization (or lack thereof) of this network. For that, we will use the betweeness centrality algorithm, whose results you will see later.
 
@@ -20,8 +20,8 @@ After that, we also ran dijkstra's algorithm in a rather interesting way. We ide
 
 With a fairly small standard deviation, we can be fairly confident that most direct transactions would cost about 1.75M Wei. 
 
-![Alt text](../img/dijkstra_visualization_histogram.PNG?raw=true "Estimated Gas Costs - Histogram")
-![Alt text](../img/dijkstra_visualization.PNG?raw=true "Estimated Gas Costs - Violin Chart")
+![Alt text](img/dijkstra_visualization_histogram.PNG?raw=true "Estimated Gas Costs - Histogram")
+![Alt text](img/dijkstra_visualization.PNG?raw=true "Estimated Gas Costs - Violin Chart")
 
 We also ran some basic statistics on the output file to understand the quantitative breakdown:
 
@@ -35,11 +35,11 @@ We also ran some basic statistics on the output file to understand the quantitat
 
 After all of this, we arrived at arguably the most exciting and impactful part of this project. Again, for context, one of the core concepts, technically, economically, and even philosophically, of the blockchain movement is decentralization. We set out to use Betweenness Centrality to identify how truly decentralized the Ethereum blockchain network is. The first image provides proof of successfully running the Betweeness Centrality Algorithm based on the terminal output.
 
-![Alt text](../img/bc_proof.png?raw=true "Successful Run of Betweenness Centrality")
+![Alt text](img/bc_proof.png?raw=true "Successful Run of Betweenness Centrality")
 
 Another interesting visualization is the relationship between the betweeness centrality of an address on chain and the number of transactions it is involved in (the # of incident edges). 
 
-![Alt text](../img/betweenness_centrality_analysis.png?raw=true "Betweenness Centrality as a Function of Incident Edges")
+![Alt text](img/betweenness_centrality_analysis.png?raw=true "Betweenness Centrality as a Function of Incident Edges")
 
 In the above visualization, the color of each point represents the number of vertices falling at that point, where a more yellow color means more vertices are represented by that dot. You can see that the vast majority of vertices are then concentrated on the bottom left quadrant of the graph, with only a few transactions and a very low betweenness centrality (BC). As we move to the top right, we see darker points (representing fewer vertices) that are more sparse. In particular, the top right corner has two points comprised of vertices that have a BC that is about 6 orders in magnitude larger than the BC of the majority. That is sligthly concerning from a decentralization perspective, but not so dominant that it is a serious concern. 
 

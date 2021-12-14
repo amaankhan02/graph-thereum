@@ -1,4 +1,4 @@
-#include "dijkstras.h"
+#include "algorithms/dijkstras.h"
 #include <iostream>
 #include <fstream>
 #include <queue>

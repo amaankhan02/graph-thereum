@@ -2,15 +2,15 @@
 EXE = project
 TEST = test
 
-INC_DIR = include/
-
 # Rule for `all` (first/default rule):
 project: $(EXE)
 all: $(EXE) $(TEST) data
 
 # Add all object files needed for compiling:
-EXE_OBJ = main.o
-OBJS = main.o src/graph.o src/edge.o src/vertex.o src/betweenness.o src/bfs.o src/dijkstras.o src/utils.o src/argument_parser.o
+EXE_OBJ = src/main.o
+OBJS = src/main.o src/core/graph.o src/core/edge.o src/core/vertex.o \
+	src/algorithms/betweenness.o src/algorithms/bfs.o src/algorithms/dijkstras.o \
+	src/utils/utils.o src/utils/argument_parser.o
 
 AZURE_DATA_URL = https://storageaccountrgfuna61f.blob.core.windows.net/cs225
 DATA_FILES = data.csv mini_data.csv tiny_data.csv 10mb_data.csv 30mb_data.csv
@@ -22,6 +22,7 @@ data:
 CXX = clang++
 LD = clang++
 OBJS_DIR = .objs
+INC_DIR = include/
 
 # -MMD and -MP asks clang++ to generate a .d file listing the headers used in the source code for use in the Make process.
 #   -MMD: "Write a depfile containing user headers"
@@ -49,6 +50,9 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)/tests
 	@mkdir -p $(OBJS_DIR)/src
+	@mkdir -p $(OBJS_DIR)/src/core
+	@mkdir -p $(OBJS_DIR)/src/utils
+	@mkdir -p $(OBJS_DIR)/src/algorithms
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
