@@ -19,7 +19,8 @@ using std::pair;
 using std::sort;
 
 int main(int argc, char* argv[]) {
-  string dataset_filepath, cc_addresses_filepath, dijkstras_outfile, dijkstra_start_vertex;
+  string dataset_filepath, cc_addresses_filepath, dijkstras_outfile;
+  string dijkstra_start_vertex;
   bool should_run_bfs, should_run_dijkstra, verbose;
   int num_betweenness_to_print, num_threads;
 
@@ -126,7 +127,8 @@ int main(int argc, char* argv[]) {
               << RESET << std::endl;
     
     clock_t c1 = clock();
-    unordered_map<string, double> bc = compute_betweenness_centrality(g, num_threads, verbose);
+    unordered_map<string, double> bc = 
+      compute_betweenness_centrality(g, num_threads, verbose);
     clock_t c2 = clock();
     print_elapsed(c1, c2, "Brandes's betweenness centrality algorithm");
 
@@ -147,7 +149,8 @@ int main(int argc, char* argv[]) {
       Vertex* node = g->getVertex(bc_heap[i].first);
       std::cout << BLUE << "Betweenness Centrality of Address "
                 << bc_heap[i].first << " (" << node->getIncidentEdges().size()
-                << " incident edges): " << bc_heap[i].second << RESET << std::endl;
+                << " incident edges): " << bc_heap[i].second << RESET 
+                << std::endl;
     }
 
     std::ofstream of;

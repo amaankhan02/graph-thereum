@@ -26,7 +26,7 @@ We have provided an interface for customizing how the executable is run using co
 
 Here are some cool example variations of our executable we think you should run...
 * `./project -f data/data.csv -b -l data/largest_cc.csv`: Load the large dataset from `data/data.csv`, perform a BFS to visit all vertices and edges, and find the largest connected component and save it to `data/largest_cc.csv`.
-* `./project -f data/10mb_data.csv -c 10 -t 15`: Load the moderately sized dataset and compute the betweenness centrality of each node by distrubuting work between 15 threads before printing out the betweenness centrality of the 10 vertices with the largest centrality.
+* `./project -f data/10mb_data.csv -c 10 -t 7`: Load the moderately sized dataset and compute the betweenness centrality of each node by distrubuting work between 15 threads before printing out the betweenness centrality of the 10 vertices with the largest centrality.
 * `./project -f data/data.csv -d data/dijkstra_outfile.csv -s 0x1c39ba39e4735cb65978d4db400ddd70a72dc750`: Run Dijkstra's algorithm on the large dataset from `data/data.csv` starting from the vertex associated with the address `0x1c39ba39e4735cb65978d4db400ddd70a72dc750` and save the resulting shortest path distances to `data/dijkstra_outfile.csv`.
 
 ### 3. Test Instructions

@@ -8,13 +8,13 @@
 
 3. **Graph Algorithms** <br /> The graph algorithms that we plan to implement include Betweenness Centrality and Dijkstra’s algorithm. We also plan to implement breadth first traversal. Note that m is the number of edges, and n is the number of vertices. <br />
 * For Betweenness Centrality:<br />
-  * Betweenness Centrality is an algorithm to measure how essential each node is within a network. It takes in any network, in our case a weighted network, and uses the shortest paths between all pairs of nodes to identify the nodes that occur most frequently in these shortest paths. The algorithm is based on Brandes' approximate algorithm. The implementation requires O(n + m) space and runs in O(n * m) time. 
+  * Betweenness Centrality is an algorithm to measure how essential each node is within a network. It takes in any network, in our case a weighted network, and uses the shortest paths between all pairs of nodes to identify the nodes that occur most frequently in these shortest paths. The algorithm is based on Brandes' approximate algorithm. The implementation requires O(n + m) space and runs in O(nm + n^2 log(n)) time since our graph contains weighted edges. 
   * The inputs required would be the from_address and to_address, which represents the source node and the destination node, respectively and the receipt_cumalitive that represents the weight of an edge.
 * Dijkstra’s Algorithm:
   * Dijkstra’s algorithm, given a source node, finds the shortest path to every node. We will be using this to find the shortest weighted path between two nodes. In terms of our dataset, this tells us how expensive it would be for person 1 (node 1) to transact with person 2 directly (node 2). 
   * The information we need from the dataset is from the ‘transactions’ dataset where we need the from_address, to_address, and receipt_cumalitive. The from and to address represents the 2 nodes, and the receipt_cumalitive represents the weight. That is, the total amount of gas used in the transaction.
   * The output will be a list of shortest paths to every node in the graph from a single start node, and the function will return only the shortest path to the second node that we are looking for (arbitrarily chosen). We will plot and do very basic statistical analysis on that created list. 
-  * Runtime for Dijkstra’s algorithm is O(m*logn). <br />
+  * Runtime for Dijkstra’s algorithm is O(m*logn)<br />
  
 * Breadth First Traversal: <br />
   * We will be implementing a breadth first traversal to find a certain node given a starting point. 
