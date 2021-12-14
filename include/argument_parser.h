@@ -207,10 +207,23 @@ class ArgumentParser {
     std::unordered_map<std::string, ArgumentConfig> args_;
 
     /**
+     * @brief 
+     * 
+     */
+    bool has_invalid_arguments_;
+
+    /**
      * @brief Map a DataType enum variant to its typed string representation.
      * 
      * @param t a DataType enum to convert to a string.
      * @return a std::string representing the text form of the passed enum.
      */
-    std::string type_as_string(DataType t) const;
+    std::string typeAsString(DataType t) const;
+
+    /**
+     * @brief 
+     * 
+     * @param flag 
+     */
+    void handleInvalidArgument(const std::string& flag);
 };

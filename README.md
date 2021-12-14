@@ -26,16 +26,32 @@ We have provided an interface for customizing how the executable is run using co
 
 Here are some cool example variations of our executable we think you should run...
 * `./project -f data/data.csv -b -l data/largest_cc.csv`: Load the large dataset from `data/data.csv`, perform a BFS to visit all vertices and edges, and find the largest connected component and save it to `data/largest_cc.csv`.
-* `./project -f data/10mb_data.csv -c 10 -t 7`: Load the moderately sized dataset and compute the betweenness centrality of each node by distrubuting work between 15 threads before printing out the betweenness centrality of the 10 vertices with the largest centrality.
+* `./project -f data/10mb_data.csv -c 10 -t 7`: Load the moderately sized dataset and compute the betweenness centrality of each node by distrubuting work between 15 threads before printing out the betweenness centrality of the 10 vertices with the largest centrality. Note that this takes a few minutes to run on EWS. You can pass `15` to the `-t` flag if you are running locally. 
 * `./project -f data/data.csv -d data/dijkstra_outfile.csv -s 0x1c39ba39e4735cb65978d4db400ddd70a72dc750`: Run Dijkstra's algorithm on the large dataset from `data/data.csv` starting from the vertex associated with the address `0x1c39ba39e4735cb65978d4db400ddd70a72dc750` and save the resulting shortest path distances to `data/dijkstra_outfile.csv`.
 
+If you do not specify the `-f` required command line argument, the program will exit after printing the following warning listing all of the required arguments:
+```
+Missing required argument -f: [STRING] The path to the dataset to load as a graph.
+```
+
+If you do not pass a value to string, integer, or double type CLI arguments, you will see a warning listing the argument and the description similar to this for each invalid argument: 
+```
+Invalid argument -d: [STRING] The path to save the resulting shortest path distances resulting from running Dijkstra's algorithm from some vertex. Does nothing if not specified.
+```
+
+You will see a similar warning to the one above if you pass an argument of a mismatching type, like a string to an integer argument. The program will immediately exit on either case. 
+
+You will see a warning like the one below if you pass an argument in the command line that does not match any of the argument rules defined in the `ArgumentParser` declared in `main.cpp`. The only difference between this warning and the others above is that the program will not exit immediately when the program receives unknown flags as command line arguments. 
+```
+Unknown flag: -q
+```
 ### 3. Test Instructions
 
-* `make data`   
-*  `make test`  
-*  `./test` will run all tests  
+* `make data` - note that this only needs to be run once as it simply downloads our datasets locally. 
+*  `make test`
+*  `./test` will run all tests. Our tests are tagged with one of `"[bfs]"`, `"[dijkstras]"`, and `"[betweenness]"`, so you can run the subset of the tests with `./test "[bfs]"` if you wish.
 
 Tests Overview:
-* BFS: The tests include simple and complex BFS on graphs with varying connected components, checking that the entire graph was visited
+* BFS: The tests include simple and complex BFS on graphs with varying connected components, checking that the entire graph was visited.
 * Dijkstras: The tests include verifying the short path on a simple graph as well as verifying the shortest path on graph with equal edge weights and multiple shortest paths. The tests verify both the correct path and the distance of the path.
 * Betweeness Centrality: The tests include simple betweenness centrality on a graph with equal edge weights as well as on a graph with varying edge weights. 
