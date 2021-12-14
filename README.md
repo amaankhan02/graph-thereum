@@ -6,7 +6,7 @@ Learn more about our project by [watching our walkthrough!](https://youtu.be/r1-
 
 * **Source Code**: All core code is located in the `/src` and `/include` folders, with the former containing the .cpp files and the latter containing .h. The `/tests` directory includes the test suites.
 * **Data**: All data is located in the `/data` directory. This directory contains the Python Notebook used to actually query and download the dataset from BigQuery, as well as a few short subsets of the data, for simple testing purposes (mini_data.csv and tiny_data.csv). Because we did not push the data to GitHub, we set up a `make data` command that will automatically run all necessary scripts and freshly download the data in a new environment, that doesn't already have the data. 
-* **Results**: Results can be found in the `/results` directory, labeled with the function from which they arose. 
+* **Results**: Results can be found in the `/data` directory, labeled with the function from which they arose. 
 
 ### 2. Executable Instructions:
 * `make all`: Run all of `make data`, `make project`, and `make test`.
