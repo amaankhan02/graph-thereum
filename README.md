@@ -1,3 +1,6 @@
+# GraphThereum
+
+Learn more about our project by [watching our walkthrough!](https://youtu.be/r1-JWJ-rE6Q)
 
 ### 1. Location of all major code, data, and results
 
