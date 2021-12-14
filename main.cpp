@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
 
   ap.add_argument("-f", true, &dataset_filepath, "The path to the dataset to load as a graph.");
   ap.add_argument("-b", false, &should_run_bfs, "Indicates whether or not to run BFS on the graph.");
-  ap.add_argument("-d", false, &dijkstras_outfile, "Indicates whether or not to run Djikstra's on the graph.");
+  ap.add_argument("-d", false, &dijkstras_outfile, "The path to save the resulting shortest path distances resulting from running Dijkstra's algorithm from some vertex. Does nothing if not specified.");
   ap.add_argument("-s", false, &dijkstra_start_vertex, "Indicates the address of the address to perform Dijkstra's algorithm from.");
   ap.add_argument("-c", false, &num_betweenness_to_print, "Indicates the number of nodes to print the betweeness centrality of. Prints the BC of the k nodes with the largest BC.");
   ap.add_argument("-l", false, &cc_addresses_filepath, "The path to save addresses of the largest connected component. Does nothing if not specified.");
@@ -41,6 +41,12 @@ int main(int argc, char* argv[]) {
   if (arg_status == 1) return 1; 
 
   Graph* g = Graph::fromFile(dataset_filepath);
+
+  if (g->getVertices().size() == 0) {
+    std::cout << BOLDRED << "Could not load graph." << RESET << std::endl;
+    return 1;
+  }
+
   Graph* largest_connected_component = NULL;
   std::cout << std::endl;
 
