@@ -2,6 +2,8 @@
 EXE = project
 TEST = test
 
+INC_DIR = include/
+
 # Rule for `all` (first/default rule):
 project: $(EXE)
 all: $(EXE) $(TEST) data
@@ -31,7 +33,7 @@ DEPFILE_FLAGS = -MMD -MP
 WARNINGS = -pedantic -Wall -Werror -Wfatal-errors -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function
 
 # Flags for compile:
-CXXFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -O3 $(WARNINGS) $(DEPFILE_FLAGS) -g -c -pthread
+CXXFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -O3 $(WARNINGS) $(DEPFILE_FLAGS) -g -c -pthread -I$(INC_DIR)
 
 # Flags for linking:
 LDFLAGS += $(CS225) -std=c++1y -stdlib=libc++ -lc++abi -pthread

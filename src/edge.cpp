@@ -1,4 +1,4 @@
-#include "../include/edge.h"
+#include "edge.h"
 
 using std::ostream;
 

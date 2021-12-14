@@ -1,5 +1,5 @@
-#include "../include/bfs.h"
-#include "../include/utils.h"
+#include "bfs.h"
+#include "utils.h"
 
 #include <iostream>
 #include <queue>

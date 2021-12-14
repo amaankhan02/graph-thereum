@@ -1,9 +1,9 @@
 #include "catch.hpp"
-#include "../include/betweenness.h"
-#include "../include/vertex.h"
-#include "../include/graph.h"
-#include "../include/edge.h"
-#include "../include/bfs.h"
+#include "betweenness.h"
+#include "vertex.h"
+#include "graph.h"
+#include "edge.h"
+#include "bfs.h"
 
 #include <unordered_map>
 #include <iostream>

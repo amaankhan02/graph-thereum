@@ -35,7 +35,10 @@ def dijkstras_plot(filepath):
   plt.colorbar()
   plt.show()
 
-  
+def print_centrality(filepath):
+  df = pd.read_csv(filepath)
+  df['centrality_pct'] = df['betweenness_centrality'] / 13021800219242089
+  print(df.head(20))
 
 dijkstras_plot('data/dijkstras_outfile.csv')
 # bc_plot('data/30mb_data_betweenness_centrality.csv')

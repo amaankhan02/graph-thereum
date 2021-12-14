@@ -1,9 +1,9 @@
 #include "catch.hpp"
-#include "../include/dijkstras.h"
-#include "../include/vertex.h"
-#include "../include/graph.h"
-#include "../include/edge.h"
-#include "../include/bfs.h"
+#include "dijkstras.h"
+#include "vertex.h"
+#include "graph.h"
+#include "edge.h"
+#include "bfs.h"
 
 #include <unordered_map>
 #include <string>

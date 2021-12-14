@@ -1,5 +1,5 @@
-#include "../include/graph.h"
-#include "../include/utils.h"
+#include "graph.h"
+#include "utils.h"
 
 #include <unordered_set>
 #include <iostream>

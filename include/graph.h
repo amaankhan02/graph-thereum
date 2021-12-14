@@ -159,6 +159,10 @@ class Graph {
      * @return Graph* 
      */
     static Graph* fromVertexList(const std::vector<Vertex*>& vertices);
+
+    void incrementPathCounter() { ++path_counter_; }
+    
+    uint64_t getPathCounter() { return path_counter_; }
   private:
     /**
      * @brief A collection of all the edges in this graph in an arbitrary order.
@@ -175,6 +179,8 @@ class Graph {
      * @brief
      */
     std::stack<Vertex*> distance_ordered_vertices_;
+
+    uint64_t path_counter_;
 
     /**
      * @brief Delete all of the associated Vertex objects and Edge objects 

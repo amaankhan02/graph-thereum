@@ -4,12 +4,12 @@
 #include <vector>
 #include <queue>
 
-#include "include/argument_parser.h"
-#include "include/betweenness.h"
-#include "include/dijkstras.h"
-#include "include/graph.h"
-#include "include/utils.h"
-#include "include/bfs.h"
+#include "argument_parser.h"
+#include "betweenness.h"
+#include "dijkstras.h"
+#include "graph.h"
+#include "utils.h"
+#include "bfs.h"
 
 using std::priority_queue;
 using std::unordered_map;
@@ -139,6 +139,9 @@ int main(int argc, char* argv[]) {
 
     num_betweenness_to_print = 
       std::min(num_betweenness_to_print, static_cast<int>(bc_heap.size()));
+
+    std::cout << YELLOW << "There are " << g->getPathCounter() 
+              << " shortest paths in the graph.\n" << RESET << std::endl;
 
     for (int i = 0; i < num_betweenness_to_print; ++i) {
       Vertex* node = g->getVertex(bc_heap[i].first);

@@ -1,6 +1,6 @@
-#include "../include/betweenness.h"
-#include "../include/dijkstras.h"
-#include "../include/utils.h"
+#include "betweenness.h"
+#include "dijkstras.h"
+#include "utils.h"
 #include <vector>
 
 using std::unordered_map;
@@ -130,6 +130,7 @@ void compute_betweenness_centrality_parallel_helper(
       Vertex* w = graph->popDistanceOrderedVertex();
 
       for (Vertex* v : w->getCentralityParents()) {
+        graph->incrementPathCounter();
         if (w->getCentrality() == 0) continue;
 
         v->incrementDependency((v->getCentrality() / w->getCentrality()) * (1 + w->getDependency()));

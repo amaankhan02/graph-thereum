@@ -1,5 +1,5 @@
-#include "../include/argument_parser.h"
-#include "../include/utils.h"
+#include "argument_parser.h"
+#include "utils.h"
 #include <iostream>
 
 using std::unordered_map;
