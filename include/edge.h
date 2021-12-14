@@ -116,11 +116,12 @@ class Edge {
     void setExplored(bool explored);
 
     /**
-     * @brief 
+     * @brief Defines the insertion operator for the Edge class to allow for 
+     * easily writing Edges to a CSV file.
      * 
-     * @param os 
-     * @param e
-     * @return std::ostream& 
+     * @param os the ostream to add this Edge to.
+     * @param e the Edge to add to the ostream.
+     * @return std::ostream& the passed ostream after it has been modified.
      */
     friend std::ostream& operator<<(std::ostream& os, const Edge& e);
   private:

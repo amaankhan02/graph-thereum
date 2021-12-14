@@ -113,32 +113,54 @@ class Graph {
     const std::vector<Edge*>& getEdges() const;
 
     /**
-     * @brief 
+     * @brief Push a Vertex* to the stack of vertices that are ordered by 
+     * distance from some arbitrary start vertex after running Dijkstra's 
+     * algorithm on this graph.
      * 
-     * @param v 
+     * @param v a Vertex* to add to the stack.
      */
     void pushDistanceOrderedVertex(Vertex* v);
 
     /**
-     * @brief 
+     * @brief Pop and return the Vertex* at the top of the stack of vertices 
+     * that are ordered by distance from some arbitrary start vertex after 
+     * running Dijkstra's algorithm on this graph.
      * 
-     * @return Vertex* 
+     * @return the Vertex* at the top of the stack.
      */
     Vertex* popDistanceOrderedVertex();
 
     /**
-     * @brief 
-     * 
+     * @brief Reset and empty the stack of vertices that are ordered by distance 
+     * from some arbitrary start vertex after running Dijkstra's algorithm on 
+     * this graph. Note that this DOES NOT destruct the Vertex* in the stack.
      */
     void resetDistanceOrderedVertices();
 
     /**
-     * @brief 
+     * @brief Checks whether or not the stack of vertices that are ordered by 
+     * distance from some arbitrary start vertex after running Dijkstra's 
+     * algorithm on this graph contains any vertices.
      * 
-     * @return true 
-     * @return false 
+     * @return true if the stack contains any vertices.
+     * @return false if the stack is empty.
      */
     bool hasDistanceOrderedVertices() const;
+
+    /**
+     * @brief Incremene the counter tracking the number of unique shortest paths 
+     * in this graph.
+     */
+    void incrementPathCounter() { ++path_counter_; }
+    
+    /**
+     * @brief Get the number of unique paths after having computed the number
+     * while running Brandes' algorithm to compute betweenness centrality.
+     * 
+     * @return A uint64_t indicating the number of unique shortest paths in this 
+     * graph.
+     */
+    uint64_t getPathCounter() { return path_counter_; }
 
     /**
      * @brief Constructs a Graph with all edges and vertices allocated on the 
@@ -155,16 +177,17 @@ class Graph {
     static Graph* fromFile(const std::string& path, bool suppress_print=false);
 
     /**
-     * @brief 
+     * @brief Constructs a Graph with all of the vertices in the passed vector.
+     * This function will find all of the edges that link all of the given 
+     * vertices and disregard any edges that do not connect 2 vertices in the
+     * given vector. This function will then make a new copy of each Vertex*
+     * and Edge* contained in the given vector and add them to a new Graph*
+     * allocated on the heap.
      * 
-     * @param vertices 
-     * @return Graph* 
+     * @param vertices a vector of Vertex* to add to the new graph.
+     * @return Graph* a new Graph allocated on the heap.
      */
     static Graph* fromVertexList(const std::vector<Vertex*>& vertices);
-
-    void incrementPathCounter() { ++path_counter_; }
-    
-    uint64_t getPathCounter() { return path_counter_; }
   private:
     /**
      * @brief A collection of all the edges in this graph in an arbitrary order.
@@ -178,13 +201,16 @@ class Graph {
     std::unordered_map<std::string, Vertex*> vertices_;
 
     /**
-     * @brief
+     * @brief A stack of vertices that are inherently ordered by distance from
+     * some arbitrary start vertex after running Dijkstra's algorithm on this 
+     * graph. This stack is used in the accumulation stage of Brandes' algorithm
+     * to compute betweenness centrality.
      */
     std::stack<Vertex*> distance_ordered_vertices_;
 
     /**
-     * @brief A uint64_t 
-     * 
+     * @brief A uint64_t indicating the number of unique shortest paths in this 
+     * graph.
      */
     uint64_t path_counter_;
 

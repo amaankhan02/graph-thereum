@@ -207,8 +207,9 @@ class ArgumentParser {
     std::unordered_map<std::string, ArgumentConfig> args_;
 
     /**
-     * @brief 
-     * 
+     * @brief A bool indicating whether or not at least one of the arguments 
+     * that were passed in via the command line and parsed by this class is 
+     * invalid.
      */
     bool has_invalid_arguments_;
 
@@ -221,9 +222,12 @@ class ArgumentParser {
     std::string typeAsString(DataType t) const;
 
     /**
-     * @brief 
+     * @brief Helper function that prints out a message indicating that the 
+     * argument given for the passed flag was invalid. Marks the interval 
+     * `has_invalid_arguments_` state as true for the `parse` function to use.
      * 
-     * @param flag 
+     * @param flag a string indicating the flag that received an invalid 
+     * argument.
      */
     void handleInvalidArgument(const std::string& flag);
 };
