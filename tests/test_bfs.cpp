@@ -4,8 +4,10 @@
 #include "edge.h"
 #include "bfs.h"
 
+#include <fstream>
 #include <string>
 
+using std::ifstream;
 using std::string;
 using std::pair;
 
@@ -222,4 +224,40 @@ TEST_CASE("BFS on complex graph 3", "[bfs]") {
   REQUIRE( num_connected_components == 1 );
 
   wasEntireGraphWasVisited(&graph, true);
+}
+
+/**
+ * Traversal on graph defined in data/10mb_data.csv.
+ */
+TEST_CASE("BFS on a large graph from a CSV file", "[bfs]") {
+  // check if data exists
+  string path = "data/10mb_data.csv";
+  if (!ifstream(path).is_open()) 
+    FAIL("Could not load file " + path + ". Make sure to run `make data` before running this test case.");
+
+  Graph* graph = Graph::fromFile(path, true);
+
+  wasEntireGraphWasVisited(graph, false);
+  int num_connected_components = bfs(graph);
+  wasEntireGraphWasVisited(graph, true);
+
+  delete graph;
+}
+
+/**
+ * Traversal on graph defined in data/30mb_data.csv. 
+ */
+TEST_CASE("BFS on a large graph from a CSV file 2", "[bfs]") {
+  // check if data exists
+  string path = "data/30mb_data.csv";
+  if (!ifstream(path).is_open()) 
+    FAIL("Could not load " + path + ". Make sure to run `make data` before running this test case.");
+
+  Graph* graph = Graph::fromFile(path, true);
+
+  wasEntireGraphWasVisited(graph, false);
+  int num_connected_components = bfs(graph);
+  wasEntireGraphWasVisited(graph, true);
+
+  delete graph;
 }

@@ -95,11 +95,14 @@ const vector<Edge*>& Graph::getEdges() const {
   return edges_;
 }
 
-Graph* Graph::fromFile(const string& path) {
+Graph* Graph::fromFile(const string& path, bool suppress_print) {
   clock_t c1, c2;
   c1 = clock();
   
-  std::cout << "Loading graph..." << std::endl;
+  if (!suppress_print) {
+    std::cout << "Loading graph..." << std::endl;
+  }
+  
   Graph* g = new Graph();
 
   ifstream infile(path);
@@ -131,11 +134,13 @@ Graph* Graph::fromFile(const string& path) {
     }
   }
 
-  std::cout << "Loaded " << g->getEdges().size() << " edges and "
-            << g->getVertices().size() << " vertices." << std::endl;
+  if (!suppress_print) {
+    std::cout << "Loaded " << g->getEdges().size() << " edges and "
+              << g->getVertices().size() << " vertices." << std::endl;
 
-  c2 = clock();
-  print_elapsed(c1, c2, "loading graph from csv");
+    c2 = clock();
+    print_elapsed(c1, c2, "loading graph from csv");
+  }
 
   return g;
 }

@@ -148,9 +148,11 @@ class Graph {
      * idx,from_address,to_address,truncated_value,gas,gas_price
      * 
      * @param path a string indicating the path to the CSV file to load.
+     * @param suppress_print a bool indicating whether or not to suppress 
+     * printing in this function.
      * @return Graph* a graph constructed from the data in the CSV file.
      */
-    static Graph* fromFile(const std::string& path);
+    static Graph* fromFile(const std::string& path, bool suppress_print=false);
 
     /**
      * @brief 
@@ -180,6 +182,10 @@ class Graph {
      */
     std::stack<Vertex*> distance_ordered_vertices_;
 
+    /**
+     * @brief A uint64_t 
+     * 
+     */
     uint64_t path_counter_;
 
     /**
